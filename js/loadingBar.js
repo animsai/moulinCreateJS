@@ -34,8 +34,8 @@
         this.frameColor = frameColor;
 
         //placing of the container
-        this.x = Math.round(canvas.width / 2 - this.width / 2);
-        this.y = 100;
+        this.x = Math.round(window.screen.width / 2 - this.width / 2);
+        this.y =  Math.round(window.screen.height / 2 - this.height / 2);
 
         //creating the loading bar   
         this.loadingBar = new createjs.Shape();
@@ -49,12 +49,12 @@
         this.addChild(this.loadingBar, this.frame);
     };
 
-    window.LoadingBar = LoadingBar;
+    Moulin.LoadingBar = LoadingBar;
 }());
 
 
 (function() {
-    var LoadingBarText = function(label, fontSize, fontColor, lineWidth, textAlign, x, y) {
+    var LoadingBarText = function(label, fontSize, fontColor, lineWidth, textAlign, loadingBarHeight) {
 
         //setting default values for our arguments if no value is given
         label = typeof label !== 'undefined' ? label : "";
@@ -62,29 +62,28 @@
         fontColor = typeof fontColor !== 'undefined' ? fontColor : "black";
         lineWidth = typeof lineWidth !== 'undefined' ? lineWidth : 300;
         textAlign = typeof textAlign !== 'undefined' ? textAlign : "center";
-        x = typeof x !== 'undefined' ? x : 50;
-        y = typeof y !== 'undefined' ? y : 50;
+        loadingBarHeight = typeof loadingBarHeight !== 'undefined' ? loadingBarHeight : 50;
 
         //calling the initialize function we will write
-        this.initialize(label, fontSize, fontColor, lineWidth, textAlign, x, y);
+        this.initialize(label, fontSize, fontColor, lineWidth, textAlign, loadingBarHeight);
     };
     
      //LoadingBar will inherit from the TextJs class
     LoadingBarText.prototype = new createjs.Text();
     LoadingBarText.prototype.Text_initialize = LoadingBarText.prototype.initialize;
  //the initialize function for our LoadingBar class
-    LoadingBarText.prototype.initialize = function(label, fontSize, fontColor, lineWidth, textAlign, x, y) {
+    LoadingBarText.prototype.initialize = function(label, fontSize, fontColor, lineWidth, textAlign, loadingBarHeight) {
             //super constructor
          this.Text_initialize(label, fontSize, fontColor);
          this.lineWidth = lineWidth;
          this.textAlign = textAlign;
-         this.x = x;
-         this.y = y;
+         this.x = Math.round(window.screen.width / 2) ;
+         this.y = Math.round(window.screen.height / 2)- loadingBarHeight;
     };
     
     LoadingBarText.prototype.setText = function(label){
         this.text = label;
     };
 
-    window.LoadingBarText = LoadingBarText;
+    Moulin.LoadingBarText = LoadingBarText;
 }());
