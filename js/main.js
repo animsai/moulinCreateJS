@@ -4,12 +4,7 @@
         new buzz.sound('./sounds/animaux/feedbacks/1animaux_reponse_mauvais_1.wav'),
         new buzz.sound('./sounds/animaux/feedbacks/1animaux_conclusion_1.wav'
 
-    new buzz.sound('./sounds/animaux/1animaux_serie1_6.wav'),
-        new buzz.sound('./sounds/animaux/1animaux_serie1_1.wav'),
-        new buzz.sound('./sounds/animaux/1animaux_serie1_4.wav'),
-        new buzz.sound('./sounds/animaux/1animaux_serie1_2.wav'),
-        new buzz.sound('./sounds/animaux/1animaux_serie1_5.wav'),
-        new buzz.sound('./sounds/animaux/1animaux_serie1_3.wav')
+
 
  bgImage: 'decor_champ.jpg',
     papillon: 'animaux_papillon.png',
