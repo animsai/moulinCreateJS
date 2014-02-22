@@ -1,12 +1,11 @@
 (function() {
-    function Level(fileManifest, imgPositions, stage, loadingBar, loadingBarText) {
-        this.initialize(fileManifest, imgPositions, stage, loadingBar, loadingBarText);
+    function Level(fileManifest, stage, loadingBar, loadingBarText) {
+        this.initialize(fileManifest, stage, loadingBar, loadingBarText);
     }
 
     Level.prototype = {
         fileManifest: null,
         levelQueue: null,
-        imgPositions: null,
         stage: null,
         bar: null,
         loadingBarText: null,
@@ -15,10 +14,9 @@
         levelSoundIds: null,
         levelImages: null,
         levelOutlines: null, //TODO check if needed, for now not used
-        initialize: function(fileManifest, imgPositions, stage, loadingBar, loadingBarText) {
+        initialize: function(fileManifest, stage, loadingBar, loadingBarText) {
             //init internal variables
             this.fileManifest = fileManifest;
-            this.imgPositions = imgPositions;
             this.bar = loadingBar;
             this.stage = stage;
             this.loadingBarText = loadingBarText;
@@ -98,9 +96,10 @@
                 event.target.removeEventListener("click", this.levelProxy);
                 this.stage.removeChild(event.target);
                 //add outline image
-                var outline = new createjs.Bitmap(this.levelQueue.getResult(itemId + OUTLINE_SUFFIX));
-                outline.x = this.imgPositions[itemId + OUTLINE_SUFFIX].x;
-                outline.y = this.imgPositions[itemId + OUTLINE_SUFFIX].y;
+                var outlineItem = this.levelQueue.getItem(itemId + OUTLINE_SUFFIX);
+                var outline = new createjs.Bitmap(this.levelQueue.getResult(outlineItem.id));
+                outline.x = outlineItem.x;
+                outline.y = outlineItem.y;
                 this.stage.addChild(outline);
                 this.stage.update();
                 //play another random sound
@@ -116,27 +115,16 @@
             }
         },
         addInitialGameItems: function() {
-           //st = this.stage;
+      
             var i = 1; // background is already added
             var entry = this.fileManifest[i];
-            //add images and manage click event. use levelImages array because it contains just the images we need here
-           /* for (i=0; i<this.levelImages.length; i++) {
-                var item = this.levelQueue.getResult(this.levelImages[i]);
-                //var item = new createjs.Bitmap(this.fileManifest[this.levelImages[i]].src);
-                var itemId = this.levelImages[i];
-                item.x = this.imgPositions[itemId].x;
-                item.y = this.imgPositions[itemId].y;
-                this.levelProxy = createjs.proxy(this.handleItemlick, this, itemId);
-                item.addEventListener("click", this.levelProxy);
-                this.stage.addChild(item);
-            } */
-
+            //add images and manage click event, starting at index 1 cause first index is the background already added
            var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
             while (i < this.fileManifest.length && entry.type === "image" && entry.id.match(outlineMatch) === null) {
                 var item = new createjs.Bitmap(entry.src);
                 var itemId = entry.id;
-                item.x = this.imgPositions[itemId].x;
-                item.y = this.imgPositions[itemId].y;
+                item.x = entry.x;
+                item.y = entry.y;
                 this.levelProxy = createjs.proxy(this.handleItemlick, this, itemId);
                 item.addEventListener("click", this.levelProxy);
 

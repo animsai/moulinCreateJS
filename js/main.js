@@ -1,29 +1,4 @@
 
-/*'./sounds/animaux/1animaux_serie1_consigne_1.wav'),
-        new buzz.sound('./sounds/animaux/feedbacks/1animaux_reponse_bon_1.wav'),
-        new buzz.sound('./sounds/animaux/feedbacks/1animaux_reponse_mauvais_1.wav'),
-        new buzz.sound('./sounds/animaux/feedbacks/1animaux_conclusion_1.wav'
-
-
-
- bgImage: 'decor_champ.jpg',
-    papillon: 'animaux_papillon.png',
-    oiseau: 'animaux_oiseau.png',
-    tortue: 'animaux_tortue.png',
-    lapin: 'animaux_lapin.png',
-    chat: 'animaux_chat.png',
-    canard: 'animaux_canard.png',
-    papillon_alone: 'animaux_papillon_seul.png',
-    oiseau_alone: 'animaux_oiseau_seul.png',
-    tortue_alone: 'animaux_tortue_seul.png',
-    lapin_alone: 'animaux_lapin_seul.png',
-    chat_alone: 'animaux_chat_seul.png',
-    canard_alone: 'animaux_canard_seul.png'
-
-*/
-
-
-
 function init() {
     var canvas = document.getElementById("gameCanvas");
     stage = new createjs.Stage(canvas);
@@ -36,7 +11,7 @@ function init() {
     var bar = new Moulin.LoadingBar(400, 40, 5, "green", "black");
     stage.addChild(bar);
     
-    level = new Moulin.Level(level1_AnimauxFileManifest, level1_itemPositions, stage, bar, loadProgressText);
+    level = new Moulin.Level(level1_AnimauxFileManifest, stage, bar, loadProgressText);
 
     stage.update();
 }
