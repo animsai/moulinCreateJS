@@ -5,14 +5,31 @@ var IMGFOLDER = "./media/images/";
 var SNDFOLDER = "./media/sounds/";
 var stage;
 
+
+var NAV_FOLDER = "nav/";
 var ANIMAL_FOLDER = "animaux/";
 var FB_FOLDER = "feedbacks/";
+
+
 var OUTLINE_SUFFIX = "_outline";
 var SOUND_SUFFIX = "_snd";
 var SCENE_ID = "scene";
 var FEEDBACK_SUFFIX = "_fb";
+
+
+var nav_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau1_decor_grand.png"},
+     //level images
+    {id: "animaux", src: IMGFOLDER + NAV_FOLDER + "niveau1_animaux.png", "x": 42, "y": 184},
+    //instruction and feedback sounds
+    {id: "intro_fb", src: SNDFOLDER + NAV_FOLDER + "intro.wav"},
+    {id: "consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"}
+];
+
+
 /***
- * array of files needed in a level
+ * array of files needed in  level1
  * respect the following order
  * first item shall be the background of the scene
  * followed by clickable images

@@ -11,7 +11,9 @@ function init() {
     var bar = new Moulin.LoadingBar(400, 40, 5, "green", "black");
     stage.addChild(bar);
     
-    level = new Moulin.Level(level1_AnimauxFileManifest, stage, bar, loadProgressText);
+    //level = new Moulin.Level(level1_AnimauxFileManifest, stage, bar, loadProgressText);
+
+    nav = new Moulin.Navigation(nav_fileManifest, stage, bar, loadProgressText);
 
     stage.update();
 }
