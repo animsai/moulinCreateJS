@@ -34,8 +34,8 @@
         this.frameColor = frameColor;
 
         //placing of the container
-        this.x = Math.round(window.screen.width / 2 - this.width / 2);
-        this.y =  Math.round(window.screen.height / 2 - this.height / 2);
+        this.x = 10;//Math.round(window.screen.width / 2 - this.width / 2);
+        this.y =  25;//Math.round(window.screen.height / 2 - this.height / 2);
 
         //creating the loading bar   
         this.loadingBar = new createjs.Shape();
@@ -76,9 +76,9 @@
             //super constructor
          this.Text_initialize(label, fontSize, fontColor);
          this.lineWidth = lineWidth;
-         this.textAlign = textAlign;
-         this.x = Math.round(window.screen.width / 2) ;
-         this.y = Math.round(window.screen.height / 2)- loadingBarHeight;
+         //this.textAlign = textAlign;
+         this.x = 100;//Math.round(window.screen.width / 2) ;
+         this.y = 0;//Math.round(window.screen.height / 2)- loadingBarHeight;
     };
     
     LoadingBarText.prototype.setText = function(label){

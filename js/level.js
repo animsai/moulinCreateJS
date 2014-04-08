@@ -1,6 +1,6 @@
 (function() {
-    function Level(fileManifest, stage, loadingBar, loadingBarText) {
-        this.initialize(fileManifest, stage, loadingBar, loadingBarText);
+    function Level(fileManifest, stage) {
+        this.initialize(fileManifest, stage);
     }
 
     Level.prototype = {
@@ -14,38 +14,20 @@
         levelSoundIds: null,
         levelImages: null,
         levelOutlines: null, //TODO check if needed, for now not used
-        initialize: function(fileManifest, stage, loadingBar, loadingBarText) {
+        navMenu : null,
+        initialize: function(fileManifest, stage) {
             //init internal variables
             this.fileManifest = fileManifest;
-            //this.bar = loadingBar;
             this.stage = stage;
-            //this.loadingBarText = loadingBarText;
             this.playedSoundIds = new Array();
             this.levelSoundIds = new Array();
             this.levelImages = new Array();
             this.levelOutlines = new Array();
 
-            this.loadingBarText = new Moulin.LoadingBarText("Loading...", "1.2em Verdana", "black", 300, "center", 50);
-            this.stage.addChild(this.loadProgressText);
-
-            //creating a loading bar from our class and passing some arguments
-            this.bar = new Moulin.LoadingBar(400, 40, 5, "green", "black");
-            this.stage.addChild(this.bar);
 
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
-
-            //manage loading queue
-            this.levelQueue = new createjs.LoadQueue(false);
-            this.levelQueue.installPlugin(createjs.Sound);
-            //proxy to manage the scope of 'this' 
-            this.levelProxy = createjs.proxy(this.handleProgress, this);
-            this.levelQueue.addEventListener("progress", this.levelProxy);
-            //proxy to manage the scope of 'this' 
-            this.levelProxy = createjs.proxy(this.handleComplete, this);
-            this.levelQueue.addEventListener("complete", this.levelProxy);
-            this.levelQueue.loadManifest(fileManifest);
-
+       this.createLevel();
             return this;
         },
         splitFiles: function() {
@@ -60,34 +42,14 @@
                     this.levelSoundIds.push(file.id);
                 } else if (file.id.match(outlineMatch) === null && file.id.match(sceneMatch) === null && file.id.match(fbMatch) === null) {
                     this.levelImages.push(file.id);
+                } else if(file.id.match(outlineMatch) !== null && file.id.match(sceneMatch) === null && file.id.match(fbMatch) === null) {
+                    this.levelOutlines.push(file.id);
                 }
             }
         },
-        handleProgress: function() {
-            this.bar.loadingBar.scaleX = this.levelQueue.progress * this.bar.width;
-            progresPrecentage = Math.round(this.levelQueue.progress * 100);
-            this.loadingBarText.setText(progresPrecentage + "% Loaded");
-            this.stage.update();
-        },
-        handleComplete: function() {
-            this.loadingBarText.setText("Loading complete click to start");
-            this.stage.update();
-            //proxy to manage the scope of 'this' 
-            this.createLevel();
-            this.stage.removeChild(this.loadingBarText, this.bar);
-            this.stage.removeAllEventListeners("click");
-            //no more need to click here, because it's done in the navigation
-            /* this.levelProxy = createjs.proxy(this.handleClick, this);
-             this.stage.addEventListener("click", this.levelProxy);*/
-        },
-        handleClick: function() {
-            this.createLevel();
-            this.stage.removeChild(this.loadingBarText, this.bar);
-            this.stage.removeAllEventListeners("click");
-        },
         createLevel: function() {
             //adding the background image
-            background = new createjs.Bitmap(this.levelQueue.getResult("scene"));
+            background = new createjs.Bitmap(this.fileManifest[0].src);
             this.stage.addChild(background);
 
             this.addGameItems();
@@ -96,25 +58,39 @@
             this.levelProxy = createjs.proxy(this.playRandomSound, this);
             consignesSound.addEventListener("complete", this.levelProxy);
         },
+        getItemIndexById: function(itemId){
+            var i=0;
+            var itemIndex = -1;
+            while(i<this.fileManifest.length && itemIndex == -1){
+                if(this.fileManifest[i].id == itemId){
+                    itemIndex = i;
+                }
+                i++;
+            }
+            return itemIndex;
+        },
         handleItemlick: function(event, itemId) {
             var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1];
 
-            if (itemId + SOUND_SUFFIX === lastPlayedSound) {
-                //correct, play positive feedback
-                var posFeedBack = createjs.Sound.play("pos0_fb");
+            if (itemId + SOUND_SUFFIX === lastPlayedSound) {    
                 event.target.removeEventListener("click", this.levelProxy);
                 this.stage.removeChild(event.target);
-                //add outline image
-                var outlineItem = this.levelQueue.getItem(itemId + OUTLINE_SUFFIX);
-                var outline = new createjs.Bitmap(this.levelQueue.getResult(outlineItem.id));
+           
+                ////add outline image
+                var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
+                var outlineItem = this.fileManifest[indexOutline];
+                var outline = new createjs.Bitmap(outlineItem.src);
                 outline.x = outlineItem.x;
                 outline.y = outlineItem.y;
 
                 this.stage.addChild(outline);
-                this.stage.update();
-                //play another random sound
+                //correct, play positive feedback
+                var posFeedBack = createjs.Sound.play("pos0_fb");
+
+                //play another random sound    
                 this.levelProxy = createjs.proxy(this.playRandomSound, this);
                 posFeedBack.addEventListener("complete", this.levelProxy);
+            
             } else {
                 //wrong, play negative feedback
                 var negFeedBack = createjs.Sound.play("neg0_fb");
@@ -145,10 +121,6 @@
                 entry = this.fileManifest[i];
             }
             ;
-
-            //updating the stage
-            this.stage.update();
-
         },
         playRandomSound: function() {
             if (this.levelSoundIds.length > 0) {
@@ -166,7 +138,8 @@
                     //clear stage TODO animate 
                     locStage.removeAllChildren();
                     //go back to navigation
-                    nav.initialize();
+                    locStage.update();
+                    nav = new Moulin.Navigation(nav_fileManifest, locStage);
                 });
 
             }

@@ -4,6 +4,7 @@ this.Moulin = this.Moulin || {};
 var IMGFOLDER = "./media/images/";
 var SNDFOLDER = "./media/sounds/";
 var stage;
+var nav ;
 
 
 var NAV_FOLDER = "nav/";
@@ -22,9 +23,10 @@ var nav_fileManifest = [
     {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau1_decor_grand.png"},
      //level images
     {id: "animaux", src: IMGFOLDER + NAV_FOLDER + "niveau1_animaux.png", "x": 42, "y": 184},
+    {id: "habits", src: IMGFOLDER + NAV_FOLDER + "niveau1_habits.png", "x": 238, "y": 184},
     //instruction and feedback sounds
     {id: "intro_fb", src: SNDFOLDER + NAV_FOLDER + "intro.wav"},
-    {id: "consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"}
+    {id: "nav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"}
 ];
 
 
@@ -36,7 +38,7 @@ var nav_fileManifest = [
  * then image outlines
  * then level sounds, and at the end level instructions and feedbacks
  * */
-var level1_AnimauxFileManifest = [
+var animauxLevel1_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "decor_champ.jpg"},
      //level images
@@ -67,3 +69,4 @@ var level1_AnimauxFileManifest = [
     {id: "conclusion_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux_conclusion_1.wav"}
 ];
 
+var allFiles = [nav_fileManifest, animauxLevel1_fileManifest];

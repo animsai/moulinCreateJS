@@ -2,21 +2,26 @@
 function init() {
     var canvas = document.getElementById("gameCanvas");
     stage = new createjs.Stage(canvas);
+    createjs.Ticker.addEventListener("tick", handleTick);
     onResize();
-    
-    var loadProgressText = new Moulin.LoadingBarText("Loading...", "1.2em Verdana", "black", 300, "center", 50);
+    /*var loadProgressText = new Moulin.LoadingBarText("Loading...", "1.2em Verdana", "black", 300, "center", 50);
     stage.addChild(loadProgressText);
 
     //creating a loading bar from our class and passing some arguments
     var bar = new Moulin.LoadingBar(400, 40, 5, "green", "black");
-    stage.addChild(bar);
+    stage.addChild(bar);*/
     
-    //level = new Moulin.Level(level1_AnimauxFileManifest, stage, bar, loadProgressText);
+    //level = new Moulin.Level(level1_AnimauxFileManifest, stage);
 
-    nav = new Moulin.Navigation(nav_fileManifest, stage, bar, loadProgressText);
+    //nav = new Moulin.Navigation(nav_fileManifest, stage);
+    
+    var game = new Moulin.MediaLoader(allFiles, stage);
 
-    stage.update();
+    //stage.update();
 }
+  function handleTick() {
+    stage.update();
+  } 
 
 window.onresize = function()
 {
@@ -58,5 +63,5 @@ function onResize()
     }*/
 
     // update the stage
-    stage.update();
+    //stage.update();
 }
