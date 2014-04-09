@@ -37,31 +37,43 @@ function onResize()
     var h = window.innerHeight;
 
 // stage dimensions
-    var ow = 1045; // your stage width
-    var oh = 789; // your stage height
+    var ow = 1035; 
+    var oh = 779; 
 
-   // if (keepAspectRatio)
-    //{
-        // keep aspect ratio
-        var scale = Math.min(w / ow, h / oh);
-        stage.scaleX = scale;
-        stage.scaleY = scale;
+    // keep aspect ratio
+    var scale = Math.min(w / ow, h / oh);
+    stage.scaleX = scale;
+    stage.scaleY = scale;
 
-        // adjust canvas size
-        stage.canvas.width = ow * scale - 10;
-        stage.canvas.height = oh * scale - 10;
-   /* }
-    else
-    {
-        // scale to exact fit
-        stage.scaleX = w / ow;
-        stage.scaleY = h / oh;
+    // adjust canvas size
+    stage.canvas.width = ow * scale - 10;
+    stage.canvas.height = oh * scale - 10;
+ 
+}
 
-        // adjust canvas size
-        stage.canvas.width = ow * stage.scaleX;
-        stage.canvas.height = oh * stage.scaleY;
-    }*/
-
-    // update the stage
-    //stage.update();
+function getNextLevelForUser(user, theme) {
+    var lastLevel = "";    
+    var levelCount = levels.length;
+    
+    //find last level where the user has a score for this theme
+    for (var i=0; i<userScore.length; i++) {
+        if(userScore[i].theme === theme && userScore[i].user === user && (userScore[i].score > 0 || userScore[i].score != "")) {
+            lastLevel = userScore[i].levelId;
+        }
+    }
+    if(lastLevel != "") {
+        //find the level right after the last one that the user has a score
+        for(var i=0; i<levelCount; i++) {
+            if(levels[i].id === lastLevel && i < levelCount-1) {
+               return levels[i+1];
+            }
+        }
+    } else { //return the first level of the theme
+        for(var i=0; i<levelCount; i++) {
+            if(levels[i].theme === theme){
+                return levels[i];
+            }
+        }
+    }
+  
 }

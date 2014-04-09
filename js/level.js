@@ -1,33 +1,31 @@
 (function() {
-    function Level(fileManifest, stage) {
-        this.initialize(fileManifest, stage);
+    function Level(level, stage) {
+        this.initialize(level, stage);
     }
 
     Level.prototype = {
         fileManifest: null,
-        levelQueue: null,
         stage: null,
-        bar: null,
-        loadingBarText: null,
+        level:null,
+        score:0,
         levelProxy: null,
         playedSoundIds: null,
         levelSoundIds: null,
         levelImages: null,
         levelOutlines: null, //TODO check if needed, for now not used
-        navMenu : null,
-        initialize: function(fileManifest, stage) {
+        initialize: function(level, stage) {
             //init internal variables
-            this.fileManifest = fileManifest;
+            this.fileManifest = eval(level.media);
+            this.level = level;
             this.stage = stage;
             this.playedSoundIds = new Array();
             this.levelSoundIds = new Array();
             this.levelImages = new Array();
             this.levelOutlines = new Array();
 
-
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
-       this.createLevel();
+            this.createLevel();
             return this;
         },
         splitFiles: function() {
@@ -35,7 +33,6 @@
             var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
             var sceneMatch = new RegExp(SCENE_ID, "g");
             var fbMatch = new RegExp(FEEDBACK_SUFFIX, "g");
-            //starting at 1 cause first element is the background
             for (i = 0; i < this.fileManifest.length; i++) {
                 var file = this.fileManifest[i];
                 if (file.id.match(sndMatch) !== null) {
@@ -54,15 +51,15 @@
 
             this.addGameItems();
 
-            var consignesSound = createjs.Sound.play("consignes_fb");
+            var consignesSound = createjs.Sound.play("consignes_" + this.level.id);
             this.levelProxy = createjs.proxy(this.playRandomSound, this);
             consignesSound.addEventListener("complete", this.levelProxy);
         },
         getItemIndexById: function(itemId){
             var i=0;
             var itemIndex = -1;
-            while(i<this.fileManifest.length && itemIndex == -1){
-                if(this.fileManifest[i].id == itemId){
+            while(i<this.fileManifest.length && itemIndex === -1){
+                if(this.fileManifest[i].id === itemId){
                     itemIndex = i;
                 }
                 i++;
@@ -71,11 +68,10 @@
         },
         handleItemlick: function(event, itemId) {
             var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1];
-
-            if (itemId + SOUND_SUFFIX === lastPlayedSound) {    
+            if (itemId + SOUND_SUFFIX === lastPlayedSound) {//correct, play positive feedback
                 event.target.removeEventListener("click", this.levelProxy);
                 this.stage.removeChild(event.target);
-           
+                this.score++;
                 ////add outline image
                 var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
                 var outlineItem = this.fileManifest[indexOutline];
@@ -84,8 +80,9 @@
                 outline.y = outlineItem.y;
 
                 this.stage.addChild(outline);
-                //correct, play positive feedback
-                var posFeedBack = createjs.Sound.play("pos0_fb");
+               
+                var randomFBNum = Math.round(Math.random()*3);
+                var posFeedBack = createjs.Sound.play("pos" + randomFBNum + "_fb");
 
                 //play another random sound    
                 this.levelProxy = createjs.proxy(this.playRandomSound, this);
@@ -93,7 +90,9 @@
             
             } else {
                 //wrong, play negative feedback
-                var negFeedBack = createjs.Sound.play("neg0_fb");
+                var randomFBNegNum = Math.round(Math.random()*2);
+                var negFeedBack = createjs.Sound.play("neg" + randomFBNegNum + "_fb");
+                this.score--;
                 //replay last sound
                 negFeedBack.addEventListener("complete", function() {
                     createjs.Sound.play(lastPlayedSound);
@@ -130,18 +129,38 @@
                 createjs.Sound.play(randomSoundId);
                 //remove played sound to prevent from being selected again
                 this.levelSoundIds.splice(randomIndex, 1);
-            } else {
-                //game finished, play conclusion
+            } else {    //game finished, play conclusion and launch next level    
                 var conclusion = createjs.Sound.play("conclusion_fb");
-                var locStage = this.stage;
-                conclusion.addEventListener("complete", function() {
-                    //clear stage TODO animate 
-                    locStage.removeAllChildren();
-                    //go back to navigation
-                    locStage.update();
-                    nav = new Moulin.Navigation(nav_fileManifest, locStage);
-                });
-
+                this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
+                conclusion.addEventListener("complete", this.levelProxy);   
+            }
+        },
+        manageLevelEnd: function(event){
+            //set the score for this level
+            this.updateLevelScore(this.level, this.score);
+            this.stage.removeAllChildren();
+            var nextLevel = getNextLevelForUser("test", this.level.theme);
+            if(nextLevel.theme == this.level.theme) { //if the same theme, continue
+                var lev = new Moulin.Level(nextLevel, this.stage);
+            } else { //else back to navigation
+                var nav = new Moulin.Navigation(nav_fileManifest, stage);
+            }
+        },
+        updateLevelScore : function(level, score){
+            var scoreIndex = userScore.length;
+            var finalScore = (score < 0) ? 0 : score;
+            var update = 0;
+            //set the score for this level
+            //first check if already played and update it
+            for(var i=0; i<scoreIndex; i++) {
+                if(userScore[i].user == "test" && userScore[i].levelId == level.id){
+                    userScore[i].score = finalScore;
+                    update = 1;
+                    return;
+                }
+            }
+            if(update == 0){ //add a new score instad of updating existing
+                userScore[scoreIndex] = {user:"test", levelId:level.id, theme:level.theme, score:finalScore};   
             }
         }
     };
