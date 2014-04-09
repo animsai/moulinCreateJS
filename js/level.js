@@ -140,7 +140,7 @@
             this.updateLevelScore(this.level, this.score);
             this.stage.removeAllChildren();
             var nextLevel = getNextLevelForUser("test", this.level.theme);
-            if(nextLevel.theme == this.level.theme) { //if the same theme, continue
+            if(nextLevel != null && nextLevel.theme == this.level.theme) { //if the same theme, continue
                 var lev = new Moulin.Level(nextLevel, this.stage);
             } else { //else back to navigation
                 var nav = new Moulin.Navigation(nav_fileManifest, stage);

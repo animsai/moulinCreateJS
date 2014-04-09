@@ -28,11 +28,13 @@ var themes = [
 var levels = [
     {id:"animaux1" , theme:"animaux", media:"animaux1_fileManifest"},
     {id:"animaux2" , theme:"animaux", media:"animaux2_fileManifest"},
-    {id:"habits1" , theme:"habits", media:"habits1_fileManifest"}
+    {id:"animaux3" , theme:"animaux", media:"animaux3_fileManifest"}
+    /*{id:"habits1" , theme:"habits", media:"habits1_fileManifest"}*/
 ];
 
 var userScore = [
-    {user:"test", levelId:"animaux1", theme:"animaux", score:0}  
+    /*{user:"test", levelId:"animaux1", theme:"animaux", score:1},  
+    {user:"test", levelId:"animaux2", theme:"animaux", score:1}  */
 ];
 
 var feedback_fileManifest = [
@@ -52,7 +54,7 @@ var nav_fileManifest = [
     {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau1_decor_grand.png"},
      //level images
     {id: "animaux", src: IMGFOLDER + NAV_FOLDER + "niveau1_animaux.png", "x": 42, "y": 184},
-    {id: "habits", src: IMGFOLDER + NAV_FOLDER + "niveau1_habits.png", "x": 238, "y": 184},
+    /*{id: "habits", src: IMGFOLDER + NAV_FOLDER + "niveau1_habits.png", "x": 238, "y": 184},*/
     //instruction and feedback sounds
     {id: "intro_fb", src: SNDFOLDER + NAV_FOLDER + "intro.wav"},
     {id: "nav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"}
@@ -119,7 +121,7 @@ var animaux2_fileManifest = [
     /*{id: "souris_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_souris_seul.png", "x": 432, "y": 716},*/
     {id: "poule_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_poule_seul.png", "x": 52, "y": 430},
     {id: "chien_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_chien_seul.png", "x": 148,"y": 539},
-    {id: "cochon_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_cochon_seul.png","x": 599, "y": 540 },
+    {id: "cochon_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_cochon_seul.png","x": 599, "y": 540},
     {id: "vache_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_vache_seul.png", "x": 470, "y": 300},
     //level sounds
     {id: "abeille_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.6.wav"},
@@ -135,32 +137,29 @@ var animaux2_fileManifest = [
 
 var animaux3_fileManifest = [
     //background
-    {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_decor_champ2.png"},
+    {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_decor_ex3.png"},
      //level images
-    {id: "abeille", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_abeille.png", "x": 818, "y": 35},
-    /*{id: "souris", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_souris.png", "x": 818, "y": 123},*/
-    {id: "poule", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_poule.png", "x": 818, "y": 146},
-    {id: "chien", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_chien.png", "x": 818, "y": 290},
-    {id: "cochon", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_cochon.png", "x": 818, "y": 455},
-    {id: "vache", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_vache.png", "x": 818, "y": 600},
+    {id: "grenouille", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_grenouille.png", "x": 818, "y": 35},
+    {id: "ecureuil", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_ecureuil.png", "x": 818, "y": 146},
+    {id: "mouton", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_mouton.png", "x": 818, "y": 285},
+    {id: "loup", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_loup.png", "x": 818, "y": 435},
+    {id: "biche", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_biche.png", "x": 818, "y": 600},
     //image outlines
-    {id: "abeille_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_abeille_seul.png","x": 360, "y": 500},
-    /*{id: "souris_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_souris_seul.png", "x": 432, "y": 716},*/
-    {id: "poule_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_poule_seul.png", "x": 52, "y": 430},
-    {id: "chien_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_chien_seul.png", "x": 148,"y": 539},
-    {id: "cochon_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_cochon_seul.png","x": 599, "y": 540 },
-    {id: "vache_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_vache_seul.png", "x": 470, "y": 300},
+    {id: "grenouille_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_grenouille_seul.png","x": 651, "y": 615},
+    {id: "ecureuil_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_ecureuil_seul.png", "x": 42, "y": 425},
+    {id: "mouton_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_mouton_seul.png", "x": 519,"y": 448},
+    {id: "loup_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_loup_seul.png","x": 81, "y": 535},
+    {id: "biche_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_biche_seul.png", "x": 442, "y": 262},
     //level sounds
-    {id: "abeille_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.6.wav"},
-    /*{id: "souris_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.7.wav"},*/
-    {id: "poule_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.1.wav"},
-    {id: "chien_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.3.wav"},
-    {id: "cochon_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.4.wav"},
-    {id: "vache_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.2.wav"},
+    {id: "grenouille_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.6.wav"},
+    {id: "ecureuil_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.3.wav"},
+    {id: "mouton_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.5.wav"},
+    {id: "loup_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.1.wav"},
+    {id: "biche_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.2.wav"},
     //instruction and feedback sounds
-    {id: "consignes_animaux2", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.consigne.1.wav"},
+    {id: "consignes_animaux3", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.consigne.1.wav"},
   
 ];
 
 
-var allFiles = [nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, feedback_fileManifest];
+var allFiles = [nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, feedback_fileManifest];

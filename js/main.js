@@ -37,8 +37,8 @@ function onResize()
     var h = window.innerHeight;
 
 // stage dimensions
-    var ow = 1035; 
-    var oh = 779; 
+    var ow = 1045; 
+    var oh = 789; 
 
     // keep aspect ratio
     var scale = Math.min(w / ow, h / oh);
@@ -75,5 +75,5 @@ function getNextLevelForUser(user, theme) {
             }
         }
     }
-  
+  return null;
 }
