@@ -26,6 +26,7 @@ var themes = [
 
 //keep the levels in the correct order, otherwise it won't work for the score calculations
 var levels = [
+    {id:"score", theme:"score", media:"interLevel_fileManifest"},
     {id:"animaux1" , theme:"animaux", media:"animaux1_fileManifest"},
     {id:"animaux2" , theme:"animaux", media:"animaux2_fileManifest"},
     {id:"animaux3" , theme:"animaux", media:"animaux3_fileManifest"}
@@ -48,6 +49,10 @@ var feedback_fileManifest = [
     {id: "conclusion_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.conclusion.1.wav"}
 ];
 
+var interLevel_fileManifest = [
+    {id: "replay", src: IMGFOLDER + NAV_FOLDER + "replay.png", "x": 220, "y": 400},
+    {id: "next", src: IMGFOLDER + NAV_FOLDER + "next.png", "x": 530, "y": 400}
+];
 
 var nav_fileManifest = [
     //background
@@ -73,12 +78,12 @@ var animaux1_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level1/decor_champ.jpg"},
      //level images
-    {id: "papillon", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_papillon.png", "x": 818, "y": 27},
-    {id: "oiseau", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_oiseau.png", "x": 818, "y": 153},
-    {id: "tortue", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_tortue.png", "x": 818, "y": 290},
-    {id: "lapin", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_lapin.png", "x": 818, "y": 413},
+    {id: "papillon", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_papillon.png", "x": 800, "y": 27},
+    {id: "oiseau", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_oiseau.png", "x": 800, "y": 153},
+    {id: "tortue", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_tortue.png", "x": 800, "y": 290},
+    {id: "lapin", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_lapin.png", "x": 800, "y": 413},
    /* {id: "canard", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_canard.png", "x": 818, "y": 447},*/
-    {id: "chat", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_chat.png", "x": 818, "y": 570},
+    {id: "chat", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_chat.png", "x": 800, "y": 570},
     //image outlines
     {id: "papillon_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_papillon_seul.png","x": 335, "y": 458},
     {id: "oiseau_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_oiseau_seul.png", "x": 389, "y": 150},
@@ -110,12 +115,12 @@ var animaux2_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_decor_champ2.png"},
      //level images
-    {id: "abeille", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_abeille.png", "x": 818, "y": 35},
+    {id: "abeille", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_abeille.png", "x": 800, "y": 35},
     /*{id: "souris", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_souris.png", "x": 818, "y": 123},*/
-    {id: "poule", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_poule.png", "x": 818, "y": 146},
-    {id: "chien", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_chien.png", "x": 818, "y": 290},
-    {id: "cochon", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_cochon.png", "x": 818, "y": 455},
-    {id: "vache", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_vache.png", "x": 818, "y": 600},
+    {id: "poule", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_poule.png", "x": 800, "y": 146},
+    {id: "chien", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_chien.png", "x": 800, "y": 290},
+    {id: "cochon", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_cochon.png", "x": 800, "y": 455},
+    {id: "vache", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_vache.png", "x": 800, "y": 600},
     //image outlines
     {id: "abeille_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_abeille_seul.png","x": 360, "y": 500},
     /*{id: "souris_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_souris_seul.png", "x": 432, "y": 716},*/
@@ -139,11 +144,11 @@ var animaux3_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_decor_ex3.png"},
      //level images
-    {id: "grenouille", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_grenouille.png", "x": 818, "y": 35},
-    {id: "ecureuil", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_ecureuil.png", "x": 818, "y": 146},
-    {id: "mouton", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_mouton.png", "x": 818, "y": 285},
-    {id: "loup", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_loup.png", "x": 818, "y": 435},
-    {id: "biche", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_biche.png", "x": 818, "y": 600},
+    {id: "grenouille", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_grenouille.png", "x": 800, "y": 35},
+    {id: "ecureuil", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_ecureuil.png", "x": 800, "y": 146},
+    {id: "mouton", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_mouton.png", "x": 800, "y": 285},
+    {id: "loup", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_loup.png", "x": 800, "y": 435},
+    {id: "biche", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_biche.png", "x": 800, "y": 600},
     //image outlines
     {id: "grenouille_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_grenouille_seul.png","x": 651, "y": 615},
     {id: "ecureuil_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_ecureuil_seul.png", "x": 42, "y": 425},
@@ -162,4 +167,4 @@ var animaux3_fileManifest = [
 ];
 
 
-var allFiles = [nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, feedback_fileManifest];
+var allFiles = [interLevel_fileManifest, nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, feedback_fileManifest];

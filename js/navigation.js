@@ -19,9 +19,9 @@
         manageNavigation: function() {
             //adding the background image
             background = new createjs.Bitmap(this.fileManifest[0].src);
-            this.stage.addChild(background);
-            this.addItems();
-
+            this.stage.addChild(background);     
+            this.addItems();    
+     
             //just play the 2 sounds one after the other
             //var consignesSound = createjs.Sound.play("intro_fb"); // TODO move this to the splash screen or elsewhere
             //consignesSound.addEventListener("complete", function() {

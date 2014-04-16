@@ -70,7 +70,12 @@
             var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1];
             if (itemId + SOUND_SUFFIX === lastPlayedSound) {//correct, play positive feedback
                 event.target.removeEventListener("click", this.levelProxy);
-                this.stage.removeChild(event.target);
+                //make the item dissapear gently
+                var clickedItem = event.target;
+                var localThis = this;
+                createjs.Tween.get(clickedItem).to({alpha:0}, 1000).call(function() {
+                    localThis.stage.removeChild(clickedItem);
+                });
                 this.score++;
                 ////add outline image
                 var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
@@ -78,12 +83,15 @@
                 var outline = new createjs.Bitmap(outlineItem.src);
                 outline.x = outlineItem.x;
                 outline.y = outlineItem.y;
-
                 this.stage.addChild(outline);
-               
+                
+                //make the outline appear gently
+                outline.alpha = 0;
+                createjs.Tween.get(outline).to({alpha:1}, 1400);
+                
+                //Play positive feedback
                 var randomFBNum = Math.round(Math.random()*3);
                 var posFeedBack = createjs.Sound.play("pos" + randomFBNum + "_fb");
-
                 //play another random sound    
                 this.levelProxy = createjs.proxy(this.playRandomSound, this);
                 posFeedBack.addEventListener("complete", this.levelProxy);
@@ -109,6 +117,7 @@
             var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
             while (i < this.fileManifest.length && entry.type === "image" && entry.id.match(outlineMatch) === null) {
                 var item = new createjs.Bitmap(entry.src);
+                item.shadow = new createjs.Shadow("#000000", 3, 3, 10);
                 var itemId = entry.id;
                 item.x = entry.x;
                 item.y = entry.y;
@@ -129,22 +138,27 @@
                 createjs.Sound.play(randomSoundId);
                 //remove played sound to prevent from being selected again
                 this.levelSoundIds.splice(randomIndex, 1);
-            } else {    //game finished, play conclusion and launch next level    
-                var conclusion = createjs.Sound.play("conclusion_fb");
-                this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
-                conclusion.addEventListener("complete", this.levelProxy);   
+            } else {    //game finished, play conclusion and launch next level 
+                this.manageLevelEnd();
+                 
             }
         },
-        manageLevelEnd: function(event){
+        manageLevelEnd: function(){
             //set the score for this level
             this.updateLevelScore(this.level, this.score);
-            this.stage.removeAllChildren();
+            var nextLevel = getNextLevelForUser("test", this.level.theme);
+            var score = new Moulin.Score(nextLevel, this.stage, this.score);
+            var conclusion = createjs.Sound.play("conclusion_fb");
+            this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
+            //once the conclusion is over, add the navigation buttons
+            conclusion.addEventListener("complete", function() {score.addScoreScreenItems();});
+           /* this.stage.removeAllChildren();
             var nextLevel = getNextLevelForUser("test", this.level.theme);
             if(nextLevel != null && nextLevel.theme == this.level.theme) { //if the same theme, continue
                 var lev = new Moulin.Level(nextLevel, this.stage);
             } else { //else back to navigation
                 var nav = new Moulin.Navigation(nav_fileManifest, stage);
-            }
+            }*/
         },
         updateLevelScore : function(level, score){
             var scoreIndex = userScore.length;
