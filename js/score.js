@@ -54,9 +54,6 @@
             }
 
         },
-        handleItemlick: function() {
-        
-        },
         /***
          * adds the score and the clickable items
          */
@@ -69,7 +66,7 @@
                 var itemId = entry.id;
                 item.x = entry.x;
                 item.y = entry.y;
-                this.levelProxy = createjs.proxy(this.handleItemlick, this, itemId);
+                this.levelProxy = createjs.proxy(this.handleItemClick, this, itemId);
                 item.addEventListener("click", this.levelProxy);
 
                 this.stage.addChild(item);
