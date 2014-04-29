@@ -19,12 +19,15 @@
         createScoreScreen: function() {
             //adding the background image
             var blurredRectangle = new createjs.Shape().set({x:0,y:0});
-            blurredRectangle.alpha = 0.8;
+            blurredRectangle.alpha = 0;
+                
+           // blurredRectangle.alpha = 0.8;
             blurredRectangle.graphics.beginFill("#726E6D").drawRect(0,0,this.stage.canvas.width,this.stage.canvas.height);      
             this.stage.addChild(blurredRectangle);
-             
+            createjs.Tween.get(blurredRectangle).to({alpha:0.8}, 1200);
             var x =  280; 
             var y = 200;
+            var i = 0;
             
             var cptGoldenStars = 1;
             if(this.score > 4) {
@@ -32,26 +35,32 @@
             } else if(this.score > 3) {
                 cptGoldenStars = 2;
             }
-             
-            //draw 3 stars in a row
-            for (var i=0; i<3; i++){
-                var starG = new createjs.Graphics();
-                starG.setStrokeStyle(3);
-                starG.beginStroke("#E9AB17");
-                if (cptGoldenStars > 0) {
-                  starG.beginFill("#FDD017");
-                  cptGoldenStars--;
-                } else {
-                    starG.beginFill("#5C5858");
-                }
-                 starG.drawPolyStar(0, 0, 100, 5, 0.6, -90);
+         
+              //draw 3 stars with an interval of 600 mililseconds
+             setInterval(function() {
+                 if(i<3) {
+                    var starG = new createjs.Graphics();
+                    starG.setStrokeStyle(3);
+                    starG.beginStroke("#E9AB17");
+                    if (cptGoldenStars > 0) {
+                      starG.beginFill("#FDD017");
+                      cptGoldenStars--;
+                    } else {
+                        starG.beginFill("#5C5858");
+                    }
+                     starG.drawPolyStar(0, 0, 100, 5, 0.6, -90);
 
-                var star = new createjs.Shape(starG);
-                star.x = x;
-                star.y = y;
-                stage.addChild(star);
-                x += 220;
-            }
+                    var star = new createjs.Shape(starG);
+                    star.x = x;
+                    star.y = y;
+                    stage.addChild(star);
+                    star.alpha = 0;
+                    createjs.Tween.get(star).to({alpha:1}, 600);
+                    x+= 220;
+                    i++;
+                 }
+       
+             }, 600);
 
         },
         /***
