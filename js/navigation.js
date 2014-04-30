@@ -38,7 +38,7 @@
                 item.x = entry.x;
                 item.y = entry.y;
                 this.levelProxy = createjs.proxy(this.handleItemlick, this, themeId);
-                item.addEventListener("click", this.levelProxy);
+                item.addEventListener("pressup", this.levelProxy);
                 this.stage.addChild(item);
                 i++;
                 entry = this.fileManifest[i];

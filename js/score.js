@@ -21,7 +21,6 @@
             var blurredRectangle = new createjs.Shape().set({x:0,y:0});
             blurredRectangle.alpha = 0;
                 
-           // blurredRectangle.alpha = 0.8;
             blurredRectangle.graphics.beginFill("#726E6D").drawRect(0,0,this.stage.canvas.width,this.stage.canvas.height);      
             this.stage.addChild(blurredRectangle);
             createjs.Tween.get(blurredRectangle).to({alpha:0.8}, 1200);
@@ -76,7 +75,7 @@
                 item.x = entry.x;
                 item.y = entry.y;
                 this.levelProxy = createjs.proxy(this.handleItemClick, this, itemId);
-                item.addEventListener("click", this.levelProxy);
+                item.addEventListener("pressup", this.levelProxy);
 
                 this.stage.addChild(item);
             }   

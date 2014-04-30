@@ -70,6 +70,7 @@
             var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1];
             if (itemId + SOUND_SUFFIX === lastPlayedSound) {//correct, play positive feedback
                 event.target.removeEventListener("click", this.levelProxy);
+                 event.target.removeEventListener("pressup", this.levelProxy);
                 //make the item dissapear gently
                 var clickedItem = event.target;
                 var localThis = this;
@@ -122,7 +123,8 @@
                 item.x = entry.x;
                 item.y = entry.y;
                 this.levelProxy = createjs.proxy(this.handleItemlick, this, itemId);
-                item.addEventListener("click", this.levelProxy);
+                //item.addEventListener("click", this.levelProxy);
+                item.addEventListener("pressup", this.levelProxy)
 
                 this.stage.addChild(item);
                 i++;

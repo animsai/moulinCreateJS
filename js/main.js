@@ -2,6 +2,7 @@
 function init() {
     var canvas = document.getElementById("gameCanvas");
     stage = new createjs.Stage(canvas);
+    createjs.Touch.enable(stage);
     createjs.Ticker.addEventListener("tick", handleTick);
     onResize();
     /*var loadProgressText = new Moulin.LoadingBarText("Loading...", "1.2em Verdana", "black", 300, "center", 50);
