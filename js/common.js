@@ -78,12 +78,12 @@ var animaux1_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level1/decor_champ.jpg"},
      //level images
-    {id: "papillon", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_papillon.png", "x": 800, "y": 27},
-    {id: "oiseau", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_oiseau.png", "x": 800, "y": 153},
-    {id: "tortue", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_tortue.png", "x": 800, "y": 290},
-    {id: "lapin", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_lapin.png", "x": 800, "y": 413},
+    {id: "papillon", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_papillon.png", "x": 790, "y": 27},
+    {id: "oiseau", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_oiseau.png", "x": 790, "y": 153},
+    {id: "tortue", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_tortue.png", "x": 790, "y": 290},
+    {id: "lapin", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_lapin.png", "x": 790, "y": 413},
    /* {id: "canard", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_canard.png", "x": 818, "y": 447},*/
-    {id: "chat", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_chat.png", "x": 800, "y": 570},
+    {id: "chat", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_chat.png", "x": 790, "y": 570},
     //image outlines
     {id: "papillon_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_papillon_seul.png","x": 335, "y": 458},
     {id: "oiseau_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_oiseau_seul.png", "x": 389, "y": 150},
@@ -115,12 +115,12 @@ var animaux2_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_decor_champ2.png"},
      //level images
-    {id: "abeille", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_abeille.png", "x": 800, "y": 35},
+    {id: "abeille", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_abeille.png", "x": 790, "y": 35},
     /*{id: "souris", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_souris.png", "x": 818, "y": 123},*/
-    {id: "poule", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_poule.png", "x": 800, "y": 146},
-    {id: "chien", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_chien.png", "x": 800, "y": 290},
-    {id: "cochon", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_cochon.png", "x": 800, "y": 455},
-    {id: "vache", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_vache.png", "x": 800, "y": 600},
+    {id: "poule", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_poule.png", "x": 790, "y": 146},
+    {id: "chien", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_chien.png", "x": 790, "y": 290},
+    {id: "cochon", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_cochon.png", "x": 790, "y": 455},
+    {id: "vache", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_vache.png", "x": 790, "y": 600},
     //image outlines
     {id: "abeille_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_abeille_seul.png","x": 360, "y": 500},
     /*{id: "souris_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_souris_seul.png", "x": 432, "y": 716},*/
@@ -144,11 +144,11 @@ var animaux3_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_decor_ex3.png"},
      //level images
-    {id: "grenouille", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_grenouille.png", "x": 800, "y": 35},
-    {id: "ecureuil", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_ecureuil.png", "x": 800, "y": 146},
-    {id: "mouton", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_mouton.png", "x": 800, "y": 285},
-    {id: "loup", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_loup.png", "x": 800, "y": 435},
-    {id: "biche", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_biche.png", "x": 800, "y": 600},
+    {id: "grenouille", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_grenouille.png", "x": 790, "y": 35},
+    {id: "ecureuil", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_ecureuil.png", "x": 790, "y": 146},
+    {id: "mouton", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_mouton.png", "x": 790, "y": 285},
+    {id: "loup", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_loup.png", "x": 790, "y": 435},
+    {id: "biche", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_biche.png", "x": 790, "y": 600},
     //image outlines
     {id: "grenouille_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_grenouille_seul.png","x": 651, "y": 615},
     {id: "ecureuil_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_ecureuil_seul.png", "x": 42, "y": 425},
@@ -168,3 +168,45 @@ var animaux3_fileManifest = [
 
 
 var allFiles = [interLevel_fileManifest, nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, feedback_fileManifest];
+
+
+var Utils = {
+    getNextLevelForUser : function(user, theme) {
+        var lastLevel = "";    
+        var levelCount = levels.length;
+
+        //find last level where the user has a score for this theme
+        for (var i=0; i<userScore.length; i++) {
+            if(userScore[i].theme === theme && userScore[i].user === user && (userScore[i].score > 0 || userScore[i].score != "")) {
+                lastLevel = userScore[i].levelId;
+            }
+        }
+        if(lastLevel != "") {
+            //find the level right after the last one that the user has a score
+            for(var i=0; i<levelCount; i++) {
+                if(levels[i].id === lastLevel && i < levelCount-1) {
+                   return levels[i+1];
+                }
+            }
+        } else { //return the first level of the theme
+            for(var i=0; i<levelCount; i++) {
+                if(levels[i].theme === theme){
+                    return levels[i];
+                }
+            }
+        }
+      return null;
+    },
+    generateBitmapItem: function(src, x, y, alphaVal, duration, withShadow){
+        var item = new createjs.Bitmap(src);
+        if(withShadow){
+            item.shadow = new createjs.Shadow("#000000", 3, 3, 10);
+        }
+        item.x = x;
+        item.y = y;
+        item.alpha = 0;
+        createjs.Tween.get(item).to({alpha:alphaVal}, duration);
+
+        return item;
+    }
+}

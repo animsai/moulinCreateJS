@@ -13,6 +13,7 @@
         levelSoundIds: null,
         levelImages: null,
         levelOutlines: null, //TODO check if needed, for now not used
+        soundPlaying:false,
         initialize: function(level, stage) {
             //init internal variables
             this.fileManifest = eval(level.media);
@@ -49,11 +50,13 @@
             background = new createjs.Bitmap(this.fileManifest[0].src);
             this.stage.addChild(background);
 
-            this.addGameItems();
-
-            var consignesSound = createjs.Sound.play("consignes_" + this.level.id);
+            //playing instruction sentance
+            var consignesSound = createjs.Sound.play("consignes_" + this.level.id);           
             this.levelProxy = createjs.proxy(this.playRandomSound, this);
             consignesSound.addEventListener("complete", this.levelProxy);
+            
+            //add interaction items
+            this.addGameItems();
         },
         getItemIndexById: function(itemId){
             var i=0;
@@ -69,8 +72,7 @@
         handleItemlick: function(event, itemId) {
             var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1];
             if (itemId + SOUND_SUFFIX === lastPlayedSound) {//correct, play positive feedback
-                event.target.removeEventListener("click", this.levelProxy);
-                 event.target.removeEventListener("pressup", this.levelProxy);
+                event.target.removeEventListener("pressup", this.levelProxy);
                 //make the item dissapear gently
                 var clickedItem = event.target;
                 var localThis = this;
@@ -78,17 +80,11 @@
                     localThis.stage.removeChild(clickedItem);
                 });
                 this.score++;
-                ////add outline image
+                ////add outline image to stage
                 var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
                 var outlineItem = this.fileManifest[indexOutline];
-                var outline = new createjs.Bitmap(outlineItem.src);
-                outline.x = outlineItem.x;
-                outline.y = outlineItem.y;
+                var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1, 1400, false);   
                 this.stage.addChild(outline);
-                
-                //make the outline appear gently
-                outline.alpha = 0;
-                createjs.Tween.get(outline).to({alpha:1}, 1400);
                 
                 //Play positive feedback
                 var randomFBNum = Math.round(Math.random()*3);
@@ -117,20 +113,13 @@
             //add images and manage click event, starting at index 1 cause first index is the background already added
             var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
             while (i < this.fileManifest.length && entry.type === "image" && entry.id.match(outlineMatch) === null) {
-                var item = new createjs.Bitmap(entry.src);
-                item.shadow = new createjs.Shadow("#000000", 3, 3, 10);
-                var itemId = entry.id;
-                item.x = entry.x;
-                item.y = entry.y;
-                this.levelProxy = createjs.proxy(this.handleItemlick, this, itemId);
-                //item.addEventListener("click", this.levelProxy);
+                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1, 1400, true);    
+                this.levelProxy = createjs.proxy(this.handleItemlick, this, entry.id);     
                 item.addEventListener("pressup", this.levelProxy)
-
                 this.stage.addChild(item);
                 i++;
                 entry = this.fileManifest[i];
-            }
-            ;
+            };
         },
         playRandomSound: function() {
             if (this.levelSoundIds.length > 0) {
@@ -142,25 +131,20 @@
                 this.levelSoundIds.splice(randomIndex, 1);
             } else {    //game finished, play conclusion and launch next level 
                 this.manageLevelEnd();
-                 
             }
         },
         manageLevelEnd: function(){
             //set the score for this level
+            this.stage.removeAllEventListeners();
             this.updateLevelScore(this.level, this.score);
-            var nextLevel = getNextLevelForUser("test", this.level.theme);
-            var score = new Moulin.Score(nextLevel, this.stage, this.score);
+            var nextLevel = Utils.getNextLevelForUser("test", this.level.theme);
+      
+            var score = new Moulin.Score(this.level,nextLevel, this.stage, this.score);
             var conclusion = createjs.Sound.play("conclusion_fb");
+            
             this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
             //once the conclusion is over, add the navigation buttons
             conclusion.addEventListener("complete", function() {score.addScoreScreenItems();});
-           /* this.stage.removeAllChildren();
-            var nextLevel = getNextLevelForUser("test", this.level.theme);
-            if(nextLevel != null && nextLevel.theme == this.level.theme) { //if the same theme, continue
-                var lev = new Moulin.Level(nextLevel, this.stage);
-            } else { //else back to navigation
-                var nav = new Moulin.Navigation(nav_fileManifest, stage);
-            }*/
         },
         updateLevelScore : function(level, score){
             var scoreIndex = userScore.length;
@@ -177,6 +161,19 @@
             }
             if(update == 0){ //add a new score instad of updating existing
                 userScore[scoreIndex] = {user:"test", levelId:level.id, theme:level.theme, score:finalScore};   
+            }
+        },
+        handleSoundPlay: function(event, soundToPlay, callback) {
+            var playingSound = createjs.Sound.play(soundToPlay);
+            this.soundPlaying = true; //set playing flag to true to be able de deactivate click events during playback
+            this.levelProxy = createjs.proxy(this.handleSoundCallBack, this, callback);
+            playingSound.addEventListener("complete", this.levelProxy);
+        },
+        handleSoundCallBack: function(event, callback){
+            this.soundPlaying = false; // set the playing variable to false to be able to enable click events
+            if(callback !==null){
+                eval("this." + "callback()");
+                // eval(this + "." + callback + "()");
             }
         }
     };

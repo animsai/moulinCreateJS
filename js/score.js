@@ -1,6 +1,6 @@
 (function() {
-    function Score(nextLevel, stage, score) {
-        this.initialize(nextLevel, stage, score);
+    function Score(finishedLevel, nextLevel, stage, score) {
+        this.initialize(finishedLevel, nextLevel, stage, score);
     }
 
     Score.prototype = {
@@ -8,8 +8,10 @@
         nextLevel:null,
         score:0,
         levelProxy:null,
-        initialize: function(nextLevel, stage, score) {
+        finishedLevel:null,
+        initialize: function(finishedLevel, nextLevel, stage, score) {
             //init internal variables
+            this.finishedLevel = finishedLevel;
             this.nextLevel = nextLevel;
             this.stage = stage;
             this.score = score;
@@ -34,33 +36,39 @@
             } else if(this.score > 3) {
                 cptGoldenStars = 2;
             }
-         
-              //draw 3 stars with an interval of 600 mililseconds
+            
+            var localThis = this;
+              //draw 3 stars with an interval of 600 mililseconds to make them appear one after another
              setInterval(function() {
-                 if(i<3) {
-                    var starG = new createjs.Graphics();
-                    starG.setStrokeStyle(3);
-                    starG.beginStroke("#E9AB17");
-                    if (cptGoldenStars > 0) {
-                      starG.beginFill("#FDD017");
+                 if(i<3) { //"loop" management inside of interval, to limit the interval to 3 executions, because we want only 3 stars
+                     if (cptGoldenStars > 0) {
+                      starFillColor = "#FDD017";
                       cptGoldenStars--;
                     } else {
-                        starG.beginFill("#5C5858");
+                        starFillColor = "#5C5858";
                     }
-                     starG.drawPolyStar(0, 0, 100, 5, 0.6, -90);
-
-                    var star = new createjs.Shape(starG);
-                    star.x = x;
-                    star.y = y;
+                    var star = localThis.createStar(starFillColor, x, y, 600);
                     stage.addChild(star);
-                    star.alpha = 0;
-                    createjs.Tween.get(star).to({alpha:1}, 600);
                     x+= 220;
                     i++;
                  }
-       
              }, 600);
 
+        },
+        createStar: function(fillColor, x, y, duration) {
+            var starG = new createjs.Graphics();
+            starG.setStrokeStyle(3);
+            starG.beginStroke("#E9AB17");
+            starG.beginFill(fillColor);
+            starG.drawPolyStar(0, 0, 100, 5, 0.6, -90);
+
+            var star = new createjs.Shape(starG);
+            star.x = x;
+            star.y = y;
+            star.alpha = 0;
+            createjs.Tween.get(star).to({alpha:1}, duration);  
+            
+            return star;
         },
         /***
          * adds the score and the clickable items
@@ -69,30 +77,27 @@
             var files = eval(interLevel_fileManifest);
             for (var i=0; i< files.length; i++) {
                 var entry = files[i];
-                var item = new createjs.Bitmap(entry.src);
-                //item.shadow = new createjs.Shadow("#000000", 3, 3, 10);
-                var itemId = entry.id;
-                item.x = entry.x;
-                item.y = entry.y;
-                this.levelProxy = createjs.proxy(this.handleItemClick, this, itemId);
+                
+                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1, 1400, true);              
+                this.levelProxy = createjs.proxy(this.handleItemClick, this, entry.id);
                 item.addEventListener("pressup", this.levelProxy);
-
                 this.stage.addChild(item);
             }   
         },
         handleItemClick:function(event, itemId) {
             //FOR NOW GO TO NEXT LEVEL WITHOUTH CHECKING ANYTHING
+            //TODO Manage restart and back to menu in the future
             this.startNextLevel();
         },
         startNextLevel: function(){
             //set the score for this level
             this.stage.removeAllChildren();
             
-            //if(nextLevel != null && nextLevel.theme == this.level.theme) { //if the same theme, continue
-            var lev = new Moulin.Level(this.nextLevel, this.stage);
-            //} else { //else back to navigation
-               // var nav = new Moulin.Navigation(nav_fileManifest, stage);
-            //}
+            if(this.nextLevel != null && this.nextLevel.theme == this.finishedLevel.theme) { //if the same theme, continue
+                new Moulin.Level(this.nextLevel, this.stage);
+            } else { //else back to navigation
+                new Moulin.Navigation(nav_fileManifest, this.stage);
+            }
         }
     };
     Moulin.Score = Score;
