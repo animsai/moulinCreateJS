@@ -136,7 +136,7 @@ var animaux2_fileManifest = [
     {id: "poule_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_poule_seul.png", "x": 52, "y": 430},
     {id: "chien_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_chien_seul.png", "x": 148, "y": 539},
     {id: "cochon_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_cochon_seul.png", "x": 599, "y": 540},
-    {id: "vache_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_vache_seul.png", "x": 465, "y": 300},
+    {id: "vache_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_vache_seul.png", "x": 460, "y": 300},
     //level sounds
     {id: "abeille_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.6.wav"},
     /*{id: "souris_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.7.wav"},*/
@@ -241,6 +241,7 @@ var Utils = {
         starG.drawPolyStar(0, 0, radius, 5, 0.6, -90);
 
         var star = new createjs.Shape(starG);
+        star.shadow = new createjs.Shadow("#000000", 3, 3, 10);
         star.x = x;
         star.y = y;
         star.alpha = 0;
