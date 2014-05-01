@@ -235,5 +235,30 @@ var Utils = {
         createjs.Tween.get(item).to({alpha:1}, duration);
 
         return item;
+    },
+    createStar: function(fillColor, x, y, duration, radius, strokeStyle) {
+            var starG = new createjs.Graphics();
+            starG.setStrokeStyle(strokeStyle);
+            starG.beginStroke("#E9AB17");
+            starG.beginFill(fillColor);
+            starG.drawPolyStar(0, 0, radius, 5, 0.6, -90);
+
+            var star = new createjs.Shape(starG);
+            star.x = x;
+            star.y = y;
+            star.alpha = 0;
+            createjs.Tween.get(star).to({alpha:1}, duration);  
+            
+            return star;
+        },
+    getScoreByUserAndLevel:function(user, levelId) {
+        for(var i=0;i<userScore.length; i++){
+            if(userScore[i].user === user && userScore[i].levelId === levelId) {
+                return  userScore[i].score;
+            }
+        }
+        //null shall be returned for main navigation items since they do not appear in the score table 
+        //as well as for those items that were never played yet
+        return null ; 
     }
-}
+};

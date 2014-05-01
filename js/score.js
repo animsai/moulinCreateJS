@@ -47,28 +47,13 @@
                     } else {
                         starFillColor = "#5C5858";
                     }
-                    var star = localThis.createStar(starFillColor, x, y, 600, 100);
+                    var star = Utils.createStar(starFillColor, x, y, 600, 100,3);
                     stage.addChild(star);
                     x+= 220;
                     i++;
                  }
              }, 600);
 
-        },
-        createStar: function(fillColor, x, y, duration, radius) {
-            var starG = new createjs.Graphics();
-            starG.setStrokeStyle(3);
-            starG.beginStroke("#E9AB17");
-            starG.beginFill(fillColor);
-            starG.drawPolyStar(0, 0, radius, 5, 0.6, -90);
-
-            var star = new createjs.Shape(starG);
-            star.x = x;
-            star.y = y;
-            star.alpha = 0;
-            createjs.Tween.get(star).to({alpha:1}, duration);  
-            
-            return star;
         },
         /***
          * adds the score and the clickable items
