@@ -23,7 +23,7 @@
             this.levelSoundIds = new Array();
             this.levelImages = new Array();
             this.levelOutlines = new Array();
-
+            this.soundPlaying == false
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
             this.createLevel();
@@ -70,8 +70,11 @@
             return itemIndex;
         },
         handleItemlick: function(event, itemId) {
+            //console.log(this.soundPlaying);
+            if(this.soundPlaying == false){
             var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1];
             if (itemId + SOUND_SUFFIX === lastPlayedSound) {//correct, play positive feedback
+                //console.log("posfeed");
                 event.target.removeEventListener("pressup", this.levelProxy);
                 //make the item dissapear gently
                 var clickedItem = event.target;
@@ -93,16 +96,23 @@
                 this.levelProxy = createjs.proxy(this.playRandomSound, this);
                 posFeedBack.addEventListener("complete", this.levelProxy);
 
-            } else {
+            } else if(lastPlayedSound !== undefined){
                 //wrong, play negative feedback
                 var randomFBNegNum = Math.round(Math.random() * 2);
                 var negFeedBack = createjs.Sound.play("neg" + randomFBNegNum + "_fb");
+                this.soundPlaying = true;
+                //console.log("negfeed");
                 this.score--;
+                var localthis = this;
                 //replay last sound
                 negFeedBack.addEventListener("complete", function() {
+                    //console.log("replay");
                     createjs.Sound.play(lastPlayedSound);
+                    localthis.soundPlaying = false;
+                    
                 });
-            }
+               //console.log("after replay " + this.soundPlaying);
+            }}
         },
         /***
          * adds the game items that are clickable to the scene
@@ -124,6 +134,7 @@
         },
         playRandomSound: function() {
             if (this.levelSoundIds.length > 0) {
+                this.soundPlaying = false;
                 var randomIndex = Math.floor(Math.random() * this.levelSoundIds.length);
                 var randomSoundId = this.levelSoundIds[randomIndex];
                 this.playedSoundIds.push(randomSoundId);
