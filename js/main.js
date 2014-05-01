@@ -5,15 +5,21 @@ function init() {
     createjs.Touch.enable(stage);
     createjs.Ticker.addEventListener("tick", handleTick);
     onResize();
+
+    //Load scores from local storage
+    if (Utils.supportsLocalStorage() && localStorage["moulin.scores"] !== undefined) {
+        userScore = JSON.parse(localStorage["moulin.scores"]);
+    }
+
     var game = new Moulin.MediaLoader(allFiles, stage);
 }
-  function handleTick() {
+function handleTick() {
     stage.update();
-  } 
+}
 
 window.onresize = function()
 {
-     onResize();
+    onResize();
 };
 
 //code found here and slightly adapted:
@@ -25,8 +31,8 @@ function onResize()
     var h = window.innerHeight;
 
 // stage dimensions
-    var ow = 1045; 
-    var oh = 789; 
+    var ow = 1045;
+    var oh = 789;
 
     // keep aspect ratio
     var scale = Math.min(w / ow, h / oh);
@@ -36,6 +42,6 @@ function onResize()
     // adjust canvas size
     stage.canvas.width = ow * scale - 10;
     stage.canvas.height = oh * scale - 10;
- 
+
 }
 
