@@ -36,6 +36,10 @@
             this.mediaProxy = createjs.proxy(this.handleComplete, this);
             this.mediaQueue.addEventListener("complete", this.mediaProxy);
             this.mediaQueue.loadManifest(this.allManifestConcat);
+            
+//            if(Utils.supportsLocalStorage()) {
+//                localStorage["moulin.allManifestFiles"] = JSON.stringify(this.allManifestConcat);
+//            }
 
             return this;
         },

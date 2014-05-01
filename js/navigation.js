@@ -41,8 +41,6 @@
             var entry = fileManifest[i];
             var itemIdForClickEvent;
 
-
-
             //add images and manage click event, starting at index 1 cause first index is the background already added
             while (i < fileManifest.length && entry.type === "image") {
                 if (isMainNav) {

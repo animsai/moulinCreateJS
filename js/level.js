@@ -69,7 +69,7 @@
             }
             return itemIndex;
         },
-        handleItemlick: function(event, itemId) {
+        handleItemInteraction: function(event, itemId) {
             //console.log(this.soundPlaying);
             if(this.soundPlaying == false){
             var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1];
@@ -124,7 +124,7 @@
             var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
             while (i < this.fileManifest.length && entry.type === "image" && entry.id.match(outlineMatch) === null) {
                 var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, true);
-                this.levelProxy = createjs.proxy(this.handleItemlick, this, entry.id);
+                this.levelProxy = createjs.proxy(this.handleItemInteraction, this, entry.id);
                 item.addEventListener("pressup", this.levelProxy)
                 this.stage.addChild(item);
                 i++;
@@ -173,7 +173,7 @@
                     //return;
                 }
             }
-            if (update == 0) { //add a new score instad of updating existing
+            if (update === 0) { //add a new score instad of updating existing
                 userScore[scoreIndex] = {user: "test", levelId: level.id, theme: level.theme, score: finalScore};
             }
             
