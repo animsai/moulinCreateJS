@@ -72,13 +72,24 @@
         handleItemClick:function(event, itemId) {
             //FOR NOW GO TO NEXT LEVEL WITHOUTH CHECKING ANYTHING
             //TODO Manage restart and back to menu in the future
-            this.startNextLevel();
+            switch (itemId) {
+                case "menu":
+                    new Moulin.Navigation(nav_fileManifest, this.stage);
+                    break;
+                case "next" :
+                    this.startNextLevel();
+                    break;
+                case "replay" :
+                     this.stage.removeAllChildren();
+                     new Moulin.Level(this.finishedLevel, this.stage);
+                    break;
+            }
         },
         startNextLevel: function(){
             //set the score for this level
             this.stage.removeAllChildren();
             
-            if(this.nextLevel != null && this.nextLevel.theme == this.finishedLevel.theme) { //if the same theme, continue
+            if(this.nextLevel !== null && this.nextLevel.theme === this.finishedLevel.theme) { //if the same theme, continue
                 new Moulin.Level(this.nextLevel, this.stage);
             } else { //else back to navigation
                 new Moulin.Navigation(nav_fileManifest, this.stage);

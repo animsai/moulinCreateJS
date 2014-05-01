@@ -57,7 +57,7 @@
                 var cptGoldenStars = Utils.getScoreByUserAndLevel("test", itemIdForClickEvent);
                 var starX = item.x + 40;
                 var starY = item.y;
-                if(cptGoldenStars !=null){
+                if(cptGoldenStars !==null){
                     for (var j = 0; j < 3; j++) {
                     if (cptGoldenStars > 0) {
                         starFillColor = "#FDD017";
