@@ -1,0 +1,42 @@
+CACHE MANIFEST
+# 2010-06-18:v2
+
+# Explicitly cached 'master entries'.
+
+CACHE:
+
+index.html
+js/common.js
+js/createjs-2013.12.12.min.js
+js/level.js
+js/loadingBar.js
+js/main.js
+js/mediaLoader.js
+js/navigation.js
+js/score.js
+
+media/images/nav/menu.png
+media/images/nav/next.png
+media/images/nav/niveau1_animaux.png
+media/images/nav/niveau1_decor_grand.png
+media/images/nav/niveau2_animaux_decor.png
+media/images/nav/niveau2_animaux_ex1.png
+media/images/nav/niveau2_animaux_ex2.png
+media/images/nav/niveau2_animaux_ex3.png
+media/images/nav/replay.png
+
+media/sounds/nav/consignes.wav
+media/sounds/nav/intro.wav
+media/sounds/nav/son_5.wav
+media/sounds/feedbacks/1animaux.reponse.bon.1.wav
+media/sounds/feedbacks/1animaux.reponse.bon.2.wav
+media/sounds/feedbacks/1animaux.reponse.bon.3.wav
+media/sounds/feedbacks/1animaux.reponse.bon.4.wav
+media/sounds/feedbacks/1animaux.reponse.mauvais.1.wav
+media/sounds/feedbacks/1animaux.reponse.mauvais.2.wav
+media/sounds/feedbacks/1animaux.reponse.mauvais.3.wav
+media/sounds/feedbacks/1animaux.conclusion.1.wav
+
+# Resources that require the user to be online.
+NETWORK:
+*
