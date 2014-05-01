@@ -7,42 +7,61 @@
         stage: null,
         levelProxy: null,
         soundPlaying: false,
+        subFileManifest:null,
         initialize: function(fileManifest, stage) {
             //init internal variables
             this.fileManifest = fileManifest;
-           //this.bar = loadingBar;
             this.stage = stage;
-            this.manageNavigation();
+            this.initMainNavigation();
             return this;
         },
-        manageNavigation: function() {
+        initMainNavigation: function() {
             //adding the background image
             background = new createjs.Bitmap(this.fileManifest[0].src);
             this.stage.addChild(background);     
             this.handleSoundPlay(null, "nav_consignes_fb", null);
-            this.addItems();    
+            this.addMainItems();    
         },
-        manageSubNavigation:function() {
-            
+        initSubNavigation:function(theme) {
+            //adding the background image
+            this.subFileManifest = eval(theme + "_nav_fileManifest");
+            background = new createjs.Bitmap(this.subFileManifest[0].src);
+            this.stage.addChild(background);     
+            this.handleSoundPlay(null, "subNav_consignes_fb", null);
+            this.addSubNavigationItems(); 
         },
-        addItems: function() {
-            var i = 1; // background is already added so we start at index 1
-            var entry = this.fileManifest[i];
+        addMainItems: function() {
+           this.addItems(this.fileManifest, 1, true);
+        },
+        addSubNavigationItems : function(){
+            this.addItems(this.subFileManifest, 1, false);
+        },
+        addItems :function(fileManifest, startingIndex, isMainNav) {
+            var i = startingIndex; // background is already added so we start at index 1
+            var entry = fileManifest[i];
             //add images and manage click event, starting at index 1 cause first index is the background already added
-            while (i < this.fileManifest.length && entry.type === "image") {
-                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y,1, 1400, false);
+            while (i < fileManifest.length && entry.type === "image") {
+                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, false);
                 this.stage.addChild(item);
-                this.levelProxy = createjs.proxy(this.handleItemlick, this, entry.id);
+                if(isMainNav){
+                    this.levelProxy = createjs.proxy(this.handleItemlick, this, entry.id, isMainNav);
+                } else {
+                    this.levelProxy = createjs.proxy(this.handleItemlick, this, entry.levelId, isMainNav);
+                }
                 item.addEventListener("pressup", this.levelProxy);
                 i++;
-                entry = this.fileManifest[i];
+                entry = fileManifest[i];
             };
         },
-        handleItemlick: function(event, themeId) {
+        handleItemlick: function(event, itemId, isMainNav) {
             if(!this.soundPlaying){
                 this.stage.removeAllChildren();
-                var level = Utils.getNextLevelForUser("test", themeId);
-                level = new Moulin.Level(level, this.stage);
+                if(isMainNav){
+                    this.initSubNavigation(itemId);
+                } else {
+                    var level = Utils.getLevelById(itemId);
+                    level = new Moulin.Level(level, this.stage);   
+                }
             }
         },
         handleSoundPlay: function(event, soundToPlay, callback) {

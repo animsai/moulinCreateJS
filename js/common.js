@@ -34,8 +34,8 @@ var levels = [
 ];
 
 var userScore = [
-    /*{user:"test", levelId:"animaux1", theme:"animaux", score:1},  
-    {user:"test", levelId:"animaux2", theme:"animaux", score:1}  */
+    {user:"test", levelId:"animaux1", theme:"animaux", score:1},  
+    {user:"test", levelId:"animaux2", theme:"animaux", score:2} 
 ];
 
 var feedback_fileManifest = [
@@ -62,9 +62,19 @@ var nav_fileManifest = [
     /*{id: "habits", src: IMGFOLDER + NAV_FOLDER + "niveau1_habits.png", "x": 238, "y": 184},*/
     //instruction and feedback sounds
     {id: "intro_fb", src: SNDFOLDER + NAV_FOLDER + "intro.wav"},
-    {id: "nav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"}
+    {id: "nav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"},
+    {id: "subNav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "son_5.wav"}
 ];
 
+var animaux_nav_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_decor.png"},
+     //level images
+    {id: "animauxEx1", levelId:"animaux1", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex1.png", "x": 42, "y": 254},
+    {id: "animauxEx2", levelId:"animaux2", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex2.png", "x": 228, "y": 254},
+    {id: "animauxEx3", levelId:"animaux3", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex3.png", "x": 408, "y": 254},
+   
+];
 
 /***
  * array of files needed in  level1
@@ -167,11 +177,11 @@ var animaux3_fileManifest = [
 ];
 
 
-var allFiles = [interLevel_fileManifest, nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, feedback_fileManifest];
+var allFiles = [interLevel_fileManifest, nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, feedback_fileManifest, animaux_nav_fileManifest];
 
 
 var Utils = {
-    getNextLevelForUser : function(user, theme) {
+    getNextLevelForUser : function(user, theme) { //TODO see if still needed, not used anymore
         var lastLevel = "";    
         var levelCount = levels.length;
 
@@ -197,7 +207,24 @@ var Utils = {
         }
       return null;
     },
-    generateBitmapItem: function(src, x, y, alphaVal, duration, withShadow){
+    getNextDirectLevel : function(currentLevelId) {
+        var levelCount = levels.length;
+          for(var i=0; i<levelCount; i++){
+            if(levels[i].id === currentLevelId && i < levelCount-1) {
+                return levels[i+1];
+                } 
+            }
+        return null;
+    },
+    getLevelById : function(id){
+        for(var i=0; i<levels.length; i++){
+            if(levels[i].id === id) {
+                return levels[i];
+            }
+        }
+        return null;
+    },
+    generateBitmapItem: function(src, x, y, duration, withShadow){
         var item = new createjs.Bitmap(src);
         if(withShadow){
             item.shadow = new createjs.Shadow("#000000", 3, 3, 10);
@@ -205,7 +232,7 @@ var Utils = {
         item.x = x;
         item.y = y;
         item.alpha = 0;
-        createjs.Tween.get(item).to({alpha:alphaVal}, duration);
+        createjs.Tween.get(item).to({alpha:1}, duration);
 
         return item;
     }

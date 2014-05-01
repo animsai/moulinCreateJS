@@ -83,7 +83,7 @@
                 ////add outline image to stage
                 var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
                 var outlineItem = this.fileManifest[indexOutline];
-                var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1, 1400, false);   
+                var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);   
                 this.stage.addChild(outline);
                 
                 //Play positive feedback
@@ -113,7 +113,7 @@
             //add images and manage click event, starting at index 1 cause first index is the background already added
             var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
             while (i < this.fileManifest.length && entry.type === "image" && entry.id.match(outlineMatch) === null) {
-                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1, 1400, true);    
+                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, true);    
                 this.levelProxy = createjs.proxy(this.handleItemlick, this, entry.id);     
                 item.addEventListener("pressup", this.levelProxy)
                 this.stage.addChild(item);
@@ -137,9 +137,9 @@
             //set the score for this level
             this.stage.removeAllEventListeners();
             this.updateLevelScore(this.level, this.score);
-            var nextLevel = Utils.getNextLevelForUser("test", this.level.theme);
+            var nextLevel = Utils.getNextDirectLevel(this.level.id);
       
-            var score = new Moulin.Score(this.level,nextLevel, this.stage, this.score);
+            var score = new Moulin.Score(this.level, nextLevel, this.stage, this.score);
             var conclusion = createjs.Sound.play("conclusion_fb");
             
             this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
@@ -161,19 +161,6 @@
             }
             if(update == 0){ //add a new score instad of updating existing
                 userScore[scoreIndex] = {user:"test", levelId:level.id, theme:level.theme, score:finalScore};   
-            }
-        },
-        handleSoundPlay: function(event, soundToPlay, callback) {
-            var playingSound = createjs.Sound.play(soundToPlay);
-            this.soundPlaying = true; //set playing flag to true to be able de deactivate click events during playback
-            this.levelProxy = createjs.proxy(this.handleSoundCallBack, this, callback);
-            playingSound.addEventListener("complete", this.levelProxy);
-        },
-        handleSoundCallBack: function(event, callback){
-            this.soundPlaying = false; // set the playing variable to false to be able to enable click events
-            if(callback !==null){
-                eval("this." + "callback()");
-                // eval(this + "." + callback + "()");
             }
         }
     };

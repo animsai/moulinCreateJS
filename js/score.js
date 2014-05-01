@@ -47,7 +47,7 @@
                     } else {
                         starFillColor = "#5C5858";
                     }
-                    var star = localThis.createStar(starFillColor, x, y, 600);
+                    var star = localThis.createStar(starFillColor, x, y, 600, 100);
                     stage.addChild(star);
                     x+= 220;
                     i++;
@@ -55,12 +55,12 @@
              }, 600);
 
         },
-        createStar: function(fillColor, x, y, duration) {
+        createStar: function(fillColor, x, y, duration, radius) {
             var starG = new createjs.Graphics();
             starG.setStrokeStyle(3);
             starG.beginStroke("#E9AB17");
             starG.beginFill(fillColor);
-            starG.drawPolyStar(0, 0, 100, 5, 0.6, -90);
+            starG.drawPolyStar(0, 0, radius, 5, 0.6, -90);
 
             var star = new createjs.Shape(starG);
             star.x = x;
@@ -78,7 +78,7 @@
             for (var i=0; i< files.length; i++) {
                 var entry = files[i];
                 
-                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1, 1400, true);              
+                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 600, true);              
                 this.levelProxy = createjs.proxy(this.handleItemClick, this, entry.id);
                 item.addEventListener("pressup", this.levelProxy);
                 this.stage.addChild(item);
