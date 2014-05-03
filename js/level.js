@@ -23,7 +23,7 @@
             this.levelSoundIds = new Array();
             this.levelImages = new Array();
             this.levelOutlines = new Array();
-            this.soundPlaying == false
+            this.soundPlaying = false;
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
             this.createLevel();
@@ -70,36 +70,40 @@
             return itemIndex;
         },
         handleItemInteraction: function(event, itemId) {
-            //console.log(this.soundPlaying);
-            //if(this.soundPlaying == false){
-            var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1];
-            if (itemId + SOUND_SUFFIX === lastPlayedSound) {
-                //correct : remove clicked item, display outline on stage, update score and play positive feedback
-                event.target.removeEventListener("pressup", this.levelProxy);
-                //make the item dissapear gently with tween effect
-                var clickedItem = event.target;
-                var localThis = this;
-                createjs.Tween.get(clickedItem).to({alpha: 0}, 1000).call(function() {
-                    localThis.stage.removeChild(clickedItem);
-                });
-                
-                ////add outline image to stage
-                var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
-                var outlineItem = this.fileManifest[indexOutline];
-                var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);
-                this.stage.addChild(outline);
-                //add score
-                this.score++;
-                //Play positive feedback
-                this.playFeedbackAndContinue(true);
-            } else if(lastPlayedSound !== undefined){
-                //wrong: reduce score, play negative feedback and continue game
-                this.score--;
-                this.playFeedbackAndContinue(false);
-            }//}
+            if(this.soundPlaying === false){
+                var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
+                if (itemId + SOUND_SUFFIX === lastPlayedSound) {
+                    //correct : remove clicked item, display outline on stage, update score and play positive feedback
+                    event.target.removeEventListener("pressup", this.levelProxy);
+                    //make the item dissapear gently with tween effect
+                    var clickedItem = event.target;
+                    var localThis = this;
+                    createjs.Tween.get(clickedItem).to({alpha: 0}, 1000).call(function() {
+                        localThis.stage.removeChild(clickedItem);
+                    });
+
+                    ////add outline image to stage
+                    var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
+                    var outlineItem = this.fileManifest[indexOutline];
+                    var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);
+                    this.stage.addChild(outline);
+                    //add score
+                    this.score++;
+                    //Play positive feedback
+                    this.playFeedbackAndContinue(true);
+                } else if(lastPlayedSound !== undefined){
+                    //wrong: reduce score, play negative feedback and continue game
+                    this.score--;
+                    this.playFeedbackAndContinue(false);
+                }
+            } else {
+                //TODO inform user that there is a sound playing and that he needs to wait!
+               // var speaker = Utils.generateBitmapItem(speakerIconFile.src, speakerIconFile.x, speakerIconFile.y, 0, false);
+                //this.stage.addChild(speaker);
+            }
         },
         playFeedbackAndContinue:function(isPositiveFB) {
-            //Play positive feedback
+                this.setSoundPlaying(null, true);
                 var randomFBNum = Math.round(Math.random() * 2);
                 var feedbackSound;
                 var prefix;
@@ -113,8 +117,28 @@
                 feedbackSound = createjs.Sound.play(prefix + randomFBNum + "_fb");
                 feedbackSound.addEventListener("complete", this.levelProxy);
         },
+        playRandomSound: function() {
+            if (this.levelSoundIds.length > 0) {
+                var randomIndex = Math.floor(Math.random() * this.levelSoundIds.length);
+                var randomSoundId = this.levelSoundIds[randomIndex];
+                this.playedSoundIds.push(randomSoundId);
+                //remove played sound to prevent from being selected again -> TODO remove it on sound play completion to be sure it DID play once
+                this.levelSoundIds.splice(randomIndex, 1);
+                var newSound = createjs.Sound.play(randomSoundId);
+                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
+                newSound.addEventListener("complete", this.levelProxy);
+            } else {    
+                //game finished, play conclusion and launch next level 
+                this.manageLevelEnd();
+            }
+        },
         replayLastSound:function() {
-            createjs.Sound.play(this.playedSoundIds[this.playedSoundIds.length - 1]);
+            var lastSound = createjs.Sound.play(this.playedSoundIds[this.playedSoundIds.length - 1]);
+            this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
+            lastSound.addEventListener("complete", this.levelProxy);
+        },
+        setSoundPlaying:function(event, val){ //event param needed because of proxy but not used
+            this.soundPlaying = val;
         },
         /***
          * adds the game items that are clickable to the scene
@@ -132,18 +156,6 @@
                 i++;
                 entry = this.fileManifest[i];
             };
-        },
-        playRandomSound: function() {
-            if (this.levelSoundIds.length > 0) {
-                var randomIndex = Math.floor(Math.random() * this.levelSoundIds.length);
-                var randomSoundId = this.levelSoundIds[randomIndex];
-                this.playedSoundIds.push(randomSoundId);
-                createjs.Sound.play(randomSoundId);
-                //remove played sound to prevent from being selected again
-                this.levelSoundIds.splice(randomIndex, 1);
-            } else {    //game finished, play conclusion and launch next level 
-                this.manageLevelEnd();
-            }
         },
         manageLevelEnd: function() {
             //set the score for this level
