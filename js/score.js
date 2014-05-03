@@ -32,12 +32,7 @@
             var container = new createjs.Container();
             container.addChild(blurredRectangle);
             
-            var cptGoldenStars = 1;
-            if(this.score > 4) {
-                cptGoldenStars = 3;
-            } else if(this.score > 3) {
-                cptGoldenStars = 2;
-            }
+            var cptGoldenStars = Utils.getStarNumberByScore(this.score);
             
               //draw 3 stars with an interval of 600 mililseconds to make them appear one after another
              setInterval(function() {
@@ -49,7 +44,6 @@
                         starFillColor = "#5C5858";
                     }
                     var star = Utils.createStar(starFillColor, x, y, 600, 100,3);
-                    //stage.addChild(star);
                     container.addChild(star);
                     x+= 220;
                     i++;

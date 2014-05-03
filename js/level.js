@@ -170,7 +170,6 @@
                 if (userScore[i].user === "test" && userScore[i].levelId === level.id) {
                     userScore[i].score = finalScore;
                     update = 1;
-                    //return;
                 }
             }
             if (update === 0) { //add a new score instad of updating existing

@@ -52,22 +52,26 @@
                 var container = new createjs.Container();
                 container.addChild(item);
 
-                var cptGoldenStars = Utils.getScoreByUserAndLevel("test", itemIdForClickEvent);
-                var starX = item.x + 40;
-                var starY = item.y;
-                if(cptGoldenStars !==null){
+                var levelScore = Utils.getScoreByUserAndLevel("test", itemIdForClickEvent);
+                var cptGoldenStars = 0;
+                if (levelScore !== null) {
+                    cptGoldenStars = Utils.getStarNumberByScore(levelScore);
+                    var starX = item.x + 40;
+                    var starY = item.y;
+
                     for (var j = 0; j < 3; j++) {
-                    if (cptGoldenStars > 0) {
-                        starFillColor = "#FDD017";
-                        cptGoldenStars--;
-                    } else {
-                        starFillColor = "#5C5858";
-                    }
-                    var str = Utils.createStar(starFillColor, starX, starY, 0, 18, 1);
-                    container.addChild(str);
-                    starX += 40;
+                        if (cptGoldenStars > 0) {
+                            starFillColor = "#FDD017";
+                            cptGoldenStars--;
+                        } else {
+                            starFillColor = "#5C5858";
+                        }
+                        var str = Utils.createStar(starFillColor, starX, starY, 0, 18, 1);
+                        container.addChild(str);
+                        starX += 40;
                     }
                 }
+
                 this.levelProxy = createjs.proxy(this.handleItemlick, this, itemIdForClickEvent, isMainNav);
                 item.addEventListener("pressup", this.levelProxy);
 

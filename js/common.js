@@ -259,6 +259,15 @@ var Utils = {
         //as well as for those items that were never played yet
         return null;
     },
+    getStarNumberByScore:function(score){
+        var goldenStars = 1;
+        if(score > 4) {
+            goldenStars = 3;
+        } else if(score > 3) {
+            goldenStars = 2;
+        }
+        return goldenStars;
+    },
     supportsLocalStorage: function() {
         try {
             return 'localStorage' in window && window['localStorage'] !== null;
