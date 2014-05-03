@@ -119,7 +119,7 @@
                     prefix = "neg";
                     this.levelProxy = createjs.proxy(this.replayLastSound, this);
                 }
-                feedbackSound = createjs.Sound.play(prefix + randomFBNum + "_fb");
+                feedbackSound = createjs.Sound.play(prefix + randomFBNum + FEEDBACK_SUFFIX);
                 feedbackSound.addEventListener("complete", this.levelProxy);
         },
         playRandomSound: function() {
@@ -132,6 +132,7 @@
                 var newSound = createjs.Sound.play(randomSoundId);
                 
                 this.setSoundPlaying(null, false); // do not wait for sound to complete, allow the child to click quickly on the item...if it is clear directly which item it is..
+                //LEAVE THIS COMMENTED IN CASE OF NEEDING IT BACK AFTER USABLITIY TEST; I STILL DOUBT if this behaviour is good or not
 //                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
 //                newSound.addEventListener("complete", this.levelProxy);
             } else {    

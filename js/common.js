@@ -29,8 +29,8 @@ var levels = [
     {id: "score", theme: "score", media: "interLevel_fileManifest"},
     {id: "animaux1", theme: "animaux", media: "animaux1_fileManifest"},
     {id: "animaux2", theme: "animaux", media: "animaux2_fileManifest"},
-    {id: "animaux3", theme: "animaux", media: "animaux3_fileManifest"}
-    /*{id:"habits1" , theme:"habits", media:"habits1_fileManifest"}*/
+    {id: "animaux3", theme: "animaux", media: "animaux3_fileManifest"},
+    {id:"habits1" , theme:"habits", media:"habits1_fileManifest"}
 ];
 
 var userScore = [
@@ -62,7 +62,7 @@ var nav_fileManifest = [
     {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau1_decor_grand.png"},
     //level images
     {id: "animaux", src: IMGFOLDER + NAV_FOLDER + "niveau1_animaux.png", "x": 42, "y": 184},
-    /*{id: "habits", src: IMGFOLDER + NAV_FOLDER + "niveau1_habits.png", "x": 238, "y": 184},*/
+    {id: "habits", src: IMGFOLDER + NAV_FOLDER + "niveau1_habits.png", "x": 238, "y": 184},
     //instruction and feedback sounds
     {id: "intro_fb", src: SNDFOLDER + NAV_FOLDER + "intro.wav"},
     {id: "nav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"},
@@ -76,6 +76,13 @@ var animaux_nav_fileManifest = [
     {id: "animauxEx1", levelId: "animaux1", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex1.png", "x": 42, "y": 254},
     {id: "animauxEx2", levelId: "animaux2", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex2.png", "x": 228, "y": 254},
     {id: "animauxEx3", levelId: "animaux3", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex3.png", "x": 408, "y": 254},
+];
+
+var habits_nav_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau2_habits_decor.png"},
+    //level images
+    {id: "habitsEx1", levelId: "habits1", src: IMGFOLDER + NAV_FOLDER + "niveau2_habits_ex1.png", "x": 42, "y": 254}
 ];
 
 /***
@@ -176,7 +183,8 @@ var animaux3_fileManifest = [
 ];
 
 
-var allFiles = [interLevel_fileManifest, nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, feedback_fileManifest, animaux_nav_fileManifest, speakerIconFile];
+var allFiles = [interLevel_fileManifest, nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, 
+                feedback_fileManifest, animaux_nav_fileManifest, speakerIconFile,habits_nav_fileManifest];
 
 
 var Utils = {
