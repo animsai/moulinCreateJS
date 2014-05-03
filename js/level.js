@@ -14,6 +14,7 @@
         levelImages: null,
         levelOutlines: null, //TODO check if needed, for now not used
         soundPlaying: false,
+        speaker:null,
         initialize: function(level, stage) {
             //init internal variables
             this.fileManifest = eval(level.media);
@@ -24,6 +25,7 @@
             this.levelImages = new Array();
             this.levelOutlines = new Array();
             this.soundPlaying = false;
+            this.speaker = Utils.generateBitmapItem(speakerIconFile.src, speakerIconFile.x, speakerIconFile.y, 0, false);
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
             this.createLevel();
@@ -52,6 +54,7 @@
 
             //playing instruction sentance
             var consignesSound = createjs.Sound.play("consignes_" + this.level.id);
+            this.setSoundPlaying(null, true);
             this.levelProxy = createjs.proxy(this.playRandomSound, this);
             consignesSound.addEventListener("complete", this.levelProxy);
 
@@ -71,6 +74,7 @@
         },
         handleItemInteraction: function(event, itemId) {
             if(this.soundPlaying === false){
+                this.stage.removeChild(this.speaker);
                 var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
                 if (itemId + SOUND_SUFFIX === lastPlayedSound) {
                     //correct : remove clicked item, display outline on stage, update score and play positive feedback
@@ -91,15 +95,16 @@
                     this.score++;
                     //Play positive feedback
                     this.playFeedbackAndContinue(true);
-                } else if(lastPlayedSound !== undefined){
+                } else {
                     //wrong: reduce score, play negative feedback and continue game
                     this.score--;
                     this.playFeedbackAndContinue(false);
                 }
             } else {
                 //TODO inform user that there is a sound playing and that he needs to wait!
-               // var speaker = Utils.generateBitmapItem(speakerIconFile.src, speakerIconFile.x, speakerIconFile.y, 0, false);
-                //this.stage.addChild(speaker);
+                this.stage.addChild(this.speaker);
+                this.speaker.alpha = 0.2;
+                createjs.Tween.get(this.speaker).to({alpha: 0.8}, 300).to({alpha: 0}, 300);
             }
         },
         playFeedbackAndContinue:function(isPositiveFB) {
@@ -125,8 +130,10 @@
                 //remove played sound to prevent from being selected again -> TODO remove it on sound play completion to be sure it DID play once
                 this.levelSoundIds.splice(randomIndex, 1);
                 var newSound = createjs.Sound.play(randomSoundId);
-                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-                newSound.addEventListener("complete", this.levelProxy);
+                
+                this.setSoundPlaying(null, false); // do not wait for sound to complete, allow the child to click quickly on the item...if it is clear directly which item it is..
+//                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
+//                newSound.addEventListener("complete", this.levelProxy);
             } else {    
                 //game finished, play conclusion and launch next level 
                 this.manageLevelEnd();
