@@ -93,7 +93,7 @@
                 var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
                 var outlineItem = this.fileManifest[indexOutline];
                 var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);
-                this.stage.addChild(outline);
+                this.stage.addChildAt(outline, outlineItem.order);
                 //add score
                 this.score++;
                 //Play item related feedback
