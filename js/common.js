@@ -42,7 +42,6 @@ var feedback_fileManifest = [
     {id: "pos0_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.bon.1.wav"},
     {id: "pos1_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.bon.2.wav"},
     {id: "pos2_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.bon.3.wav"},
-    {id: "pos3_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.bon.4.wav"},
     {id: "neg0_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.mauvais.1.wav"},
     {id: "neg1_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.mauvais.2.wav"},
     {id: "neg2_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.mauvais.3.wav"},

@@ -71,48 +71,50 @@
         },
         handleItemInteraction: function(event, itemId) {
             //console.log(this.soundPlaying);
-            if(this.soundPlaying == false){
+            //if(this.soundPlaying == false){
             var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1];
-            if (itemId + SOUND_SUFFIX === lastPlayedSound) {//correct, play positive feedback
-                //console.log("posfeed");
+            if (itemId + SOUND_SUFFIX === lastPlayedSound) {
+                //correct : remove clicked item, display outline on stage, update score and play positive feedback
                 event.target.removeEventListener("pressup", this.levelProxy);
-                //make the item dissapear gently
+                //make the item dissapear gently with tween effect
                 var clickedItem = event.target;
                 var localThis = this;
                 createjs.Tween.get(clickedItem).to({alpha: 0}, 1000).call(function() {
                     localThis.stage.removeChild(clickedItem);
                 });
-                this.score++;
+                
                 ////add outline image to stage
                 var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
                 var outlineItem = this.fileManifest[indexOutline];
                 var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);
                 this.stage.addChild(outline);
-
+                //add score
+                this.score++;
                 //Play positive feedback
-                var randomFBNum = Math.round(Math.random() * 3);
-                var posFeedBack = createjs.Sound.play("pos" + randomFBNum + "_fb");
-                //play another random sound    
-                this.levelProxy = createjs.proxy(this.playRandomSound, this);
-                posFeedBack.addEventListener("complete", this.levelProxy);
-
+                this.playFeedbackAndContinue(true);
             } else if(lastPlayedSound !== undefined){
-                //wrong, play negative feedback
-                var randomFBNegNum = Math.round(Math.random() * 2);
-                var negFeedBack = createjs.Sound.play("neg" + randomFBNegNum + "_fb");
-                this.soundPlaying = true;
-                //console.log("negfeed");
+                //wrong: reduce score, play negative feedback and continue game
                 this.score--;
-                var localthis = this;
-                //replay last sound
-                negFeedBack.addEventListener("complete", function() {
-                    //console.log("replay");
-                    createjs.Sound.play(lastPlayedSound);
-                    localthis.soundPlaying = false;
-                    
-                });
-               //console.log("after replay " + this.soundPlaying);
-            }}
+                this.playFeedbackAndContinue(false);
+            }//}
+        },
+        playFeedbackAndContinue:function(isPositiveFB) {
+            //Play positive feedback
+                var randomFBNum = Math.round(Math.random() * 2);
+                var feedbackSound;
+                var prefix;
+                if(isPositiveFB){
+                    prefix = "pos";
+                    this.levelProxy = createjs.proxy(this.playRandomSound, this);
+                } else {
+                    prefix = "neg";
+                    this.levelProxy = createjs.proxy(this.replayLastSound, this);
+                }
+                feedbackSound = createjs.Sound.play(prefix + randomFBNum + "_fb");
+                feedbackSound.addEventListener("complete", this.levelProxy);
+        },
+        replayLastSound:function() {
+            createjs.Sound.play(this.playedSoundIds[this.playedSoundIds.length - 1]);
         },
         /***
          * adds the game items that are clickable to the scene
@@ -129,12 +131,10 @@
                 this.stage.addChild(item);
                 i++;
                 entry = this.fileManifest[i];
-            }
-            ;
+            };
         },
         playRandomSound: function() {
             if (this.levelSoundIds.length > 0) {
-                this.soundPlaying = false;
                 var randomIndex = Math.floor(Math.random() * this.levelSoundIds.length);
                 var randomSoundId = this.levelSoundIds[randomIndex];
                 this.playedSoundIds.push(randomSoundId);
