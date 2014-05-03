@@ -198,19 +198,32 @@
             var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
             while (i < this.fileManifest.length && entry.type === "image" && entry.id.match(outlineMatch) === null) {
                 var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, true);
+                var container = new createjs.Container();
+                container.addChild(item);
                 if(this.level.interaction === InteractionTypeEnum.GUIDEE){
                     this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
                     item.addEventListener("pressup", this.levelProxy)
                 } else {
+                    this.levelProxy = createjs.proxy(this.handleStartDrag, this);
+                    item.addEventListener("mousedown", this.levelProxy);
+                    this.levelProxy = createjs.proxy(this.handleDrag, this, entry.id);
+                    container.addEventListener("pressmove", this.levelProxy);
                     this.levelProxy = createjs.proxy(this.handleOrderedInteraction, this, entry.id);
-                    item.addEventListener("pressup", this.levelProxy)
+                    item.addEventListener("pressup", this.levelProxy);
                 }
-               
-                
-                this.stage.addChild(item);
+
+                this.stage.addChild(container);
                 i++;
                 entry = this.fileManifest[i];
             };
+        },
+        handleStartDrag: function(evt) {
+           offset = { x: evt.target.x - evt.stageX, y: evt.target.y - evt.stageY };       
+        },
+        
+        handleDrag: function(event) {
+            event.target.x = event.stageX + offset.x;
+            event.target.y = event.stageY +  offset.y;
         },
         manageLevelEnd: function() {
             //set the score for this level

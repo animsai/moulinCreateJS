@@ -4,7 +4,7 @@ function init() {
     stage = new createjs.Stage(canvas);
     createjs.Touch.enable(stage);
     createjs.Ticker.addEventListener("tick", handleTick);
-    onResize();
+    //onResize();
 
     //Load scores from local storage
     if (Utils.supportsLocalStorage() && localStorage["moulin.scores"] !== undefined) {
@@ -19,7 +19,7 @@ function handleTick() {
 
 window.onresize = function()
 {
-    onResize();
+    //onResize();
 };
 
 //code found here and slightly adapted:
