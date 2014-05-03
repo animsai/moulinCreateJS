@@ -78,33 +78,44 @@
             return itemIndex;
         },
         handleOrderedInteraction: function(event, itemId) {
-            if (this.soundPlaying === false) {
-                this.stage.removeChild(this.speaker);
+            this.stage.removeChild(this.speaker);
+             //retrieve outline image info
+            var originItem = this.fileManifest[this.getItemIndexById(itemId)];
+            var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
+            var outlineItem = this.fileManifest[indexOutline];
+            var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);
+            var clickedItem = event.target;
+            
+            if(this.isRightDropPosition(clickedItem, outlineItem)){
                 //if item is dropped in the dropping zone (on lili), then tell feedback and continue game
                 event.target.removeEventListener("pressup", this.levelProxy);
                 //make the item dissapear gently with tween effect
-                var clickedItem = event.target;
+                
                 var localThis = this;
                 createjs.Tween.get(clickedItem).to({alpha: 0}, 1000).call(function() {
                     localThis.stage.removeChild(clickedItem);
                 });
-
-                ////add outline image to stage
-                var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
-                var outlineItem = this.fileManifest[indexOutline];
-                var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);
-                this.stage.addChildAt(outline, outlineItem.order);
-                //add score
-                this.score++;
-                //Play item related feedback
-                this.playItemRelatedFeedback(itemId);
-
+                    this.stage.addChildAt(outline, outlineItem.order);
+                    //add score
+                    this.score++;
+                    //Play item related feedback
+                    this.playItemRelatedFeedback(itemId);
             } else {
-                //TODO inform user that there is a sound playing and that he needs to wait!
-                this.stage.addChild(this.speaker);
-                this.speaker.alpha = 0.2;
-                createjs.Tween.get(this.speaker).to({alpha: 0.8}, 300).to({alpha: 0}, 300);
+                //move back to initial position
+                event.target.regX = 0;
+                event.target.regY = 0;
+                createjs.Tween.get(event.target).to({x: originItem.x, y: originItem.y}, 400, createjs.Ease.linear);
             }
+        },
+        isRightDropPosition:function(target, outline){
+            if(outline.x - target.x > target.image.width){
+                return false;
+            }
+            if(outline.y - target.y > target.image.height){
+                return false;
+            }
+            return true;
+            
         },
         handleGuidedInteraction: function(event, itemId) {
             if (this.soundPlaying === false) {
@@ -135,7 +146,6 @@
                     this.playFeedbackAndContinue(false);
                 }
             } else {
-                //TODO inform user that there is a sound playing and that he needs to wait!
                 this.stage.addChild(this.speaker);
                 this.speaker.alpha = 0.2;
                 createjs.Tween.get(this.speaker).to({alpha: 0.8}, 300).to({alpha: 0}, 300);
@@ -231,8 +241,14 @@
             ct.y -= ny;
         },
         handleDrag: function(event) {
-            event.target.x = (event.stageX - this.stage.x) / this.stage.scaleX;  
-            event.target.y = event.stageY / this.stage.scaleY; 
+             if (this.soundPlaying === false) {
+                event.target.x = (event.stageX - this.stage.x) / this.stage.scaleX;  
+                event.target.y = event.stageY / this.stage.scaleY; 
+             } else {
+                this.stage.addChild(this.speaker);
+                this.speaker.alpha = 0.2;
+                createjs.Tween.get(this.speaker).to({alpha: 0.8}, 300).to({alpha: 0}, 300);
+            }
         },
         manageLevelEnd: function() {
             //set the score for this level
