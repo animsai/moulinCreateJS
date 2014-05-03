@@ -19,7 +19,7 @@
             //adding the background image
             background = new createjs.Bitmap(this.fileManifest[0].src);
             this.stage.addChild(background);
-            this.handleSoundPlay(null, "nav_consignes_fb", null);
+            this.handleSoundPlay(null, "nav_consignes_fb");
             this.addMainItems();
         },
         initSubNavigation: function(theme) {
@@ -27,7 +27,7 @@
             this.subFileManifest = eval(theme + "_nav_fileManifest");
             background = new createjs.Bitmap(this.subFileManifest[0].src);
             this.stage.addChild(background);
-            this.handleSoundPlay(null, "subNav_consignes_fb", null);
+            this.handleSoundPlay(null, "subNav_consignes_fb");
             this.addSubNavigationItems();
         },
         addMainItems: function() {
@@ -80,8 +80,6 @@
                 entry = fileManifest[i];
             }
             ;
-
-
         },
         handleItemlick: function(event, itemId, isMainNav) {
             if (!this.soundPlaying) {
@@ -94,17 +92,14 @@
                 }
             }
         },
-        handleSoundPlay: function(event, soundToPlay, callback) {
+        handleSoundPlay: function(event, soundToPlay) {
             var playingSound = createjs.Sound.play(soundToPlay);
             this.soundPlaying = true; //set playing flag to true to be able de deactivate click events during playback
-            this.levelProxy = createjs.proxy(this.handleSoundCallBack, this, callback);
+            this.levelProxy = createjs.proxy(this.handleSoundCallBack, this);
             playingSound.addEventListener("complete", this.levelProxy);
         },
-        handleSoundCallBack: function(event, callback) {
+        handleSoundCallBack: function() {
             this.soundPlaying = false; // set the playing variable to false to be able to enable click events
-            if (callback !== null) {
-                eval(this + "." + callback);
-            }
         }
     };
     Moulin.Navigation = Navigation;
