@@ -14,7 +14,7 @@
         levelImages: null,
         levelOutlines: null, //TODO check if needed, for now not used
         soundPlaying: false,
-        speaker:null,
+        speaker: null,
         initialize: function(level, stage) {
             //init internal variables
             this.fileManifest = eval(level.media);
@@ -55,14 +55,14 @@
             //playing instruction sentance
             var consignesSound = createjs.Sound.play("consignes_" + this.level.id);
             this.setSoundPlaying(null, true);
-            if(this.level.interaction === InteractionTypeEnum.GUIDEE){
+            if (this.level.interaction === InteractionTypeEnum.GUIDEE) {
                 this.levelProxy = createjs.proxy(this.playRandomSound, this);
                 consignesSound.addEventListener("complete", this.levelProxy);
             } else {
                 this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
                 consignesSound.addEventListener("complete", this.levelProxy);
             }
-            
+
             //add interaction items
             this.addGameItems();
         },
@@ -77,10 +77,10 @@
             }
             return itemIndex;
         },
-        handleOrderedInteraction:function(event, itemId) {
-            if(this.soundPlaying === false){
+        handleOrderedInteraction: function(event, itemId) {
+            if (this.soundPlaying === false) {
                 this.stage.removeChild(this.speaker);
-               //if item is dropped in the dropping zone (on lili), then tell feedback and continue game
+                //if item is dropped in the dropping zone (on lili), then tell feedback and continue game
                 event.target.removeEventListener("pressup", this.levelProxy);
                 //make the item dissapear gently with tween effect
                 var clickedItem = event.target;
@@ -98,7 +98,7 @@
                 this.score++;
                 //Play item related feedback
                 this.playItemRelatedFeedback(itemId);
-                
+
             } else {
                 //TODO inform user that there is a sound playing and that he needs to wait!
                 this.stage.addChild(this.speaker);
@@ -107,7 +107,7 @@
             }
         },
         handleGuidedInteraction: function(event, itemId) {
-            if(this.soundPlaying === false){
+            if (this.soundPlaying === false) {
                 this.stage.removeChild(this.speaker);
                 var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
                 if (itemId + SOUND_SUFFIX === lastPlayedSound) {
@@ -141,25 +141,25 @@
                 createjs.Tween.get(this.speaker).to({alpha: 0.8}, 300).to({alpha: 0}, 300);
             }
         },
-        playFeedbackAndContinue:function(isPositiveFB) {
-                this.setSoundPlaying(null, true);
-                var randomFBNum = Math.round(Math.random() * 2);
-                var feedbackSound;
-                var prefix;
-                if(isPositiveFB){
-                    prefix = "pos";
-                    this.levelProxy = createjs.proxy(this.playRandomSound, this);
-                } else {
-                    prefix = "neg";
-                    this.levelProxy = createjs.proxy(this.replayLastSound, this);
-                }
-                feedbackSound = createjs.Sound.play(prefix + randomFBNum + FEEDBACK_SUFFIX);
-                feedbackSound.addEventListener("complete", this.levelProxy);
+        playFeedbackAndContinue: function(isPositiveFB) {
+            this.setSoundPlaying(null, true);
+            var randomFBNum = Math.round(Math.random() * 2);
+            var feedbackSound;
+            var prefix;
+            if (isPositiveFB) {
+                prefix = "pos";
+                this.levelProxy = createjs.proxy(this.playRandomSound, this);
+            } else {
+                prefix = "neg";
+                this.levelProxy = createjs.proxy(this.replayLastSound, this);
+            }
+            feedbackSound = createjs.Sound.play(prefix + randomFBNum + FEEDBACK_SUFFIX);
+            feedbackSound.addEventListener("complete", this.levelProxy);
         },
-        playItemRelatedFeedback:function(itemId){
+        playItemRelatedFeedback: function(itemId) {
             this.setSoundPlaying(null, true);
             this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-            var  feedbackSound = createjs.Sound.play("conf_" + itemId + "_snd");
+            var feedbackSound = createjs.Sound.play("conf_" + itemId + "_snd");
             feedbackSound.addEventListener("complete", this.levelProxy);
         },
         playRandomSound: function() {
@@ -170,22 +170,22 @@
                 //remove played sound to prevent from being selected again -> TODO remove it on sound play completion to be sure it DID play once
                 this.levelSoundIds.splice(randomIndex, 1);
                 var newSound = createjs.Sound.play(randomSoundId);
-                
+
                 this.setSoundPlaying(null, false); // do not wait for sound to complete, allow the child to click quickly on the item...if it is clear directly which item it is..
                 //LEAVE THIS COMMENTED IN CASE OF NEEDING IT BACK AFTER USABLITIY TEST; I STILL DOUBT if this behaviour is good or not
 //                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
 //                newSound.addEventListener("complete", this.levelProxy);
-            } else {    
+            } else {
                 //game finished, play conclusion and launch next level 
                 this.manageLevelEnd();
             }
         },
-        replayLastSound:function() {
+        replayLastSound: function() {
             var lastSound = createjs.Sound.play(this.playedSoundIds[this.playedSoundIds.length - 1]);
             this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
             lastSound.addEventListener("complete", this.levelProxy);
         },
-        setSoundPlaying:function(event, val){ //event param needed because of proxy but not used
+        setSoundPlaying: function(event, val) { //event param needed because of proxy but not used
             this.soundPlaying = val;
         },
         /***
@@ -200,7 +200,7 @@
                 var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, true);
                 var container = new createjs.Container();
                 container.addChild(item);
-                if(this.level.interaction === InteractionTypeEnum.GUIDEE){
+                if (this.level.interaction === InteractionTypeEnum.GUIDEE) {
                     this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
                     item.addEventListener("pressup", this.levelProxy)
                 } else {
@@ -215,15 +215,24 @@
                 this.stage.addChild(container);
                 i++;
                 entry = this.fileManifest[i];
-            };
+            }
+            ;
         },
         handleStartDrag: function(evt) {
-           offset = { x: evt.target.x - evt.stageX, y: evt.target.y - evt.stageY };       
+            var ct = evt.currentTarget;
+            local = ct.globalToLocal(evt.stageX, evt.stageY);
+            nx = ct.regX - local.x;
+            ny = ct.regY - local.y;
+            //set the new regX/Y
+            ct.regX = local.x;
+            ct.regY = local.y;
+            //adjust the real-position, otherwise the new regX/Y would cause a jump
+            ct.x -= nx;
+            ct.y -= ny;
         },
-        
         handleDrag: function(event) {
-            event.target.x = event.stageX + offset.x;
-            event.target.y = event.stageY +  offset.y;
+            event.target.x = (event.stageX - this.stage.x) / this.stage.scaleX;  
+            event.target.y = event.stageY / this.stage.scaleY; 
         },
         manageLevelEnd: function() {
             //set the score for this level
@@ -255,11 +264,11 @@
             if (update === 0) { //add a new score instad of updating existing
                 userScore[scoreIndex] = {user: "test", levelId: level.id, theme: level.theme, score: finalScore};
             }
-            
-            if(Utils.supportsLocalStorage()) {
+
+            if (Utils.supportsLocalStorage()) {
                 localStorage["moulin.scores"] = JSON.stringify(userScore);
             }
-            
+
         }
     };
     Moulin.Level = Level;
