@@ -51,7 +51,7 @@ var feedback_fileManifest = [
 var interLevel_fileManifest = [
     {id: "menu", src: IMGFOLDER + NAV_FOLDER + "menu.png", "x": 180, "y": 400},
     {id: "replay", src: IMGFOLDER + NAV_FOLDER + "replay.png", "x": 410, "y": 400},
-    {id: "next", src: IMGFOLDER + NAV_FOLDER + "next.png", "x": 630, "y": 400},
+    {id: "next", src: IMGFOLDER + NAV_FOLDER + "next.png", "x": 630, "y": 400}
 ];
 
 //global var used to inform user that there is a sound going on and that he has to wait
@@ -75,7 +75,7 @@ var animaux_nav_fileManifest = [
     //level images
     {id: "animauxEx1", levelId: "animaux1", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex1.png", "x": 42, "y": 254},
     {id: "animauxEx2", levelId: "animaux2", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex2.png", "x": 228, "y": 254},
-    {id: "animauxEx3", levelId: "animaux3", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex3.png", "x": 408, "y": 254},
+    {id: "animauxEx3", levelId: "animaux3", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex3.png", "x": 408, "y": 254}
 ];
 
 var habits_nav_fileManifest = [
@@ -118,7 +118,7 @@ var animaux1_fileManifest = [
     /*{id: "canard_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_5.wav"},*/
     {id: "chat_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_3.wav"},
     //instruction and feedback sounds
-    {id: "consignes_animaux1", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_consigne_1.wav"},
+    {id: "consignes_animaux1", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_consigne_1.wav"}
 ];
 
 /***
@@ -154,7 +154,7 @@ var animaux2_fileManifest = [
     {id: "cochon_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.4.wav"},
     {id: "vache_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.2.wav"},
     //instruction and feedback sounds
-    {id: "consignes_animaux2", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.consigne.1.wav"},
+    {id: "consignes_animaux2", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.consigne.1.wav"}
 ];
 
 var animaux3_fileManifest = [
@@ -179,12 +179,40 @@ var animaux3_fileManifest = [
     {id: "loup_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.1.wav"},
     {id: "biche_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.2.wav"},
     //instruction and feedback sounds
-    {id: "consignes_animaux3", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.consigne.1.wav"},
+    {id: "consignes_animaux3", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.consigne.1.wav"}
 ];
 
 
+var habits1_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "habits/level1/habits_decor_ex1.png"},
+    //level images
+    {id: "baskets", src: IMGFOLDER + "habits/level1/habits_baskets.png", "x": 36, "y": 383},
+    {id: "chaussettes", src: IMGFOLDER +  "habits/level1/habits_chaussettes.png", "x": 790, "y": 212},
+    {id: "manteau", src: IMGFOLDER + "habits/level1/habits_manteau.png", "x": 790, "y": 540},
+    {id: "mouffles", src: IMGFOLDER +  "habits/level1/habits_mouffles.png", "x": 36, "y": 212},
+    {id: "pantalon", src: IMGFOLDER + "habits/level1/habits_pantalon.png", "x": 36, "y": 550},
+    {id: "pull", src: IMGFOLDER + "habits/level1/habits_pull.png", "x": 790, "y": 357},
+    //image outlines
+    {id: "baskets_outline", src: IMGFOLDER +  "habits/level1/habits_baskets_seul.png", "x": 413, "y": 660},
+    {id: "chaussettes_outline", src: IMGFOLDER +  "habits/level1/habits_chaussettes_seul.png", "x": 413, "y": 640},
+    {id: "manteau_outline", src: IMGFOLDER +  "habits/level1/habits_manteau_seul.png", "x": 357, "y": 337},
+    {id: "mouffles_outline", src: IMGFOLDER +  "habits/level1/habits_mouffles_seul.png", "x": 335, "y": 450},
+    {id: "pantalon_outline", src: IMGFOLDER +  "habits/level1/habits_pantalon_seul.png", "x": 445, "y": 468},
+    {id: "pull_outline", src: IMGFOLDER +  "habits/level1/habits_pull_seul.png", "x": 370, "y": 338},
+    //level sounds
+    {id: "baskets_snd", src: SNDFOLDER  + "habits/level1/2habit.ex1.serie1.4.wav"},
+    {id: "chaussettes_snd", src: SNDFOLDER +  "habits/level1/2habit.ex1.serie1.3.wav"},
+    {id: "manteau_snd", src: SNDFOLDER +  "habits/level1/2habit.ex1.serie1.5.wav"},
+    {id: "mouffles_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.6.wav"},
+    {id: "pantalon_snd", src: SNDFOLDER +  "habits/level1/2habit.ex1.serie1.2.wav"},
+    {id: "pull_snd", src: SNDFOLDER +  "habits/level1/2habit.ex1.serie1.1.wav"},
+    //instruction and feedback sounds
+    {id: "consignes_habits1", src: SNDFOLDER + "habits/level1/2habit.ex1.consigne1.wav"}
+];
+
 var allFiles = [interLevel_fileManifest, nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, 
-                feedback_fileManifest, animaux_nav_fileManifest, speakerIconFile,habits_nav_fileManifest];
+                feedback_fileManifest, animaux_nav_fileManifest, speakerIconFile, habits_nav_fileManifest, habits1_fileManifest];
 
 
 var Utils = {
