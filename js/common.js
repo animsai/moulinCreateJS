@@ -17,6 +17,12 @@ var SOUND_SUFFIX = "_snd";
 var SCENE_ID = "scene";
 var FEEDBACK_SUFFIX = "_fb";
 
+var InteractionTypeEnum = {
+    GUIDEE:1,
+    LIBREORDONNEE:2
+};
+
+
 var themes = [
     {id: "nav"},
     {id: "animaux"},
@@ -27,10 +33,10 @@ var themes = [
 //keep the levels in the correct order, otherwise it won't work for the score calculations
 var levels = [
     {id: "score", theme: "score", media: "interLevel_fileManifest"},
-    {id: "animaux1", theme: "animaux", media: "animaux1_fileManifest"},
-    {id: "animaux2", theme: "animaux", media: "animaux2_fileManifest"},
-    {id: "animaux3", theme: "animaux", media: "animaux3_fileManifest"},
-    {id:"habits1" , theme:"habits", media:"habits1_fileManifest"}
+    {id: "animaux1", theme: "animaux", media: "animaux1_fileManifest", interaction:InteractionTypeEnum.GUIDEE},
+    {id: "animaux2", theme: "animaux", media: "animaux2_fileManifest", interaction:InteractionTypeEnum.GUIDEE},
+    {id: "animaux3", theme: "animaux", media: "animaux3_fileManifest", interaction:InteractionTypeEnum.GUIDEE},
+    {id:"habits1" , theme:"habits", media:"habits1_fileManifest", interaction:InteractionTypeEnum.LIBREORDONNEE}
 ];
 
 var userScore = [
@@ -45,7 +51,8 @@ var feedback_fileManifest = [
     {id: "neg0_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.mauvais.1.wav"},
     {id: "neg1_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.mauvais.2.wav"},
     {id: "neg2_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.mauvais.3.wav"},
-    {id: "conclusion_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.conclusion.1.wav"}
+    {id: "animaux_conclusion_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.conclusion.1.wav"},
+    {id: "habits_conclusion_fb", src: SNDFOLDER + "habits/" + FB_FOLDER + "2habit.ex3.conclusion.1.wav"}
 ];
 
 var interLevel_fileManifest = [
@@ -187,18 +194,18 @@ var habits1_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "habits/level1/habits_decor_ex1.png"},
     //level images
-    {id: "baskets", src: IMGFOLDER + "habits/level1/habits_baskets.png", "x": 36, "y": 383},
-    {id: "chaussettes", src: IMGFOLDER +  "habits/level1/habits_chaussettes.png", "x": 790, "y": 212},
-    {id: "manteau", src: IMGFOLDER + "habits/level1/habits_manteau.png", "x": 790, "y": 540},
-    {id: "mouffles", src: IMGFOLDER +  "habits/level1/habits_mouffles.png", "x": 36, "y": 212},
-    {id: "pantalon", src: IMGFOLDER + "habits/level1/habits_pantalon.png", "x": 36, "y": 550},
-    {id: "pull", src: IMGFOLDER + "habits/level1/habits_pull.png", "x": 790, "y": 357},
+    {id: "baskets", src: IMGFOLDER + "habits/level1/habits_baskets.png", "x": 36, "y": 383, order:1},
+    {id: "chaussettes", src: IMGFOLDER +  "habits/level1/habits_chaussettes.png", "x": 790, "y": 212, order:0},
+    {id: "manteau", src: IMGFOLDER + "habits/level1/habits_manteau.png", "x": 790, "y": 540, order:5},
+    {id: "mouffles", src: IMGFOLDER +  "habits/level1/habits_mouffles.png", "x": 36, "y": 212, order:4},
+    {id: "pantalon", src: IMGFOLDER + "habits/level1/habits_pantalon.png", "x": 36, "y": 550, order: 2},
+    {id: "pull", src: IMGFOLDER + "habits/level1/habits_pull.png", "x": 790, "y": 357, order:3},
     //image outlines
     {id: "baskets_outline", src: IMGFOLDER +  "habits/level1/habits_baskets_seul.png", "x": 413, "y": 660},
     {id: "chaussettes_outline", src: IMGFOLDER +  "habits/level1/habits_chaussettes_seul.png", "x": 413, "y": 640},
     {id: "manteau_outline", src: IMGFOLDER +  "habits/level1/habits_manteau_seul.png", "x": 357, "y": 337},
     {id: "mouffles_outline", src: IMGFOLDER +  "habits/level1/habits_mouffles_seul.png", "x": 335, "y": 450},
-    {id: "pantalon_outline", src: IMGFOLDER +  "habits/level1/habits_pantalon_seul.png", "x": 445, "y": 468},
+    {id: "pantalon_outline", src: IMGFOLDER +  "habits/level1/habits_pantalon_seul.png", "x": 445, "y": 465},
     {id: "pull_outline", src: IMGFOLDER +  "habits/level1/habits_pull_seul.png", "x": 370, "y": 338},
     //level sounds
     {id: "baskets_snd", src: SNDFOLDER  + "habits/level1/2habit.ex1.serie1.4.wav"},
@@ -207,6 +214,13 @@ var habits1_fileManifest = [
     {id: "mouffles_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.6.wav"},
     {id: "pantalon_snd", src: SNDFOLDER +  "habits/level1/2habit.ex1.serie1.2.wav"},
     {id: "pull_snd", src: SNDFOLDER +  "habits/level1/2habit.ex1.serie1.1.wav"},
+    //level sound confirmations
+    {id: "conf_baskets_snd", src: SNDFOLDER  + "habits/level1/baskets.wav"},
+    {id: "conf_chaussettes_snd", src: SNDFOLDER +  "habits/level1/chaussettes.wav"},
+    {id: "conf_manteau_snd", src: SNDFOLDER +  "habits/level1/manteau.wav"},
+    {id: "conf_mouffles_snd", src: SNDFOLDER + "habits/level1/mouffles.wav"},
+    {id: "conf_pantalon_snd", src: SNDFOLDER +  "habits/level1/pantalon.wav"},
+    {id: "conf_pull_snd", src: SNDFOLDER +  "habits/level1/pull.wav"},
     //instruction and feedback sounds
     {id: "consignes_habits1", src: SNDFOLDER + "habits/level1/2habit.ex1.consigne1.wav"}
 ];

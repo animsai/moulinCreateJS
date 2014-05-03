@@ -55,9 +55,14 @@
             //playing instruction sentance
             var consignesSound = createjs.Sound.play("consignes_" + this.level.id);
             this.setSoundPlaying(null, true);
-            this.levelProxy = createjs.proxy(this.playRandomSound, this);
-            consignesSound.addEventListener("complete", this.levelProxy);
-
+            if(this.level.interaction === InteractionTypeEnum.GUIDEE){
+                this.levelProxy = createjs.proxy(this.playRandomSound, this);
+                consignesSound.addEventListener("complete", this.levelProxy);
+            } else {
+                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
+                consignesSound.addEventListener("complete", this.levelProxy);
+            }
+            
             //add interaction items
             this.addGameItems();
         },
@@ -72,7 +77,36 @@
             }
             return itemIndex;
         },
-        handleItemInteraction: function(event, itemId) {
+        handleOrderedInteraction:function(event, itemId) {
+            if(this.soundPlaying === false){
+                this.stage.removeChild(this.speaker);
+               //if item is dropped in the dropping zone (on lili), then tell feedback and continue game
+                event.target.removeEventListener("pressup", this.levelProxy);
+                //make the item dissapear gently with tween effect
+                var clickedItem = event.target;
+                var localThis = this;
+                createjs.Tween.get(clickedItem).to({alpha: 0}, 1000).call(function() {
+                    localThis.stage.removeChild(clickedItem);
+                });
+
+                ////add outline image to stage
+                var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
+                var outlineItem = this.fileManifest[indexOutline];
+                var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);
+                this.stage.addChild(outline);
+                //add score
+                this.score++;
+                //Play item related feedback
+                this.playItemRelatedFeedback(itemId);
+                
+            } else {
+                //TODO inform user that there is a sound playing and that he needs to wait!
+                this.stage.addChild(this.speaker);
+                this.speaker.alpha = 0.2;
+                createjs.Tween.get(this.speaker).to({alpha: 0.8}, 300).to({alpha: 0}, 300);
+            }
+        },
+        handleGuidedInteraction: function(event, itemId) {
             if(this.soundPlaying === false){
                 this.stage.removeChild(this.speaker);
                 var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
@@ -122,6 +156,12 @@
                 feedbackSound = createjs.Sound.play(prefix + randomFBNum + FEEDBACK_SUFFIX);
                 feedbackSound.addEventListener("complete", this.levelProxy);
         },
+        playItemRelatedFeedback:function(itemId){
+            this.setSoundPlaying(null, true);
+            this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
+            var  feedbackSound = createjs.Sound.play("conf_" + itemId + "_snd");
+            feedbackSound.addEventListener("complete", this.levelProxy);
+        },
         playRandomSound: function() {
             if (this.levelSoundIds.length > 0) {
                 var randomIndex = Math.floor(Math.random() * this.levelSoundIds.length);
@@ -158,8 +198,15 @@
             var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
             while (i < this.fileManifest.length && entry.type === "image" && entry.id.match(outlineMatch) === null) {
                 var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, true);
-                this.levelProxy = createjs.proxy(this.handleItemInteraction, this, entry.id);
-                item.addEventListener("pressup", this.levelProxy)
+                if(this.level.interaction === InteractionTypeEnum.GUIDEE){
+                    this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
+                    item.addEventListener("pressup", this.levelProxy)
+                } else {
+                    this.levelProxy = createjs.proxy(this.handleOrderedInteraction, this, entry.id);
+                    item.addEventListener("pressup", this.levelProxy)
+                }
+               
+                
                 this.stage.addChild(item);
                 i++;
                 entry = this.fileManifest[i];
@@ -172,7 +219,7 @@
             var nextLevel = Utils.getNextDirectLevel(this.level.id);
 
             var score = new Moulin.Score(this.level, nextLevel, this.stage, this.score);
-            var conclusion = createjs.Sound.play("conclusion_fb");
+            var conclusion = createjs.Sound.play(this.level.theme + "_conclusion_fb");
 
             this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
             //once the conclusion is over, add the navigation buttons
