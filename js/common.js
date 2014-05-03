@@ -51,8 +51,11 @@ var feedback_fileManifest = [
 var interLevel_fileManifest = [
     {id: "menu", src: IMGFOLDER + NAV_FOLDER + "menu.png", "x": 180, "y": 400},
     {id: "replay", src: IMGFOLDER + NAV_FOLDER + "replay.png", "x": 410, "y": 400},
-    {id: "next", src: IMGFOLDER + NAV_FOLDER + "next.png", "x": 630, "y": 400}
+    {id: "next", src: IMGFOLDER + NAV_FOLDER + "next.png", "x": 630, "y": 400},
 ];
+
+//global var used to inform user that there is a sound going on and that he has to wait
+var speakerIconFile =  {id: "speaker", src: IMGFOLDER + NAV_FOLDER + "speaker.png", "x": 410, "y": 350};
 
 var nav_fileManifest = [
     //background
@@ -173,7 +176,7 @@ var animaux3_fileManifest = [
 ];
 
 
-var allFiles = [interLevel_fileManifest, nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, feedback_fileManifest, animaux_nav_fileManifest];
+var allFiles = [interLevel_fileManifest, nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, feedback_fileManifest, animaux_nav_fileManifest, speakerIconFile];
 
 
 var Utils = {
