@@ -55,7 +55,7 @@
          * adds the score and the clickable items
          */
         addScoreScreenItems: function() {
-            var files = eval(interLevel_fileManifest);
+            var files = interLevel_fileManifest;
             for (var i=0; i< files.length; i++) {
                 var entry = files[i];
                 
