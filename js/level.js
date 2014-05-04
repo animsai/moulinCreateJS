@@ -126,6 +126,7 @@
             }
         },
         handleStartDrag: function(evt, itemId) {
+            console.log("startdrag" + this.soundPlaying);
             if (this.soundPlaying === false) {
                 this.playItemSound(itemId, false);
                 /**************************/
@@ -208,10 +209,12 @@
             return false;
         },
         isRightDropPosition: function(draggedItem, dropOutline) {
-            if (dropOutline.x - draggedItem.x > draggedItem.image.width) {
+            var xDiff = dropOutline.x - draggedItem.x;
+            var yDiff = dropOutline.y - draggedItem.y;
+            if (Math.abs(xDiff) > draggedItem.image.width) {
                 return false;
             }
-            if (dropOutline.y - draggedItem.y > draggedItem.image.height) {
+            if (Math.abs(yDiff)  > draggedItem.image.height) {
                 return false;
             }
             return true;
