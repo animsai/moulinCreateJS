@@ -99,21 +99,12 @@
             //play instruction sentence
             var consigneSound = createjs.Sound.play("consignes_" + this.level.id);
             this.setSoundPlaying(null, true);
-            this.levelProxy = createjs.proxy(this.playFirstSound, this, false);
+             if (this.level.interaction === InteractionTypeEnum.GUIDED) {
+                  this.levelProxy = createjs.proxy(this.playRandomSound, this, false);
+             } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
+                 this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
+             }
             consigneSound.addEventListener("complete", this.levelProxy);
-        },
-        //play the first sound of the level once the instruction sound is finished palying
-        playFirstSound: function() {
-            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
-                //in case of guided levels, the first sound played is already a random sound for a clickable item
-                this.playRandomSound();
-            } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
-                //in the FREEDRAG levels, the first instruction is followed by another precise instruction since there is no guidance
-                var consignesSubSound = createjs.Sound.play("consignes_sub_" + this.level.id);
-                this.setSoundPlaying(null, true);
-                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-                consignesSubSound.addEventListener("complete", this.levelProxy);
-            }
         },
         //get a given item from the current file manifest
         getItemFromManifest: function(itemId) {
