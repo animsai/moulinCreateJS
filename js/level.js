@@ -11,10 +11,8 @@
         levelProxy: null,
         playedSoundIds: null,
         levelSoundIds: null,
-        levelImages: null,
-        levelOutlines: null, //TODO check if needed, for now not used
+        levelOutlines: null,
         soundPlaying: false,
-        speaker: null,
         initialize: function(level, stage) {
             //init internal variables
             this.fileManifest = eval(level.media);
@@ -22,15 +20,14 @@
             this.stage = stage;
             this.playedSoundIds = new Array();
             this.levelSoundIds = new Array();
-            this.levelImages = new Array();
             this.levelOutlines = new Array();
             this.soundPlaying = false;
-            this.speaker = Utils.generateBitmapItem(speakerIconFile.src, speakerIconFile.x, speakerIconFile.y, 0, false);
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
             this.createLevel();
             return this;
         },
+        //utility function to separate filemanifest for easier access to files
         splitFiles: function() {
             var sndMatch = new RegExp(SOUND_SUFFIX, "g");
             var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
@@ -40,8 +37,6 @@
                 var file = this.fileManifest[i];
                 if (file.id.match(sndMatch) !== null) {
                     this.levelSoundIds.push(file.id);
-                } else if (file.id.match(outlineMatch) === null && file.id.match(sceneMatch) === null && file.id.match(fbMatch) === null) {
-                    this.levelImages.push(file.id);
                 } else if (file.id.match(outlineMatch) !== null && file.id.match(sceneMatch) === null && file.id.match(fbMatch) === null) {
                     this.levelOutlines.push(file.id);
                 }
@@ -52,21 +47,76 @@
             background = new createjs.Bitmap(this.fileManifest[0].src);
             this.stage.addChild(background);
 
-            //playing instruction sentance
-            var consignesSound = createjs.Sound.play("consignes_" + this.level.id);
-            this.setSoundPlaying(null, true);
-            if (this.level.interaction === InteractionTypeEnum.GUIDEE) {
-                this.levelProxy = createjs.proxy(this.playRandomSound, this);
-                consignesSound.addEventListener("complete", this.levelProxy);
-            } else {
-                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-                consignesSound.addEventListener("complete", this.levelProxy);
-            }
+            //add back button
+            Utils.addBackButton(this.stage, this.level.theme, false);
+
+            //play instruction sentence
+            this.playInstructions();
 
             //add interaction items
             this.addGameItems();
         },
-        getItemIndexById: function(itemId) {
+                /***
+         * adds the game items to the scene
+         * the function adds the clickable (interactive) items and their outlines (if any)
+         * the outlines are hidden in the first place and are shown once the user clicks on the right interactive item
+         */
+        addGameItems: function() {
+            var i = 1; // background is already added
+            var entry = this.fileManifest[i];
+            //add images and manage click event, starting at index 1 cause first index is the background already added
+            var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
+            while (i < this.fileManifest.length && entry.type === "image") {
+                if (entry.id.match(outlineMatch) === null) { //add interactive items
+                    var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, true);
+                } else { //add outlines to stage and hide them to make them appear later during the game
+                    var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1, false);
+                    item.visible = false;
+                }
+                //set an item name to be able to retrieve it later directly within the stage.getChildByName function
+                item.name = entry.id;
+
+                if (this.level.interaction === InteractionTypeEnum.GUIDED) {
+                    this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
+                    item.addEventListener("pressup", this.levelProxy)
+                } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
+                    this.levelProxy = createjs.proxy(this.handleStartDrag, this, entry.id);
+                    item.addEventListener("mousedown", this.levelProxy);
+                    this.levelProxy = createjs.proxy(this.handleDrag, this, entry.id);
+                    item.addEventListener("pressmove", this.levelProxy);
+                    this.levelProxy = createjs.proxy(this.handlePressup, this, entry.id);
+                    item.addEventListener("pressup", this.levelProxy);
+                }
+
+                this.stage.addChild(item);
+                i++;
+                entry = this.fileManifest[i];
+            }
+            ;
+        },
+        //manage playing of instruction sound and its completion callback
+        playInstructions: function() {
+            //play instruction sentence
+            var consigneSound = createjs.Sound.play("consignes_" + this.level.id);
+            this.setSoundPlaying(null, true);
+            this.levelProxy = createjs.proxy(this.playFirstSound, this, false);
+            consigneSound.addEventListener("complete", this.levelProxy);
+        },
+        //play the first sound of the level once the instruction sound is finished palying
+        playFirstSound: function() {
+            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
+                //in case of guided levels, the first sound played is already a random sound for a clickable item
+                this.playRandomSound();
+            } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
+                //in the FREEDRAG levels, the first instruction is followed by another precise instruction since there is no guidance
+                var consignesSubSound = createjs.Sound.play("consignes_sub_" + this.level.id);
+                this.setSoundPlaying(null, true);
+                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
+                consignesSubSound.addEventListener("complete", this.levelProxy);
+            }
+        },
+        //get a given item from the current file manifest
+        getItemFromManifest: function(itemId) {
             var i = 0;
             var itemIndex = -1;
             while (i < this.fileManifest.length && itemIndex === -1) {
@@ -75,120 +125,152 @@
                 }
                 i++;
             }
-            return itemIndex;
+            return this.fileManifest[itemIndex];
         },
-        handleOrderedInteraction: function(event, itemId) {
-            this.stage.removeChild(this.speaker);
-             //retrieve outline image info
-            var originItem = this.fileManifest[this.getItemIndexById(itemId)];
-            var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
-            var outlineItem = this.fileManifest[indexOutline];
-            var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);
-            var clickedItem = event.target;
-            
-            if(this.isRightDropPosition(clickedItem, outlineItem)){
-                //if item is dropped in the dropping zone (on lili), then tell feedback and continue game
-                event.target.removeEventListener("pressup", this.levelProxy);
-                //make the item dissapear gently with tween effect
-                
-                var localThis = this;
-                createjs.Tween.get(clickedItem).to({alpha: 0}, 1000).call(function() {
-                    localThis.stage.removeChild(clickedItem);
-                });
-                    this.stage.addChildAt(outline, outlineItem.order);
-                    //add score
-                    this.score++;
-                    //Play item related feedback
-                    this.playItemRelatedFeedback(itemId);
+        handlePressup: function(event, itemId) {
+            if (this.isCorrectAnswer(event, itemId)) {
+                this.manageCorrectAnswer(event, itemId);
             } else {
-                //move back to initial position
+                this.manageWrongAnswer(event, itemId);
+            }
+        },
+        handleStartDrag: function(evt, itemId) {
+            if (this.soundPlaying === false) {
+                this.playItemSound(itemId, false);
+                /**************************/
+                //this code was found here : http://stackoverflow.com/questions/22829143/easeljs-glitchy-drag-drop
+                var ct = evt.currentTarget;
+                local = ct.globalToLocal(evt.stageX, evt.stageY);
+                nx = ct.regX - local.x;
+                ny = ct.regY - local.y;
+                //set the new regX/Y
+                ct.regX = local.x;
+                ct.regY = local.y;
+                //adjust the real-position, otherwise the new regX/Y would cause a jump
+                ct.x -= nx;
+                ct.y -= ny;
+                /*************************************/
+            } else {
+                Utils.manageSpeaker(this.stage);
+            }
+        },
+        handleDrag: function(event) {
+            event.target.x = (event.stageX - this.stage.x) / this.stage.scaleX;
+            event.target.y = event.stageY / this.stage.scaleY;
+        },
+        handleGuidedInteraction: function(event, itemId) {
+            if (this.soundPlaying === false) {
+                this.handlePressup(event, itemId);
+            } else {
+                Utils.manageSpeaker(this.stage);
+            }
+        },
+        manageWrongAnswer: function(event, itemId) {
+            //reduce score
+            this.score--;
+            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
+                // play negative feedback and continue game
+                this.playFeedbackAndContinue(itemId, false);
+            }
+            else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
+                //move back the dragged item to its initial position 
+                var originItem = this.getItemFromManifest(itemId);
                 event.target.regX = 0;
                 event.target.regY = 0;
                 createjs.Tween.get(event.target).to({x: originItem.x, y: originItem.y}, 400, createjs.Ease.linear);
             }
         },
-        isRightDropPosition:function(target, outline){
-            if(outline.x - target.x > target.image.width){
+        manageCorrectAnswer: function(event, itemId) {
+            var clickedItem = event.target;
+            var outlineItem = this.getItemFromManifest(itemId + OUTLINE_SUFFIX);
+            //remove clicked item, display outline on stage, update score and play positive feedback
+            clickedItem.removeEventListener("pressup", this.levelProxy);
+
+            //make the item dissapear gently with tween effect
+            var localThis = this;
+            createjs.Tween.get(clickedItem).to({alpha: 0}, 1000).call(function() {
+                localThis.stage.removeChild(clickedItem);
+            });
+
+            //var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);
+            var outline = this.stage.getChildByName(outlineItem.id);
+            outline.alpha = 0;
+            outline.visible = true;
+            createjs.Tween.get(outline).to({alpha: 1}, 1000);
+
+            this.levelOutlines.splice(this.levelOutlines.indexOf(outlineItem.id), 1);
+
+            //add score
+            this.score++;
+
+            //Play positive feedback
+            this.playFeedbackAndContinue(itemId, true);
+        },
+        isCorrectAnswer: function(event, itemId) {
+            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
+                var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
+                return (itemId + SOUND_SUFFIX === lastPlayedSound);
+            } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
+                var outlineItem = this.getItemFromManifest(itemId + OUTLINE_SUFFIX);
+                return this.isRightDropPosition(event.target, outlineItem);
+            }
+            return false;
+        },
+        isRightDropPosition: function(draggedItem, dropOutline) {
+            if (dropOutline.x - draggedItem.x > draggedItem.image.width) {
                 return false;
             }
-            if(outline.y - target.y > target.image.height){
+            if (dropOutline.y - draggedItem.y > draggedItem.image.height) {
                 return false;
             }
             return true;
-            
-        },
-        handleGuidedInteraction: function(event, itemId) {
-            if (this.soundPlaying === false) {
-                this.stage.removeChild(this.speaker);
-                var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
-                if (itemId + SOUND_SUFFIX === lastPlayedSound) {
-                    //correct : remove clicked item, display outline on stage, update score and play positive feedback
-                    event.target.removeEventListener("pressup", this.levelProxy);
-                    //make the item dissapear gently with tween effect
-                    var clickedItem = event.target;
-                    var localThis = this;
-                    createjs.Tween.get(clickedItem).to({alpha: 0}, 1000).call(function() {
-                        localThis.stage.removeChild(clickedItem);
-                    });
 
-                    ////add outline image to stage
-                    var indexOutline = this.getItemIndexById(itemId + OUTLINE_SUFFIX);
-                    var outlineItem = this.fileManifest[indexOutline];
-                    var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);
-                    this.stage.addChild(outline);
-                    //add score
-                    this.score++;
-                    //Play positive feedback
-                    this.playFeedbackAndContinue(true);
-                } else {
-                    //wrong: reduce score, play negative feedback and continue game
-                    this.score--;
-                    this.playFeedbackAndContinue(false);
-                }
-            } else {
-                this.stage.addChild(this.speaker);
-                this.speaker.alpha = 0.2;
-                createjs.Tween.get(this.speaker).to({alpha: 0.8}, 300).to({alpha: 0}, 300);
-            }
         },
-        playFeedbackAndContinue: function(isPositiveFB) {
+        playFeedbackAndContinue: function(itemId, isPositiveFB) {
             this.setSoundPlaying(null, true);
-            var randomFBNum = Math.round(Math.random() * 2);
+            var soundId = "";
             var feedbackSound;
-            var prefix;
-            if (isPositiveFB) {
-                prefix = "pos";
-                this.levelProxy = createjs.proxy(this.playRandomSound, this);
-            } else {
-                prefix = "neg";
-                this.levelProxy = createjs.proxy(this.replayLastSound, this);
+            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
+                var randomFBNum = Math.round(Math.random() * 2);
+                soundId = randomFBNum + FEEDBACK_SUFFIX;
+                if (isPositiveFB) {
+                    soundId = "pos" + soundId;
+                    this.levelProxy = createjs.proxy(this.playRandomSound, this);
+                } else {
+                    soundId = "neg" + soundId;
+                    this.levelProxy = createjs.proxy(this.replayLastSound, this);
+                }
+            } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
+                soundId = "conf_" + itemId + "_snd";
+                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
             }
-            feedbackSound = createjs.Sound.play(prefix + randomFBNum + FEEDBACK_SUFFIX);
+
+            //in any type of interaction, if the level is finished then we manage the level end after last feedback sentence
+            if (this.levelOutlines.length === 0) { //level finished
+                this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
+            }
+
+            feedbackSound = createjs.Sound.play(soundId);
             feedbackSound.addEventListener("complete", this.levelProxy);
         },
-        playItemRelatedFeedback: function(itemId) {
+        playItemSound: function(itemId) {
             this.setSoundPlaying(null, true);
             this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-            var feedbackSound = createjs.Sound.play("conf_" + itemId + "_snd");
-            feedbackSound.addEventListener("complete", this.levelProxy);
+            var itemSound = createjs.Sound.play(itemId + "_snd");
+            itemSound.addEventListener("complete", this.levelProxy);
         },
         playRandomSound: function() {
-            if (this.levelSoundIds.length > 0) {
-                var randomIndex = Math.floor(Math.random() * this.levelSoundIds.length);
-                var randomSoundId = this.levelSoundIds[randomIndex];
-                this.playedSoundIds.push(randomSoundId);
-                //remove played sound to prevent from being selected again -> TODO remove it on sound play completion to be sure it DID play once
-                this.levelSoundIds.splice(randomIndex, 1);
-                var newSound = createjs.Sound.play(randomSoundId);
+            var randomIndex = Math.floor(Math.random() * this.levelSoundIds.length);
+            var randomSoundId = this.levelSoundIds[randomIndex];
+            this.playedSoundIds.push(randomSoundId);
+            //remove played sound to prevent from being selected again -> TODO remove it on sound play completion to be sure it DID play once
+            this.levelSoundIds.splice(randomIndex, 1);
+            var newSound = createjs.Sound.play(randomSoundId);
 
-                this.setSoundPlaying(null, false); // do not wait for sound to complete, allow the child to click quickly on the item...if it is clear directly which item it is..
-                //LEAVE THIS COMMENTED IN CASE OF NEEDING IT BACK AFTER USABLITIY TEST; I STILL DOUBT if this behaviour is good or not
+            this.setSoundPlaying(null, false); // do not wait for sound to complete, allow the child to click quickly on the item...if it is clear directly which item it is..
+            //LEAVE THIS COMMENTED IN CASE OF NEEDING IT BACK AFTER USABLITIY TEST; I STILL DOUBT if this behaviour is good or not
 //                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
 //                newSound.addEventListener("complete", this.levelProxy);
-            } else {
-                //game finished, play conclusion and launch next level 
-                this.manageLevelEnd();
-            }
         },
         replayLastSound: function() {
             var lastSound = createjs.Sound.play(this.playedSoundIds[this.playedSoundIds.length - 1]);
@@ -197,58 +279,6 @@
         },
         setSoundPlaying: function(event, val) { //event param needed because of proxy but not used
             this.soundPlaying = val;
-        },
-        /***
-         * adds the game items that are clickable to the scene
-         */
-        addGameItems: function() {
-            var i = 1; // background is already added
-            var entry = this.fileManifest[i];
-            //add images and manage click event, starting at index 1 cause first index is the background already added
-            var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
-            while (i < this.fileManifest.length && entry.type === "image" && entry.id.match(outlineMatch) === null) {
-                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, true);
-                var container = new createjs.Container();
-                container.addChild(item);
-                if (this.level.interaction === InteractionTypeEnum.GUIDEE) {
-                    this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
-                    item.addEventListener("pressup", this.levelProxy)
-                } else {
-                    this.levelProxy = createjs.proxy(this.handleStartDrag, this);
-                    item.addEventListener("mousedown", this.levelProxy);
-                    this.levelProxy = createjs.proxy(this.handleDrag, this, entry.id);
-                    container.addEventListener("pressmove", this.levelProxy);
-                    this.levelProxy = createjs.proxy(this.handleOrderedInteraction, this, entry.id);
-                    item.addEventListener("pressup", this.levelProxy);
-                }
-
-                this.stage.addChild(container);
-                i++;
-                entry = this.fileManifest[i];
-            }
-            ;
-        },
-        handleStartDrag: function(evt) {
-            var ct = evt.currentTarget;
-            local = ct.globalToLocal(evt.stageX, evt.stageY);
-            nx = ct.regX - local.x;
-            ny = ct.regY - local.y;
-            //set the new regX/Y
-            ct.regX = local.x;
-            ct.regY = local.y;
-            //adjust the real-position, otherwise the new regX/Y would cause a jump
-            ct.x -= nx;
-            ct.y -= ny;
-        },
-        handleDrag: function(event) {
-             if (this.soundPlaying === false) {
-                event.target.x = (event.stageX - this.stage.x) / this.stage.scaleX;  
-                event.target.y = event.stageY / this.stage.scaleY; 
-             } else {
-                this.stage.addChild(this.speaker);
-                this.speaker.alpha = 0.2;
-                createjs.Tween.get(this.speaker).to({alpha: 0.8}, 300).to({alpha: 0}, 300);
-            }
         },
         manageLevelEnd: function() {
             //set the score for this level
@@ -284,7 +314,6 @@
             if (Utils.supportsLocalStorage()) {
                 localStorage["moulin.scores"] = JSON.stringify(userScore);
             }
-
         }
     };
     Moulin.Level = Level;
