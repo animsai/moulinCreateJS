@@ -1,6 +1,6 @@
 (function() {
-    function Navigation(fileManifest, stage) {
-        this.initialize(fileManifest, stage);
+    function Navigation(fileManifest, stage, isMainNavigation, theme) {
+        this.initialize(fileManifest, stage, isMainNavigation, theme);
     }
     Navigation.prototype = {
         fileManifest: null,
@@ -8,11 +8,17 @@
         levelProxy: null,
         soundPlaying: false,
         subFileManifest: null,
-        initialize: function(fileManifest, stage) {
+        initialize: function(fileManifest, stage, isMainNavigation, theme) {
             //init internal variables
+            if(isMainNavigation === undefined){ isMainNavigation = true };
             this.fileManifest = fileManifest;
             this.stage = stage;
-            this.initMainNavigation();
+            if(isMainNavigation) {
+                this.initMainNavigation();
+            } else {
+                this.initSubNavigation(theme);
+            }
+            
             return this;
         },
         initMainNavigation: function() {
@@ -27,6 +33,8 @@
             this.subFileManifest = eval(theme + "_nav_fileManifest");
             background = new createjs.Bitmap(this.subFileManifest[0].src);
             this.stage.addChild(background);
+            //add back button
+            Utils.addBackButton(this.stage, theme, true);
             this.handleSoundPlay(null, "subNav_consignes_fb");
             this.addSubNavigationItems();
         },
