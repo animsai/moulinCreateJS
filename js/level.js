@@ -12,7 +12,9 @@
         playedSoundIds: null,
         levelSoundIds: null,
         levelOutlines: null,
+        levelImages:null,
         soundPlaying: false,
+        isDragged:false,
         initialize: function(level, stage) {
             //init internal variables
             this.fileManifest = eval(level.media);
@@ -21,6 +23,7 @@
             this.playedSoundIds = new Array();
             this.levelSoundIds = new Array();
             this.levelOutlines = new Array();
+            this.levelImages = new Array();
             this.soundPlaying = false;
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
@@ -32,12 +35,14 @@
             var sndMatch = new RegExp(SOUND_SUFFIX, "g");
             var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
             var sceneMatch = new RegExp(SCENE_ID, "g");
-            var fbMatch = new RegExp(FEEDBACK_SUFFIX, "g");
+            var consignesMatch = new RegExp(CONSINGES, "g");
             for (i = 0; i < this.fileManifest.length; i++) {
                 var file = this.fileManifest[i];
                 if (file.id.match(sndMatch) !== null) {
                     this.levelSoundIds.push(file.id);
-                } else if (file.id.match(outlineMatch) !== null && file.id.match(sceneMatch) === null && file.id.match(fbMatch) === null) {
+                } else if (file.id.match(outlineMatch) === null && file.id.match(sceneMatch) === null && file.id.match(consignesMatch) === null) {
+                    this.levelImages.push(file.id);
+                } else if (file.id.match(outlineMatch) !== null && file.id.match(sceneMatch) === null && file.id.match(consignesMatch) === null) {
                     this.levelOutlines.push(file.id);
                 }
             }
@@ -126,7 +131,7 @@
             }
         },
         handleStartDrag: function(evt, itemId) {
-            console.log("startdrag" + this.soundPlaying);
+            this.isDragged = false;
             if (this.soundPlaying === false) {
                 this.playItemSound(itemId, false);
                 /**************************/
@@ -149,6 +154,7 @@
         handleDrag: function(event) {
             event.target.x = (event.stageX - this.stage.x) / this.stage.scaleX;
             event.target.y = event.stageY / this.stage.scaleY;
+            this.isDragged = true;
         },
         handleGuidedInteraction: function(event, itemId) {
             if (this.soundPlaying === false) {
@@ -158,13 +164,15 @@
             }
         },
         manageWrongAnswer: function(event, itemId) {
-            //reduce score
-            this.score--;
             if (this.level.interaction === InteractionTypeEnum.GUIDED) {
+                //reduce score
+                this.score--;
                 // play negative feedback and continue game
                 this.playFeedbackAndContinue(itemId, false);
             }
-            else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
+            else if (this.level.interaction === InteractionTypeEnum.FREEDRAG && this.isDragged) {
+                 //reduce score
+                this.score--;
                 //move back the dragged item to its initial position 
                 var originItem = this.getItemFromManifest(itemId);
                 event.target.regX = 0;
@@ -211,10 +219,10 @@
         isRightDropPosition: function(draggedItem, dropOutline) {
             var xDiff = dropOutline.x - draggedItem.x;
             var yDiff = dropOutline.y - draggedItem.y;
-            if (Math.abs(xDiff) > draggedItem.image.width) {
+            if (Math.abs(Math.abs(xDiff) - draggedItem.image.width)> draggedItem.image.width) {
                 return false;
             }
-            if (Math.abs(yDiff)  > draggedItem.image.height) {
+            if (Math.abs(Math.abs(yDiff)  - draggedItem.image.height)> draggedItem.image.height) {
                 return false;
             }
             return true;
@@ -291,7 +299,9 @@
         },
         updateLevelScore: function(level, score) {
             var scoreIndex = userScore.length;
-            var finalScore = (score < 0) ? 0 : score;
+            var finalScore = score - this.levelImages.length + 3;
+            finalScore < 0 ? 1 : finalScore;
+            this.score = finalScore;
             var update = 0;
             //set the score for this level
             //first check if already played and update it

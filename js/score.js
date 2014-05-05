@@ -32,8 +32,7 @@
             var container = new createjs.Container();
             container.addChild(blurredRectangle);
             
-            var cptGoldenStars = Utils.getStarNumberByScore(this.score);
-            
+            var cptGoldenStars = this.score;
               //draw 3 stars with an interval of 600 mililseconds to make them appear one after another
              setInterval(function() {
                  if(i<3) { //"loop" management inside of interval, to limit the interval to 3 executions, because we want only 3 stars

@@ -61,16 +61,14 @@
                 container.addChild(item);
 
                 var levelScore = Utils.getScoreByUserAndLevel("test", itemIdForClickEvent);
-                var cptGoldenStars = 0;
                 if (levelScore !== null) {
-                    cptGoldenStars = Utils.getStarNumberByScore(levelScore);
                     var starX = item.x + 40;
                     var starY = item.y;
 
                     for (var j = 0; j < 3; j++) {
-                        if (cptGoldenStars > 0) {
+                        if (levelScore > 0) {
                             starFillColor = "#FDD017";
-                            cptGoldenStars--;
+                            levelScore--;
                         } else {
                             starFillColor = "#5C5858";
                         }
@@ -86,8 +84,7 @@
                 this.stage.addChild(container);
                 i++;
                 entry = fileManifest[i];
-            }
-            ;
+            };
         },
         handleItemlick: function(event, itemId, isMainNav) {
             if (!this.soundPlaying) {
