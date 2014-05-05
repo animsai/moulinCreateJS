@@ -34,8 +34,8 @@
         this.frameColor = frameColor;
 
         //placing of the container
-        this.x = 10;//Math.round(window.screen.width / 2 - this.width / 2);
-        this.y =  25;//Math.round(window.screen.height / 2 - this.height / 2);
+        this.x = 280;//Math.round(window.screen.width / 2 - this.width / 2);
+        this.y =  100;//Math.round(window.screen.height / 2 - this.height / 2);
 
         //creating the loading bar   
         this.loadingBar = new createjs.Shape();
@@ -43,7 +43,7 @@
 
         //creating the frame around the loading bar
         this.frame = new createjs.Shape();
-        this.frame.graphics.setStrokeStyle(1).beginStroke(this.frameColor).drawRect(-this.padding / 2, -this.padding / 2, this.width + this.padding, this.height + this.padding).endStroke();
+        this.frame.graphics.setStrokeStyle(5).beginStroke(this.frameColor).drawRect(-this.padding / 2, -this.padding / 2, this.width + this.padding, this.height + this.padding).endStroke();
 
         //adding the loading bar and the frame to our container
         this.addChild(this.loadingBar, this.frame);

@@ -18,11 +18,13 @@
                 this.allManifestConcat = this.allManifestConcat.concat(manifestArray[i]);
             }
 
-            this.loadingBarText = new Moulin.LoadingBarText("Loading...", "1.2em Verdana", "black", 300, "center", 50);
-            this.stage.addChild(this.loadingBarText);
+//            this.loadingBarText = new Moulin.LoadingBarText("Loading...", "1.2em Verdana", "black", 300, "center", 50);
+//            this.stage.addChild(this.loadingBarText);
+            var background = new createjs.Bitmap(introImg.src);
+            this.stage.addChild(background);
 
             //creating a loading bar from our class and passing some arguments
-            this.bar = new Moulin.LoadingBar(400, 40, 5, "green", "black");
+            this.bar = new Moulin.LoadingBar(500, 90, 5, "#72AF2C", "#8CCF3F");
             this.stage.addChild(this.bar);
 
              //manage loading queue
@@ -40,14 +42,14 @@
         handleProgress: function() {
             this.bar.loadingBar.scaleX = this.mediaQueue.progress * this.bar.width;
             progresPrecentage = Math.round(this.mediaQueue.progress * 100);
-            this.loadingBarText.setText(progresPrecentage + "% Loaded");
+//            this.loadingBarText.setText(progresPrecentage + "% Loaded");
         },
         handleComplete: function() {
             this.addNextButton();
         },
         addNextButton : function() {
-            var nextBtn = Utils.generateBitmapItem(interLevel_fileManifest[2].src, interLevel_fileManifest[2].x, interLevel_fileManifest[2].y, 1, true);
-            this.stage.removeChild(this.loadingBarText, this.bar);
+            var nextBtn = Utils.generateBitmapItem(interLevel_fileManifest[2].src, 430, 350, 1, true);
+            this.stage.removeChild(this.bar);
             
             this.mediaProxy = createjs.proxy(this.handleClick, this);
             nextBtn.addEventListener("click", this.mediaProxy);

@@ -70,7 +70,11 @@ var interLevel_fileManifest = [
 //global var used to inform user that there is a sound going on and that he has to wait
 var speakerIconFile =  {id: "speaker", src: IMGFOLDER + NAV_FOLDER + "speaker.png", "x": 410, "y": 350};
 //global file used in different contexts to go back to previous screen
-var backButtonFile = {id:"previous_small", src:IMGFOLDER + NAV_FOLDER + "previous_small.png", x: 25, y:35};
+var backButtonFile = {id:"previous_small", src:IMGFOLDER + NAV_FOLDER + "previous_small.png", x: 35, y:35};
+var repeatButtonFile = {id:"repeat", src:IMGFOLDER + NAV_FOLDER + "repeat.png", x: 35, y:650};
+var closeButtonFile = {id:"close", src:IMGFOLDER + NAV_FOLDER + "close.png", x: 135, y:35};
+var introSnd = {id: "intro_snd", src: SNDFOLDER + NAV_FOLDER + "intro.wav"};
+var introImg = {id:"introImg", src:IMGFOLDER + NAV_FOLDER + "ecran_debut_couleurs_v2.png", x: 0, y:0};
 
 var nav_fileManifest = [
     //background
@@ -80,7 +84,6 @@ var nav_fileManifest = [
     {id: "habits", src: IMGFOLDER + NAV_FOLDER + "niveau1_habits.png", x: 238, y: 184},
     {id: "objets", src: IMGFOLDER + NAV_FOLDER + "niveau1_objets.png", x: 438, y: 184},
     //instruction and feedback sounds
-    {id: "intro_fb", src: SNDFOLDER + NAV_FOLDER + "intro.wav"},
     {id: "nav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"},
     {id: "subNav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "son_5.wav"}  
 ];

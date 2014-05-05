@@ -88,7 +88,7 @@ var Utils = {
             return false;
         }
     },
-    addBackButton:function(stage, theme, isBackToMainNav) {
+   addBackButton:function(stage, theme, isBackToMainNav) {
       var backImg = Utils.generateBitmapItem(backButtonFile.src, backButtonFile.x, backButtonFile.y, 300, true);
       backImg.addEventListener("pressup", function() {
           createjs.Sound.stop();

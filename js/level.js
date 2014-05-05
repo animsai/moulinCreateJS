@@ -53,15 +53,25 @@
             //adding the background image
             background = new createjs.Bitmap(this.fileManifest[0].src);
             this.stage.addChild(background);
+            
+            //add interaction items
+            this.addGameItems();
 
             //add back button
             Utils.addBackButton(this.stage, this.level.theme, false);
 
+            //add repeat button if guided level
+            if(this.level.interaction === InteractionTypeEnum.GUIDED){
+                this.addRepeatButton();
+            }
             //play instruction sentence
             this.playInstructions();
-
-            //add interaction items
-            this.addGameItems();
+        },
+        addRepeatButton:function() {
+            var repeatImg = Utils.generateBitmapItem(repeatButtonFile.src, repeatButtonFile.x, repeatButtonFile.y, 300, true);
+            this.levelProxy = createjs.proxy(this.replayLastSound, this);
+            repeatImg.addEventListener("pressup", this.levelProxy)
+            stage.addChild(repeatImg);
         },
                 /***
          * adds the game items to the scene
@@ -124,7 +134,7 @@
                 }
                 i++;
             }
-            if(itemIndex == -1) {
+            if(itemIndex === -1) {
                 return null;
             } else {
                 return this.fileManifest[itemIndex];
