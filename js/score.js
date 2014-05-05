@@ -58,7 +58,7 @@
             for (var i=0; i< files.length; i++) {
                 var entry = files[i];
                 
-                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 600, true);              
+                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 300, true);              
                 this.levelProxy = createjs.proxy(this.handleItemClick, this, entry.id);
                 item.addEventListener("pressup", this.levelProxy);
                 this.stage.addChild(item);

@@ -15,6 +15,7 @@
         levelImages:null,
         soundPlaying: false,
         isDragged:false,
+        itemNumber:0,
         initialize: function(level, stage) {
             //init internal variables
             this.fileManifest = eval(level.media);
@@ -27,6 +28,7 @@
             this.soundPlaying = false;
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
+            this.itemNumber = this.levelImages.length; //store the number of clickable items on game start to be able to calculate the score at the end
             this.createLevel();
             return this;
         },
@@ -73,7 +75,8 @@
             var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
             while (i < this.fileManifest.length && entry.type === "image") {
                 if (entry.id.match(outlineMatch) === null) { //add interactive items
-                    var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, true);
+                    var shadow = this.levelOutlines.length > 0 ? true : false;
+                    var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, shadow);
                 } else { //add outlines to stage and hide them to make them appear later during the game
                     var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1, false);
                     item.visible = false;
@@ -121,7 +124,11 @@
                 }
                 i++;
             }
-            return this.fileManifest[itemIndex];
+            if(itemIndex == -1) {
+                return null;
+            } else {
+                return this.fileManifest[itemIndex];
+            }
         },
         handlePressup: function(event, itemId) {
             if (this.isCorrectAnswer(event, itemId)) {
@@ -192,13 +199,14 @@
                 localThis.stage.removeChild(clickedItem);
             });
 
-            //var outline = Utils.generateBitmapItem(outlineItem.src, outlineItem.x, outlineItem.y, 1400, false);
-            var outline = this.stage.getChildByName(outlineItem.id);
-            outline.alpha = 0;
-            outline.visible = true;
-            createjs.Tween.get(outline).to({alpha: 1}, 1000);
-
-            this.levelOutlines.splice(this.levelOutlines.indexOf(outlineItem.id), 1);
+            if(outlineItem !== null) { // SOME LEVELS DO NOT HAVE OUTLINES
+                var outline = this.stage.getChildByName(outlineItem.id);
+                outline.alpha = 0;
+                outline.visible = true;
+                createjs.Tween.get(outline).to({alpha: 1}, 1000);
+            }
+            
+            this.levelImages.splice(this.levelImages.indexOf(itemId), 1);
 
             //add score
             this.score++;
@@ -248,7 +256,7 @@
             }
 
             //in any type of interaction, if the level is finished then we manage the level end after last feedback sentence
-            if (this.levelOutlines.length === 0) { //level finished
+            if (this.levelImages.length === 0) { //level finished
                 this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
             }
 
@@ -299,7 +307,7 @@
         },
         updateLevelScore: function(level, score) {
             var scoreIndex = userScore.length;
-            var finalScore = score - this.levelImages.length + 3;
+            var finalScore = score - this.itemNumber + 3;
             finalScore < 0 ? 1 : finalScore;
             this.score = finalScore;
             var update = 0;

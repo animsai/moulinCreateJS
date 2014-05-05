@@ -39,7 +39,9 @@ var levels = [
     {id: "animaux3", theme: "animaux", media: "animaux3_fileManifest", interaction:InteractionTypeEnum.GUIDED},
     {id:"habits1" , theme:"habits", media:"habits1_fileManifest", interaction:InteractionTypeEnum.FREEDRAG},
     {id:"habits2" , theme:"habits", media:"habits2_fileManifest", interaction:InteractionTypeEnum.FREEDRAG},
-    {id:"habits3" , theme:"habits", media:"habits3_fileManifest", interaction:InteractionTypeEnum.FREEDRAG}
+    {id:"habits3" , theme:"habits", media:"habits3_fileManifest", interaction:InteractionTypeEnum.FREEDRAG},
+    {id:"objets1" , theme:"objets", media:"objets1_fileManifest", interaction:InteractionTypeEnum.GUIDED},
+    {id:"objets2" , theme:"objets", media:"objets2_fileManifest", interaction:InteractionTypeEnum.GUIDED}
 ];
 
 var userScore = [
@@ -55,7 +57,8 @@ var feedback_fileManifest = [
     {id: "neg1_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.mauvais.2.wav"},
     {id: "neg2_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.mauvais.3.wav"},
     {id: "animaux_conclusion_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.conclusion.1.wav"},
-    {id: "habits_conclusion_fb", src: SNDFOLDER + "habits/" + FB_FOLDER + "2habit.ex3.conclusion.1.wav"}
+    {id: "habits_conclusion_fb", src: SNDFOLDER + "habits/" + FB_FOLDER + "2habit.ex3.conclusion.1.wav"},
+    {id: "objets_conclusion_fb", src: SNDFOLDER + "objets/" + FB_FOLDER + "3objets.conclusion.wav"}
 ];
 
 var interLevel_fileManifest = [
@@ -75,6 +78,7 @@ var nav_fileManifest = [
     //level images
     {id: "animaux", src: IMGFOLDER + NAV_FOLDER + "niveau1_animaux.png", x: 42, y: 184},
     {id: "habits", src: IMGFOLDER + NAV_FOLDER + "niveau1_habits.png", x: 238, y: 184},
+    {id: "objets", src: IMGFOLDER + NAV_FOLDER + "niveau1_objets.png", x: 438, y: 184},
     //instruction and feedback sounds
     {id: "intro_fb", src: SNDFOLDER + NAV_FOLDER + "intro.wav"},
     {id: "nav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"},
@@ -97,6 +101,15 @@ var habits_nav_fileManifest = [
     {id: "habitsEx1", levelId: "habits1", src: IMGFOLDER + NAV_FOLDER + "niveau2_habits_ex1.png", "x": 42, "y": 254},
     {id: "habitsEx2", levelId: "habits2", src: IMGFOLDER + NAV_FOLDER + "niveau2_habits_ex2.png", "x": 228, "y": 254},
     {id: "habitsEx3", levelId: "habits3", src: IMGFOLDER + NAV_FOLDER + "niveau2_habits_ex3.png", "x": 408, "y": 254}
+];
+
+var objets_nav_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_decor.png"},
+    //level images
+    {id: "objetsEx1", levelId: "objets1", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex1.png", "x": 42, "y": 254},
+    {id: "objetsEx2", levelId: "objets2", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex2.png", "x": 228, "y": 254}
+    /*{id: "objetsEx3", levelId: "objets3", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex3.png", "x": 408, "y": 254}*/
 ];
 
 /***
@@ -296,7 +309,55 @@ var habits3_fileManifest = [
     {id: "consignes_habits3", src: SNDFOLDER + "habits/level3/2habit.ex1.consigne1.wav"}
 ];
 
-var allFiles = [interLevel_fileManifest, nav_fileManifest, animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, 
-                feedback_fileManifest, animaux_nav_fileManifest, speakerIconFile, habits_nav_fileManifest, habits1_fileManifest, backButtonFile,
-                habits2_fileManifest, habits3_fileManifest];
+
+var objets1_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "objets/level1/objets_decor.png"},
+    //level images
+    {id: "avion", src: IMGFOLDER +  "objets/level1/objets_avion.png", "x": 470, "y": 490},
+    {id: "balle", src: IMGFOLDER + "objets/level1/objets_balle.png", "x": 769, "y": 640},
+    {id: "cles", src: IMGFOLDER + "objets/level1/objets_cles.png", "x": 546, "y": 645},
+    {id: "poupee", src: IMGFOLDER + "objets/level1/objets_poupee.png", "x": 484, "y": 188},
+    {id: "livre", src: IMGFOLDER +  "objets/level1/objets_livre.png", "x": 180, "y": 463},
+    {id: "tasse", src: IMGFOLDER + "objets/level1/objets_tasse.png", "x": 280, "y": 604},
+  
+    //level sounds
+    {id: "avion_snd", src: SNDFOLDER +  "objets/level1/3objets.serie1.3.wav"},
+    {id: "balle_snd", src: SNDFOLDER  + "objets/level1/3objets.serie1.4.wav"},
+    {id: "cles_snd", src: SNDFOLDER +  "objets/level1/3objets.serie1.2.wav"},
+    {id: "poupee_snd", src: SNDFOLDER +  "objets/level1/3objets.serie1.6.wav"},
+    {id: "livre_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.5.wav"},
+    {id: "tasse_snd", src: SNDFOLDER +  "objets/level1/3objets.serie1.1.wav"},
+   
+    //instruction and feedback sounds
+    {id: "consignes_objets1", src: SNDFOLDER + "objets/level1/3objets.consigne.1.wav"}
+];
+
+var objets2_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "objets/level2/objets_decor.png"},
+    //level images
+    {id: "ballon", src: IMGFOLDER +  "objets/level2/objets_ballon.png", "x": 63, "y": 216},
+    {id: "biberon", src: IMGFOLDER + "objets/level2/objets_biberon.png", "x": 816, "y": 435},
+    {id: "telephone", src: IMGFOLDER + "objets/level2/objets_telephone.png", "x": 608, "y": 242},
+    {id: "cadeau", src: IMGFOLDER + "objets/level2/objets_cadeau.png", "x": 270, "y": 550},
+    {id: "verre", src: IMGFOLDER +  "objets/level2/objets_verre.png", "x": 450, "y": 480},
+    {id: "voiture", src: IMGFOLDER + "objets/level2/objets_voiture.png", "x": 680, "y": 625},
+  
+    //level sounds
+    {id: "ballon_snd", src: SNDFOLDER +  "objets/level2/3objets.serie2.5.wav"},
+    {id: "biberon_snd", src: SNDFOLDER  + "objets/level2/3objets.serie2.3.wav"},
+    {id: "telephone_snd", src: SNDFOLDER +  "objets/level2/3objets.serie2.2.wav"},
+    {id: "cadeau_snd", src: SNDFOLDER +  "objets/level2/3objets.serie2.6.wav"},
+    {id: "verre_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.1.wav"},
+    {id: "voiture_snd", src: SNDFOLDER +  "objets/level2/3objets.serie2.4.wav"},
+   
+    //instruction and feedback sounds
+    {id: "consignes_objets2", src: SNDFOLDER + "objets/level1/3objets.consigne.1.wav"}
+];
+
+var allFiles = [interLevel_fileManifest, nav_fileManifest, feedback_fileManifest, speakerIconFile, backButtonFile,
+                animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, animaux_nav_fileManifest,  
+                habits_nav_fileManifest, habits1_fileManifest, habits2_fileManifest, habits3_fileManifest,
+                objets_nav_fileManifest, objets1_fileManifest, objets2_fileManifest];
 
