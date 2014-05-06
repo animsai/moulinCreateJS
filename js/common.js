@@ -41,7 +41,8 @@ var levels = [
     {id:"habits2" , theme:"habits", media:"habits2_fileManifest", interaction:InteractionTypeEnum.FREEDRAG},
     {id:"habits3" , theme:"habits", media:"habits3_fileManifest", interaction:InteractionTypeEnum.FREEDRAG},
     {id:"objets1" , theme:"objets", media:"objets1_fileManifest", interaction:InteractionTypeEnum.GUIDED},
-    {id:"objets2" , theme:"objets", media:"objets2_fileManifest", interaction:InteractionTypeEnum.GUIDED}
+    {id:"objets2" , theme:"objets", media:"objets2_fileManifest", interaction:InteractionTypeEnum.GUIDED},
+    {id:"objets3" , theme:"objets", media:"objets3_fileManifest", interaction:InteractionTypeEnum.GUIDED}
 ];
 
 var userScore = [
@@ -111,8 +112,8 @@ var objets_nav_fileManifest = [
     {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_decor.png"},
     //level images
     {id: "objetsEx1", levelId: "objets1", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex1.png", "x": 42, "y": 254},
-    {id: "objetsEx2", levelId: "objets2", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex2.png", "x": 228, "y": 254}
-    /*{id: "objetsEx3", levelId: "objets3", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex3.png", "x": 408, "y": 254}*/
+    {id: "objetsEx2", levelId: "objets2", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex2.png", "x": 228, "y": 254},
+    {id: "objetsEx3", levelId: "objets3", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex3.png", "x": 408, "y": 254}
 ];
 
 /***
@@ -359,8 +360,31 @@ var objets2_fileManifest = [
     {id: "consignes_objets2", src: SNDFOLDER + "objets/level1/3objets.consigne.1.wav"}
 ];
 
+var objets3_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "objets/level2/objets_decor.png"},
+    //level images
+    {id: "bouteille", src: IMGFOLDER +  "objets/level3/objets_bouteille.png", "x": 99, "y": 180},
+    {id: "cadeau_v2", src: IMGFOLDER + "objets/level3/objets_cadeau_v2.png", "x": 800, "y": 435},
+    {id: "lampe", src: IMGFOLDER + "objets/level3/objets_lampe.png", "x": 430, "y": 450},
+    {id: "poubelle", src: IMGFOLDER + "objets/level3/objets_poubelle.png", "x": 840, "y": 500},
+    {id: "sirop", src: IMGFOLDER +  "objets/level3/objets_sirop.png", "x": 593, "y":370},
+    {id: "train", src: IMGFOLDER + "objets/level3/objets_train.png", "x": 185, "y": 630},
+  
+    //level sounds
+    {id: "bouteille_snd", src: SNDFOLDER +  "objets/level3/3objets.serie3.5.wav"},
+    {id: "cadeau_v2_snd", src: SNDFOLDER  + "objets/level3/3objets.serie3.4.wav"},
+    {id: "lampe_snd", src: SNDFOLDER +  "objets/level3/3objets.serie4.4.wav"},
+    {id: "poubelle_snd", src: SNDFOLDER +  "objets/level3/3objets.serie4.6.wav"},
+    {id: "sirop_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.2.wav"},
+    {id: "train_snd", src: SNDFOLDER +  "objets/level3/3objets.serie3.3.wav"},
+   
+    //instruction and feedback sounds
+    {id: "consignes_objets3", src: SNDFOLDER + "objets/level1/3objets.consigne.1.wav"}
+];
+
 var allFiles = [interLevel_fileManifest, nav_fileManifest, feedback_fileManifest, speakerIconFile, backButtonFile,
                 animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, animaux_nav_fileManifest,  
                 habits_nav_fileManifest, habits1_fileManifest, habits2_fileManifest, habits3_fileManifest,
-                objets_nav_fileManifest, objets1_fileManifest, objets2_fileManifest];
+                objets_nav_fileManifest, objets1_fileManifest, objets2_fileManifest, objets3_fileManifest];
 
