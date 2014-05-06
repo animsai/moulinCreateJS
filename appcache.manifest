@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2010-06-18:v2
+# 2014-05-06:v2.1
 
 # Explicitly cached 'master entries'.
 
@@ -24,9 +24,24 @@ media/images/nav/niveau2_animaux_ex1.png
 media/images/nav/niveau2_animaux_ex2.png
 media/images/nav/niveau2_animaux_ex3.png
 media/images/nav/replay.png
+media/images/nav/repeat.png
+media/images/nav/previous_small.png
+
+media/images/animaux/level1/decor_champ.jpg
+media/images/animaux/level1/animaux_papillon.png
+media/images/animaux/level1/animaux_papillon_seul.png
+media/images/animaux/level1/animaux_tortue.png
+media/images/animaux/level1/animaux_tortue_seul.png
+media/images/animaux/level1/animaux_oiseau.png
+media/images/animaux/level1/animaux_oiseau_seul.png
+media/images/animaux/level1/animaux_lapin.png
+media/images/animaux/level1/animaux_lapin_seul.png
+media/images/animaux/level1/animaux_canard.png
+media/images/animaux/level1/animaux_canard_seul.png
+media/images/animaux/level1/animaux_chat.png
+media/images/animaux/level1/animaux_chat_seul.png
 
 media/sounds/nav/consignes.wav
-media/sounds/nav/intro.wav
 media/sounds/nav/son_5.wav
 media/sounds/feedbacks/1animaux.reponse.bon.1.wav
 media/sounds/feedbacks/1animaux.reponse.bon.2.wav
@@ -40,3 +55,6 @@ media/sounds/feedbacks/1animaux.conclusion.1.wav
 # Resources that require the user to be online.
 NETWORK:
 *
+
+FALLBACK:
+index.html
