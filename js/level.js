@@ -1,3 +1,9 @@
+ /* 
+ * Manages a level of the game once the user has chosen a level from the navigation screen
+ * The class manages different level interaction types, guided, with click drag n drop etc.
+ * Author : J. Travnjak
+ * Date : may 2014
+ */
 (function() {
     function Level(level, stage) {
         this.initialize(level, stage);
@@ -71,7 +77,7 @@
             var repeatImg = Utils.generateBitmapItem(repeatButtonFile.src, repeatButtonFile.x, repeatButtonFile.y, 300, true);
             this.levelProxy = createjs.proxy(this.replayLastSound, this);
             repeatImg.addEventListener("pressup", this.levelProxy)
-            stage.addChild(repeatImg);
+            this.stage.addChild(repeatImg);
         },
                 /***
          * adds the game items to the scene

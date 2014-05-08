@@ -1,31 +1,10 @@
-
+ /* 
+ * Utlity functions that are used here and there in the different classes
+ * Author : J. Travnjak
+ * Date : may 2014
+ */
 var Utils = {
-    getNextLevelForUser: function(user, theme) { //TODO see if still needed, not used anymore
-        var lastLevel = "";
-        var levelCount = levels.length;
-
-        //find last level where the user has a score for this theme
-        for (var i = 0; i < userScore.length; i++) {
-            if (userScore[i].theme === theme && userScore[i].user === user && (userScore[i].score > 0 || userScore[i].score != "")) {
-                lastLevel = userScore[i].levelId;
-            }
-        }
-        if (lastLevel != "") {
-            //find the level right after the last one that the user has a score
-            for (var i = 0; i < levelCount; i++) {
-                if (levels[i].id === lastLevel && i < levelCount - 1) {
-                    return levels[i + 1];
-                }
-            }
-        } else { //return the first level of the theme
-            for (var i = 0; i < levelCount; i++) {
-                if (levels[i].theme === theme) {
-                    return levels[i];
-                }
-            }
-        }
-        return null;
-    },
+    //gests the level that is just after the current one
     getNextDirectLevel: function(currentLevelId) {
         var levelCount = levels.length;
         for (var i = 0; i < levelCount; i++) {
@@ -33,7 +12,7 @@ var Utils = {
                 return levels[i + 1];
             }
         }
-        return null;
+        return null; //means that the domain has been finished, there are no more levels left
     },
     getLevelById: function(id) {
         for (var i = 0; i < levels.length; i++) {

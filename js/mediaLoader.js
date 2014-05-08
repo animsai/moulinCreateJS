@@ -1,15 +1,23 @@
+/* 
+ * Manages the load of the assets (sounds and images) needed in the game
+ * Author : J. Travnjak
+ * Date : may 2014
+ */
+
 (function() {
     function MediaLoader(manifestArray, stage) {
         this.initialize(manifestArray, stage);
     }
-    MediaLoader.prototype = {
-        mediaQueue: null,
-        stage: null,
-        bar: null,
-        loadingBarText: null,
-        mediaProxy:null,
-        allManifestConcat:null,
-        initialize : function(manifestArray, stage) {
+   MediaLoader.prototype = new createjs.EventDispatcher();
+        MediaLoader.prototype.mediaQueue =  null;
+        MediaLoader.prototype.stage =  null;
+        MediaLoader.prototype.bar =  null;
+        MediaLoader.prototype.loadingBarText =  null;
+        MediaLoader.prototype.mediaProxy = null;
+        MediaLoader.prototype.allManifestConcat = null;
+        MediaLoader.prototype.EventDispatcher_initialize = MediaLoader.prototype.initialize;
+        MediaLoader.prototype.initialize  =  function(manifestArray, stage) {
+            MediaLoader.prototype.EventDispatcher_initialize();
             this.stage = stage;
             
             this.allManifestConcat = [];
@@ -38,28 +46,30 @@
             this.mediaQueue.addEventListener("complete", this.mediaProxy);
             this.mediaQueue.loadManifest(this.allManifestConcat);
             return this;
-        },
-        handleProgress: function() {
+        };
+        MediaLoader.prototype.handleProgress =  function() {
             this.bar.loadingBar.scaleX = this.mediaQueue.progress * this.bar.width;
             progresPrecentage = Math.round(this.mediaQueue.progress * 100);
 //            this.loadingBarText.setText(progresPrecentage + "% Loaded");
-        },
-        handleComplete: function() {
+        };
+        MediaLoader.prototype.handleComplete =  function() {
             this.addNextButton();
-        },
-        addNextButton : function() {
+            this.dispatchEvent("assetsComplete");
+        };
+        MediaLoader.prototype.addNextButton  =  function() {
             var nextBtn = Utils.generateBitmapItem(interLevel_fileManifest[2].src, 430, 350, 1, true);
             this.stage.removeChild(this.bar);
             
             this.mediaProxy = createjs.proxy(this.handleClick, this);
             nextBtn.addEventListener("click", this.mediaProxy);
             this.stage.addChild(nextBtn);
-        },
-        handleClick: function() {
+        };
+        MediaLoader.prototype.handleClick = function() {
             this.stage.removeAllEventListeners("click");
             nav = new Moulin.Navigation(nav_fileManifest, this.stage);
         }
-    };
+//    };
+   
     Moulin.MediaLoader = MediaLoader;
 }());
 

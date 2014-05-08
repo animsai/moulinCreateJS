@@ -1,3 +1,8 @@
+ /* 
+ * Loading bar class, manages the progress bar and the progress text for asset loading when needed
+ * Author : J. Travnjak
+ * Date : may 2014
+ */
 (function() {
 
     var LoadingBar = function(width, height, padding, color, frameColor) {

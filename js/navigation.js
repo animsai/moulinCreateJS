@@ -1,4 +1,9 @@
-(function() {
+ /* 
+ * Manages the navigation part of the game, main and sub navigation. instanciates the backgrounds and the menus and submenus with respective scores
+ * Author : J. Travnjak
+ * Date : may 2014
+ */
+ (function() {
     function Navigation(fileManifest, stage, isMainNavigation, theme) {
         this.initialize(fileManifest, stage, isMainNavigation, theme);
     }

@@ -1,3 +1,9 @@
+ /* 
+ * Manages the interlevel screen, meaning the level conclusion where the score is shown, a conclusion sentance is played and the
+ * child can use from going to next level or back to navigation or re-do the level
+ * Author : J. Travnjak
+ * Date : may 2014
+ */
 (function() {
     function Score(finishedLevel, nextLevel, stage, score) {
         this.initialize(finishedLevel, nextLevel, stage, score);
