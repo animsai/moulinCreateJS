@@ -5,6 +5,11 @@
  */
 
 (function() {
+    /***
+     * 
+     * @param {type} manifestArray : array of arrays to load
+     * @returns {_L7.MediaLoader}
+     */
     function MediaLoader(manifestArray) {
         this.initialize(manifestArray);
     }
@@ -25,6 +30,7 @@
              //manage loading queue
             this.mediaQueue = new createjs.LoadQueue(false);
             this.mediaQueue.installPlugin(createjs.Sound);
+            createjs.Sound.alternateExtensions = ["mp3"];
             //proxy to manage the scope of 'this' 
             this.mediaProxy = createjs.proxy(this.handleProgress, this);
             this.mediaQueue.addEventListener("progress", this.mediaProxy);

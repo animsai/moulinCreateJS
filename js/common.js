@@ -374,8 +374,16 @@ var objets3_fileManifest = [
     {id: "consignes_objets3", src: SNDFOLDER + "objets/level1/3objets.consigne.1.wav"}
 ];
 
-var allFiles = [interLevel_fileManifest, nav_fileManifest, feedback_fileManifest, speakerIconFile, backButtonFile,
-    animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, animaux_nav_fileManifest,
-    habits_nav_fileManifest, habits1_fileManifest, habits2_fileManifest, habits3_fileManifest,
-    objets_nav_fileManifest, objets1_fileManifest, objets2_fileManifest, objets3_fileManifest];
+/**
+ * these files are loaded after the coreFiles and are loaded in the background
+ * without lettting the user notice it, except if the user clicks to fastly on a level which was not loaded yet
+ */
+var levelFiles = [
+    animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, 
+    habits1_fileManifest, habits2_fileManifest, habits3_fileManifest,
+    objets1_fileManifest, objets2_fileManifest, objets3_fileManifest];
 
+/*these files are the ones that are loaded in the beggining of the game
+ * they are the most needed for the player to start playing*/
+var coreFiles = [interLevel_fileManifest, nav_fileManifest, feedback_fileManifest, speakerIconFile, backButtonFile, introImg,
+                 animaux_nav_fileManifest,habits_nav_fileManifest,objets_nav_fileManifest];

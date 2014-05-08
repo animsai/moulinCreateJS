@@ -12,37 +12,53 @@
     Moulin.prototype = {
         stage: null,
         moulinProxy: null,
-        bar:null,
-        assets:null,
+        bar: null,
+        coreAssets: null,
+        levelAssets:null,
         init: function() {
             this.initStage();
-            
-           this.loadScoresFromLocalStorage();
-
+            this.loadScoresFromLocalStorage();
+            //load core assets and show progress bar to user
             this.loadCoreAssets();
+            //load level assets in background
+            this.loadLevelAssets();
         },
-        initStage:function() {
+        initStage: function() {
             var canvas = document.getElementById("gameCanvas");
             this.stage = new createjs.Stage(canvas);
             createjs.Touch.enable(this.stage);
             this.moulinProxy = new createjs.proxy(this.handleTick, this);
             createjs.Ticker.addEventListener("tick", this.moulinProxy);
             this.onResize();
-            
+
             var background = new createjs.Bitmap(introImg.src);
             this.stage.addChild(background);
         },
-        loadCoreAssets:function() {
-            this.assets = new Moulin.MediaLoader(allFiles, this.stage);
+        loadCoreAssets: function() {
+            this.coreAssets = new Moulin.MediaLoader(coreFiles);
             this.moulinProxy = new createjs.proxy(this.handleLoadProgress, this);
-            this.assets.addEventListener("assetsLoadingProgress", this.moulinProxy);
-            
+            this.coreAssets.addEventListener("assetsLoadingProgress", this.moulinProxy);
+
             this.moulinProxy = new createjs.proxy(this.addStartButton, this);
-            this.assets.addEventListener("assetsComplete", this.moulinProxy);
-            
+            this.coreAssets.addEventListener("assetsComplete", this.moulinProxy);
+
             //creating a loading bar from our class and passing some arguments
             this.bar = new Moulin.LoadingBar(500, 90, 5, "#72AF2C", "#8CCF3F");
             this.stage.addChild(this.bar);
+        },
+        loadLevelAssets:function() {
+           this.levelAssets = new Moulin.MediaLoader(levelFiles);  
+           this.moulinProxy = new createjs.proxy(this.handleLevelLoadProgress, this);
+           this.levelAssets.addEventListener("assetsLoadingProgress", this.moulinProxy);
+
+           this.moulinProxy = new createjs.proxy(this.handleLevelAssetsComplete, this);
+           this.levelAssets.addEventListener("assetsComplete", this.moulinProxy);
+        },
+        handleLevelLoadProgress:function() {
+          //console.log("level loading in progress" +  this.levelAssets.mediaQueue._numItemsLoaded + " sur " + this.levelAssets.mediaQueue._numItems);            
+        },
+        handleLevelAssetsComplete:function() {
+          console.log("level loading complete");  
         },
         addStartButton: function() {
             var nextBtn = Utils.generateBitmapItem(interLevel_fileManifest[2].src, 430, 350, 1, true);
@@ -57,10 +73,10 @@
             this.stage.removeAllEventListeners("click");
             nav = new Moulin.Navigation(nav_fileManifest, this.stage);
         },
-        handleLoadProgress:function() {
-            this.bar.loadingBar.scaleX = this.assets.mediaQueue.progress * this.bar.width;
+        handleLoadProgress: function() {
+            this.bar.loadingBar.scaleX = this.coreAssets.mediaQueue.progress * this.bar.width;
         },
-        loadScoresFromLocalStorage:function() {
+        loadScoresFromLocalStorage: function() {
             if (Utils.supportsLocalStorage() && localStorage["moulin.scores"] !== undefined) {
                 userScore = JSON.parse(localStorage["moulin.scores"]);
             }
@@ -88,7 +104,6 @@
             // adjust canvas size
             this.stage.canvas.width = ow * scale - 10;
             this.stage.canvas.height = oh * scale - 10;
-
         }
     };
 
