@@ -9,11 +9,9 @@ var SNDFOLDER = "./media/sounds/";
 var stage;
 var nav;
 
-
 var NAV_FOLDER = "nav/";
 var ANIMAL_FOLDER = "animaux/";
 var FB_FOLDER = "feedbacks/";
-
 
 var OUTLINE_SUFFIX = "_outline";
 var SOUND_SUFFIX = "_snd";
@@ -21,11 +19,16 @@ var SCENE_ID = "scene";
 var FEEDBACK_SUFFIX = "_fb";
 var CONSINGES = "consignes";
 
+
+var userScore = [
+    {user: "test", levelId: "animaux1", theme: "animaux", score: 1},
+    {user: "test", levelId: "animaux2", theme: "animaux", score: 2}
+];
+
 var InteractionTypeEnum = {
     GUIDED: 1,
     FREEDRAG: 2
 };
-
 
 var themes = [
     {id: "nav"},
@@ -34,37 +37,7 @@ var themes = [
     {id: "objets"}
 ];
 
-//keep the levels in the correct order, otherwise it won't work for the score calculations
-var levels = [
-    {id: "score", theme: "score", media: "interLevel_fileManifest"},
-    {id: "animaux1", theme: "animaux", media: "animaux1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
-    {id: "animaux2", theme: "animaux", media: "animaux2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
-    {id: "animaux3", theme: "animaux", media: "animaux3_fileManifest", interaction: InteractionTypeEnum.GUIDED},
-    {id: "habits1", theme: "habits", media: "habits1_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
-    {id: "habits2", theme: "habits", media: "habits2_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
-    {id: "habits3", theme: "habits", media: "habits3_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
-    {id: "objets1", theme: "objets", media: "objets1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
-    {id: "objets2", theme: "objets", media: "objets2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
-    {id: "objets3", theme: "objets", media: "objets3_fileManifest", interaction: InteractionTypeEnum.GUIDED}
-];
-
-var userScore = [
-    {user: "test", levelId: "animaux1", theme: "animaux", score: 1},
-    {user: "test", levelId: "animaux2", theme: "animaux", score: 2}
-];
-
-var feedback_fileManifest = [
-    {id: "pos0_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.bon.1.wav"},
-    {id: "pos1_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.bon.2.wav"},
-    {id: "pos2_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.bon.3.wav"},
-    {id: "neg0_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.mauvais.1.wav"},
-    {id: "neg1_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.mauvais.2.wav"},
-    {id: "neg2_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.reponse.mauvais.3.wav"},
-    {id: "animaux_conclusion_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.conclusion.1.wav"},
-    {id: "habits_conclusion_fb", src: SNDFOLDER + "habits/" + FB_FOLDER + "2habit.ex3.conclusion.1.wav"},
-    {id: "objets_conclusion_fb", src: SNDFOLDER + "objets/" + FB_FOLDER + "3objets.conclusion.wav"}
-];
-
+/*******************************global files, can be used anywhere in the game****************************************************/
 var interLevel_fileManifest = [
     {id: "menu", src: IMGFOLDER + NAV_FOLDER + "menu.png", x: 180, y: 400},
     {id: "replay", src: IMGFOLDER + NAV_FOLDER + "replay.png", x: 410, y: 400},
@@ -80,6 +53,21 @@ var closeButtonFile = {id: "close", src: IMGFOLDER + NAV_FOLDER + "close.png", x
 var introSnd = {id: "intro_snd", src: SNDFOLDER + NAV_FOLDER + "intro.wav"};
 var introImg = {id: "introImg", src: IMGFOLDER + NAV_FOLDER + "ecran_debut_couleurs_v2.png", x: 0, y: 0};
 
+var feedback_fileManifest = [
+    {id: "pos0_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.bon.1.wav"},
+    {id: "pos1_fb", src: SNDFOLDER +  FB_FOLDER + "1animaux.reponse.bon.2.wav"},
+    {id: "pos2_fb", src: SNDFOLDER +  FB_FOLDER + "1animaux.reponse.bon.3.wav"},
+    {id: "neg0_fb", src: SNDFOLDER +  FB_FOLDER + "1animaux.reponse.mauvais.1.wav"},
+    {id: "neg1_fb", src: SNDFOLDER +  FB_FOLDER + "1animaux.reponse.mauvais.2.wav"},
+    {id: "neg2_fb", src: SNDFOLDER +  FB_FOLDER + "1animaux.reponse.mauvais.3.wav"},
+    {id: "animaux_conclusion_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.conclusion.1.wav"},
+    {id: "habits_conclusion_fb", src: SNDFOLDER + "habits/" + FB_FOLDER + "2habit.ex3.conclusion.1.wav"},
+    {id: "objets_conclusion_fb", src: SNDFOLDER + "objets/" + FB_FOLDER + "3objets.conclusion.wav"}
+];
+/***********************************************************************""""""""""""""""""""""""""""**************************/
+
+
+/***************************************NAVIGATION FILES ****************************""""""""""""""""******************************/
 var nav_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau1_decor_grand.png"},
@@ -98,7 +86,11 @@ var animaux_nav_fileManifest = [
     //level images
     {id: "animauxEx1", levelId: "animaux1", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex1.png", "x": 42, "y": 254},
     {id: "animauxEx2", levelId: "animaux2", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex2.png", "x": 228, "y": 254},
-    {id: "animauxEx3", levelId: "animaux3", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex3.png", "x": 408, "y": 254}
+    {id: "animauxEx3", levelId: "animaux3", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex3.png", "x": 408, "y": 254},
+    {id: "animauxEx4", levelId: "animaux4", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex4.png", "x": 598, "y": 254},
+    {id: "animauxEx5", levelId: "animaux5", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex5.png", "x": 778, "y": 254},
+    {id: "animauxEx6", levelId: "animaux6", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex6.png", "x": 42, "y": 454},
+    {id: "animauxEx7", levelId: "animaux7", src: IMGFOLDER + NAV_FOLDER + "niveau2_animaux_ex7.png", "x": 228, "y": 454}
 ];
 
 var habits_nav_fileManifest = [
@@ -118,6 +110,29 @@ var objets_nav_fileManifest = [
     {id: "objetsEx2", levelId: "objets2", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex2.png", "x": 228, "y": 254},
     {id: "objetsEx3", levelId: "objets3", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex3.png", "x": 408, "y": 254}
 ];
+/**************************************************************************************************************************/
+
+
+/*******************************************************LEVEL SPECIFIC FILES ******************************************************/
+
+//keep the levels in the correct order, otherwise it won't work for the score calculations
+var levels = [
+    {id: "score", theme: "score", media: "interLevel_fileManifest"},
+    {id: "animaux1", theme: "animaux", media: "animaux1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "animaux2", theme: "animaux", media: "animaux2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "animaux3", theme: "animaux", media: "animaux3_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "animaux4", theme: "animaux", media: "animaux4_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "animaux5", theme: "animaux", media: "animaux5_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "animaux6", theme: "animaux", media: "animaux6_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "animaux7", theme: "animaux", media: "animaux7_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "habits1", theme: "habits", media: "habits1_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
+    {id: "habits2", theme: "habits", media: "habits2_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
+    {id: "habits3", theme: "habits", media: "habits3_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
+    {id: "objets1", theme: "objets", media: "objets1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "objets2", theme: "objets", media: "objets2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "objets3", theme: "objets", media: "objets3_fileManifest", interaction: InteractionTypeEnum.GUIDED}
+];
+
 
 /***
  * array of files needed in  levels
@@ -204,7 +219,105 @@ var animaux3_fileManifest = [
     {id: "consignes_animaux3", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.consigne.1.wav"}
 ];
 
+var animaux4_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_decor_ex4.png"},
+    //image outlines
+    {id: "oie_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_oie_seul.png", "x": 640, "y": 540},
+    {id: "dindon_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_dindon_seul.png", "x": 48, "y": 400},
+    {id: "agneau_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_agneau_seul.png", "x": 135, "y": 570},
+    {id: "chevre_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_chevre_seul.png", "x": 425, "y": 370},
+    {id: "poney_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_poney_seul.png", "x": 120, "y": 214},
+    //level images
+    {id: "oie", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_oie.png", "x": 790, "y": 35},
+    {id: "dindon", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_dindon.png", "x": 790, "y": 166},
+    {id: "agneau", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_agneau.png", "x": 790, "y": 295},
+    {id: "chevre", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_chevre.png", "x": 790, "y": 445},
+    {id: "poney", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_poney.png", "x": 790, "y": 600},
+    //level sounds
+    {id: "oie_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.4.wav"},
+    {id: "dindon_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.6.wav"},
+    {id: "agneau_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.2.wav"},
+    {id: "chevre_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.5.wav"},
+    {id: "poney_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.3.wav"},
+    //instruction and feedback sounds
+    {id: "consignes_animaux4", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.consigne.1.wav"}
+];
 
+var animaux5_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_decor_ex5.png"},
+    //image outlines
+    {id: "singe_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_singe_seul.png", "x": 250, "y": 77},
+    {id: "lion_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_lion_seul.png", "x": 440, "y": 270},
+    {id: "crocodile_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_crocodile_seul.png", "x": 360, "y": 650},
+    {id: "elephant_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_elephant_seul.png", "x": 70, "y": 430},
+    {id: "girafe_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_girafe_seul.png", "x": 70, "y": 214},
+    //level images
+    {id: "singe", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_singe.png", "x": 790, "y": 35},
+    {id: "lion", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_lion.png", "x": 790, "y": 145},
+    {id: "crocodile", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_crocodile.png", "x": 790, "y": 265},
+    {id: "elephant", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_elephant.png", "x": 790, "y": 360},
+    {id: "girafe", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_girafe.png", "x": 790, "y": 530},
+    //level sounds
+    {id: "singe_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.4.wav"},
+    {id: "lion_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.3.wav"},
+    {id: "crocodile_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.5.wav"},
+    {id: "elephant_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.1.wav"},
+    {id: "girafe_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.2.wav"},
+    //instruction and feedback sounds
+    {id: "consignes_animaux5", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.consigne.1.wav"}
+];
+
+var animaux6_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_decor_ex6.png"},
+    //image outlines
+    {id: "poisson_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_poisson_seul.png", "x": 640, "y": 660},
+    {id: "phoque_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_phoque_seul.png", "x": 86, "y": 320},
+    {id: "pinguin_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_pinguin_seul.png", "x": 500, "y": 370},
+    {id: "ours_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_ours_seul.png", "x": 285, "y": 190},
+    {id: "baleine_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_baleine_seul.png", "x": 40, "y": 495},
+    //level images
+    {id: "poisson", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_poisson.png", "x": 790, "y": 35},
+    {id: "phoque", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_phoque.png", "x": 790, "y": 166},
+    {id: "pinguin", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_pinguin.png", "x": 790, "y": 310},
+    {id: "ours", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_ours.png", "x": 790, "y": 465},
+    {id: "baleine", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_baleine.png", "x": 790, "y": 615},
+    //level sounds
+    {id: "poisson_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.6.wav"},
+    {id: "phoque_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.5.wav"},
+    {id: "pinguin_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.2.wav"},
+    {id: "ours_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.1.wav"},
+    {id: "baleine_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.4.wav"},
+    //instruction and feedback sounds
+    {id: "consignes_animaux6", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.consigne.1.wav"}
+];
+
+var animaux7_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_decor_ex7.png"},
+    //image outlines
+    {id: "tigre_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_tigre_seul.png", "x": 440, "y": 390},
+    {id: "gazelle_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_gazelle_seul.png", "x": 610, "y": 180},
+    {id: "zebre_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_zebre_seul.png", "x": 45, "y": 320},
+    {id: "hippopotame_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_hippopotame_seul.png", "x": 400, "y": 580},
+    {id: "buffle_outline", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_buffle_seul.png", "x": 40, "y": 514},
+    //level images
+    {id: "tigre", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_tigre.png", "x": 790, "y": 35},
+    {id: "gazelle", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_gazelle.png", "x": 790, "y": 166},
+    {id: "zebre", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_zebre.png", "x": 790, "y": 320},
+    {id: "hippopotame", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_hippopotame.png", "x": 790, "y": 465},
+    {id: "buffle", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_buffle.png", "x": 790, "y": 605},
+    //level sounds
+    {id: "tigre_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.3.wav"},
+    {id: "gazelle_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.5.wav"},
+    {id: "zebre_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.2.wav"},
+    {id: "hippopotame_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.4.wav"},
+    {id: "buffle_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.1.wav"},
+    //instruction and feedback sounds
+    {id: "consignes_animaux7", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.consigne.1.wav"}
+];
 var habits1_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "habits/level1/habits_decor_ex1.png"},
@@ -374,12 +487,18 @@ var objets3_fileManifest = [
     {id: "consignes_objets3", src: SNDFOLDER + "objets/level1/3objets.consigne.1.wav"}
 ];
 
+
+/**************************************************************************************************************************/
+
+
+
+/************************************************CONTAINERS FOR ALL THE OTHER MANIFESTS **************************************************************************/
 /**
  * these files are loaded after the coreFiles and are loaded in the background
  * without lettting the user notice it, except if the user clicks to fastly on a level which was not loaded yet
  */
 var levelFiles = [
-    animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, 
+    animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, animaux4_fileManifest, animaux5_fileManifest, animaux6_fileManifest,animaux7_fileManifest,
     habits1_fileManifest, habits2_fileManifest, habits3_fileManifest,
     objets1_fileManifest, objets2_fileManifest, objets3_fileManifest];
 
@@ -387,3 +506,5 @@ var levelFiles = [
  * they are the most needed for the player to start playing*/
 var coreFiles = [interLevel_fileManifest, nav_fileManifest, feedback_fileManifest, speakerIconFile, backButtonFile, introImg,
                  animaux_nav_fileManifest,habits_nav_fileManifest,objets_nav_fileManifest];
+             
+/**************************************************************************************************************************/
