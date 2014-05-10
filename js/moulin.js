@@ -14,8 +14,8 @@
         moulinProxy: null,
         bar: null,
         coreAssets: null,
-        levelAssets:null,
-        loadedLevels:new Array(),
+        levelAssets: null,
+        loadedLevels: new Array(),
         init: function() {
             this.initStage();
             this.loadScoresFromLocalStorage();
@@ -46,21 +46,26 @@
 
             this.addLoadingBar();
         },
-        addLoadingBar:function(){
+        addLoadingBar: function() {
             //creating a loading bar from our class and passing some arguments
             this.bar = new Moulin.LoadingBar(500, 90, 5, "#72AF2C", "#8CCF3F");
             this.stage.addChild(this.bar);
         },
-        loadLevelAssets:function() {
+        loadLevelAssets: function() {
             this.levelAssets = new Moulin.MediaLoader();
-            for(var i=0; i<levels.length; i++) {
-                this.levelAssets.addOneFileManifest(eval(levels[i].media));
-                this.moulinProxy = new createjs.proxy(this.handleLevelAssetsComplete, this, levels[i].id);
-                this.levelAssets.addEventListener("assetsComplete", this.moulinProxy);
+            for (var i = 0; i < levels.length; i+=3) { // load one level out of 3 to improve perforamance on 3G network
+                if (this.loadedLevels.indexOf(levels[i].id) === -1) { //check if level was not loaded separatly to avoid double load
+                    this.levelAssets.addOneFileManifest(eval(levels[i].media));
+                    this.moulinProxy = new createjs.proxy(this.handleLevelAssetsComplete, this, levels[i].id);
+                    this.levelAssets.addEventListener("assetsComplete", this.moulinProxy);
+                }
             }
         },
-        handleLevelAssetsComplete:function(event, levelId) {
-          this.loadedLevels.push(levelId);
+        handleLevelAssetsComplete: function(event, levelId) {
+            console.log("handleLevelAssetsCompletion " + levelId);
+            if (this.loadedLevels.indexOf(levelId) === -1){
+                 this.loadedLevels.push(levelId);
+            }
         },
         addStartButton: function() {
             var nextBtn = Utils.generateBitmapItem(interLevel_fileManifest[2].src, 430, 350, 1, true);

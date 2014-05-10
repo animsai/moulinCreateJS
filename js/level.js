@@ -36,7 +36,8 @@
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
             this.itemNumber = this.levelImages.length; //store the number of clickable items on game start to be able to calculate the score at the end
-            this.createLevel();
+            //this.createLevel();
+            this.manageLevelLoadifNeeded();
             return this;
         },
         //utility function to separate filemanifest for easier access to files
@@ -59,6 +60,9 @@
         createLevel: function() {
             //clear stage before creating new level
             this.stage.removeAllChildren();
+            
+            this.loadNextLevelSilently();
+            
             //adding the background image
             background = new createjs.Bitmap(this.fileManifest[0].src);
             this.stage.addChild(background);
@@ -302,9 +306,11 @@
 //                newSound.addEventListener("complete", this.levelProxy);
         },
         replayLastSound: function() {
-            var lastSound = createjs.Sound.play(this.playedSoundIds[this.playedSoundIds.length - 1]);
-            this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-            lastSound.addEventListener("complete", this.levelProxy);
+            if(this.playedSoundIds.length > 0) {
+                var lastSound = createjs.Sound.play(this.playedSoundIds[this.playedSoundIds.length - 1]);
+                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
+                lastSound.addEventListener("complete", this.levelProxy);
+            }
         },
         setSoundPlaying: function(event, val) { //event param needed because of proxy but not used
             this.soundPlaying = val;
@@ -345,7 +351,45 @@
             if (Utils.supportsLocalStorage()) {
                 localStorage["moulin.scores"] = JSON.stringify(userScore);
             }
-        }
+        },
+        loadNextLevelSilently: function() {
+            var nextLevel = Utils.getNextDirectLevel(this.level.id);
+            if (nextLevel !== null) {
+                var levelIndex = game.loadedLevels.indexOf(nextLevel.id);
+                if (levelIndex === -1) {
+                    var levelLoader = new Moulin.MediaLoader();
+                    levelLoader.addOneFileManifest(eval(nextLevel.media));
+                    this.levelProxy = new createjs.proxy(this.handleNextLevelLoadCompletion, this, nextLevel);
+                    levelLoader.addEventListener("assetsComplete", this.levelProxy);
+                } 
+            }
+        },
+        handleNextLevelLoadCompletion: function(event, nextLevel) {
+            game.loadedLevels.push(nextLevel.id);
+        },
+        manageLevelLoadifNeeded: function() {
+            var levelIndex = game.loadedLevels.indexOf(this.level.id);
+            if (levelIndex === -1) {
+                Utils.createBlurredRectangle(this.stage);
+                var bar = new Moulin.LoadingBar(500, 90, 5, "#72AF2C", "#8CCF3F");
+                this.stage.addChild(bar);
+                var currentlevelLoader = new Moulin.MediaLoader() ;
+                currentlevelLoader.addOneFileManifest(eval(this.level.media));
+                this.levelProxy = new createjs.proxy(this.handleLevelLoadProgress, this, bar, currentlevelLoader);
+                currentlevelLoader.addEventListener("assetsLoadingProgress", this.levelProxy);
+                this.levelProxy = new createjs.proxy(this.handleLevelLoadCompletion, this, this.level);
+                currentlevelLoader.addEventListener("assetsComplete", this.levelProxy);
+            } else {
+                 this.createLevel();
+            }
+        },
+        handleLevelLoadCompletion: function(event, level){
+            game.loadedLevels.push(level.id);
+            this.createLevel();
+        },
+        handleLevelLoadProgress : function(event, loadingBar, assets){
+             loadingBar.loadingBar.scaleX = assets.mediaQueue.progress * loadingBar.width;
+        },
     };
     Moulin.Level = Level;
 }());
