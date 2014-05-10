@@ -117,7 +117,6 @@ var objets_nav_fileManifest = [
 
 //keep the levels in the correct order, otherwise it won't work for the score calculations
 var levels = [
-    {id: "score", theme: "score", media: "interLevel_fileManifest"},
     {id: "animaux1", theme: "animaux", media: "animaux1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "animaux2", theme: "animaux", media: "animaux2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "animaux3", theme: "animaux", media: "animaux3_fileManifest", interaction: InteractionTypeEnum.GUIDED},
