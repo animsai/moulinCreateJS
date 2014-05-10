@@ -1,4 +1,4 @@
- /* 
+/* 
  * Manages a level of the game once the user has chosen a level from the navigation screen
  * The class manages different level interaction types, guided, with click drag n drop etc.
  * Author : J. Travnjak
@@ -18,10 +18,10 @@
         playedSoundIds: null,
         levelSoundIds: null,
         levelOutlines: null,
-        levelImages:null,
+        levelImages: null,
         soundPlaying: false,
-        isDragged:false,
-        itemNumber:0,
+        isDragged: false,
+        itemNumber: 0,
         initialize: function(level, stage) {
             //init internal variables
             this.fileManifest = eval(level.media);
@@ -32,6 +32,7 @@
             this.levelOutlines = new Array();
             this.levelImages = new Array();
             this.soundPlaying = false;
+
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
             this.itemNumber = this.levelImages.length; //store the number of clickable items on game start to be able to calculate the score at the end
@@ -56,10 +57,12 @@
             }
         },
         createLevel: function() {
+            //clear stage before creating new level
+            this.stage.removeAllChildren();
             //adding the background image
             background = new createjs.Bitmap(this.fileManifest[0].src);
             this.stage.addChild(background);
-            
+
             //add interaction items
             this.addGameItems();
 
@@ -67,19 +70,19 @@
             Utils.addBackButton(this.stage, this.level.theme, false);
 
             //add repeat button if guided level
-            if(this.level.interaction === InteractionTypeEnum.GUIDED){
+            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
                 this.addRepeatButton();
             }
             //play instruction sentence
             this.playInstructions();
         },
-        addRepeatButton:function() {
+        addRepeatButton: function() {
             var repeatImg = Utils.generateBitmapItem(repeatButtonFile.src, repeatButtonFile.x, repeatButtonFile.y, 300, true);
             this.levelProxy = createjs.proxy(this.replayLastSound, this);
             repeatImg.addEventListener("pressup", this.levelProxy)
             this.stage.addChild(repeatImg);
         },
-                /***
+        /***
          * adds the game items to the scene
          * the function adds the clickable (interactive) items and their outlines (if any)
          * the outlines are hidden in the first place and are shown once the user clicks on the right interactive item
@@ -123,11 +126,11 @@
             //play instruction sentence
             var consigneSound = createjs.Sound.play("consignes_" + this.level.id);
             this.setSoundPlaying(null, true);
-             if (this.level.interaction === InteractionTypeEnum.GUIDED) {
-                  this.levelProxy = createjs.proxy(this.playRandomSound, this, false);
-             } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
-                 this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-             }
+            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
+                this.levelProxy = createjs.proxy(this.playRandomSound, this, false);
+            } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
+                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
+            }
             consigneSound.addEventListener("complete", this.levelProxy);
         },
         //get a given item from the current file manifest
@@ -140,7 +143,7 @@
                 }
                 i++;
             }
-            if(itemIndex === -1) {
+            if (itemIndex === -1) {
                 return null;
             } else {
                 return this.fileManifest[itemIndex];
@@ -194,7 +197,7 @@
                 this.playFeedbackAndContinue(itemId, false);
             }
             else if (this.level.interaction === InteractionTypeEnum.FREEDRAG && this.isDragged) {
-                 //reduce score
+                //reduce score
                 this.score--;
                 //move back the dragged item to its initial position 
                 var originItem = this.getItemFromManifest(itemId);
@@ -215,13 +218,13 @@
                 localThis.stage.removeChild(clickedItem);
             });
 
-            if(outlineItem !== null) { // SOME LEVELS DO NOT HAVE OUTLINES
+            if (outlineItem !== null) { // SOME LEVELS DO NOT HAVE OUTLINES
                 var outline = this.stage.getChildByName(outlineItem.id);
                 outline.alpha = 0;
                 outline.visible = true;
                 createjs.Tween.get(outline).to({alpha: 1}, 1000);
             }
-            
+
             this.levelImages.splice(this.levelImages.indexOf(itemId), 1);
 
             //add score
@@ -243,10 +246,10 @@
         isRightDropPosition: function(draggedItem, dropOutline) {
             var xDiff = dropOutline.x - draggedItem.x;
             var yDiff = dropOutline.y - draggedItem.y;
-            if (Math.abs(Math.abs(xDiff) - draggedItem.image.width)> draggedItem.image.width) {
+            if (Math.abs(Math.abs(xDiff) - draggedItem.image.width) > draggedItem.image.width) {
                 return false;
             }
-            if (Math.abs(Math.abs(yDiff)  - draggedItem.image.height)> draggedItem.image.height) {
+            if (Math.abs(Math.abs(yDiff) - draggedItem.image.height) > draggedItem.image.height) {
                 return false;
             }
             return true;

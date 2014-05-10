@@ -26,18 +26,11 @@
         },
         createScoreScreen: function() {
             //adding the background image
-            var blurredRectangle = new createjs.Shape().set({x:0,y:0});
-            blurredRectangle.alpha = 0;
-                
-            blurredRectangle.graphics.beginFill("white").drawRect(0,0,this.stage.canvas.width*2,this.stage.canvas.height*2);      
-            this.stage.addChild(blurredRectangle);
-            createjs.Tween.get(blurredRectangle).to({alpha:0.8}, 1000);
+            Utils.createBlurredRectangle(this.stage);
             var x =  280; 
             var y = 200;
             var i = 0;
             var container = new createjs.Container();
-            container.addChild(blurredRectangle);
-            
             var cptGoldenStars = this.score;
               //draw 3 stars with an interval of 600 mililseconds to make them appear one after another
              setInterval(function() {

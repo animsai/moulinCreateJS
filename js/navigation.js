@@ -13,6 +13,7 @@
         levelProxy: null,
         soundPlaying: false,
         subFileManifest: null,
+        levelLoader: null,
         initialize: function(fileManifest, stage, isMainNavigation, theme) {
             //init internal variables
             if(isMainNavigation === undefined){ isMainNavigation = true };
@@ -93,14 +94,41 @@
         },
         handleItemlick: function(event, itemId, isMainNav) {
             if (!this.soundPlaying) {
-                this.stage.removeAllChildren();
                 if (isMainNav) {
+                    this.stage.removeAllChildren();
                     this.initSubNavigation(itemId);
                 } else {
                     var level = Utils.getLevelById(itemId);
-                    level = new Moulin.Level(level, this.stage);
+                    this.manageLevelLoadifNeeded(level);
                 }
+            } else {
+                 Utils.manageSpeaker(this.stage);
             }
+        },
+        manageLevelLoadifNeeded: function(level) {
+            var levelIndex = game.loadedLevels.indexOf(level.id);
+            if (levelIndex === -1) {
+                Utils.createBlurredRectangle(this.stage);
+                var bar = new Moulin.LoadingBar(500, 90, 5, "#72AF2C", "#8CCF3F");
+                this.stage.addChild(bar);
+                this.levelLoader = new Moulin.MediaLoader() ;
+                
+                this.levelLoader.addOneFileManifest(eval(level.media))
+                this.levelProxy = new createjs.proxy(this.handleLevelLoadProgress, this, bar, this.levelLoader);
+                this.levelLoader.addEventListener("assetsLoadingProgress", this.levelProxy);
+
+                this.levelProxy = new createjs.proxy(this.handleLevelLoadCompletion, this, level);
+                this.levelLoader.addEventListener("assetsComplete", this.levelProxy);
+            } else {
+                 new Moulin.Level(level, this.stage);
+            }
+        },
+        handleLevelLoadCompletion: function(event, level){
+            game.loadedLevels.push(level.id);
+            new Moulin.Level(level, this.stage);
+        },
+        handleLevelLoadProgress : function(event, loadingBar, assets){
+             loadingBar.loadingBar.scaleX = assets.mediaQueue.progress * loadingBar.width;
         },
         handleSoundPlay: function(event, soundToPlay) {
             var playingSound = createjs.Sound.play(soundToPlay);

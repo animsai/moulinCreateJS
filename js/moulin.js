@@ -44,6 +44,9 @@
             this.moulinProxy = new createjs.proxy(this.addStartButton, this);
             this.coreAssets.addEventListener("assetsComplete", this.moulinProxy);
 
+            this.addLoadingBar();
+        },
+        addLoadingBar:function(){
             //creating a loading bar from our class and passing some arguments
             this.bar = new Moulin.LoadingBar(500, 90, 5, "#72AF2C", "#8CCF3F");
             this.stage.addChild(this.bar);
@@ -55,14 +58,8 @@
                 this.moulinProxy = new createjs.proxy(this.handleLevelAssetsComplete, this, levels[i].id);
                 this.levelAssets.addEventListener("assetsComplete", this.moulinProxy);
             }
-//           this.moulinProxy = new createjs.proxy(this.handleLevelLoadProgress, this);
-//           this.levelAssets.addEventListener("assetsLoadingProgress", this.moulinProxy);
-        },
-        handleLevelLoadProgress:function() {
-          //console.log("level loading in progress" +  this.levelAssets.mediaQueue._numItemsLoaded + " sur " + this.levelAssets.mediaQueue._numItems);            
         },
         handleLevelAssetsComplete:function(event, levelId) {
-          console.log("level loading complete " + levelId);  
           this.loadedLevels.push(levelId);
         },
         addStartButton: function() {
@@ -111,6 +108,5 @@
             this.stage.canvas.height = oh * scale - 10;
         }
     };
-
     window.Moulin = Moulin;
 }());

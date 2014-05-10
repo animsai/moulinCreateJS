@@ -80,6 +80,13 @@ var Utils = {
        stage.addChild(speaker);
        speaker.alpha = 0.2;
        createjs.Tween.get(speaker).to({alpha: 0.8}, 300).to({alpha: 0}, 300);
+  },
+  createBlurredRectangle: function(stage){
+        var blurredRectangle = new createjs.Shape().set({x: 0, y: 0});
+        blurredRectangle.alpha = 0;
+        blurredRectangle.graphics.beginFill("white").drawRect(0, 0, stage.canvas.width * 2, stage.canvas.height * 2);
+        stage.addChild(blurredRectangle);
+        createjs.Tween.get(blurredRectangle).to({alpha: 0.8}, 1000);
   }
 };
 
