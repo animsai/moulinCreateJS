@@ -61,7 +61,7 @@
             //clear stage before creating new level
             this.stage.removeAllChildren();
             
-            this.loadNextLevelSilently();
+//            TODO reactivate this once the refactor of same file load is donethis.loadNextLevelSilently();
             
             //adding the background image
             background = new createjs.Bitmap(this.fileManifest[0].src);
@@ -129,6 +129,7 @@
         playInstructions: function() {
             //play instruction sentence
             var consigneSound = createjs.Sound.play("consignes_" + this.level.id);
+         
             this.setSoundPlaying(null, true);
             if (this.level.interaction === InteractionTypeEnum.GUIDED) {
                 this.levelProxy = createjs.proxy(this.playRandomSound, this, false);
