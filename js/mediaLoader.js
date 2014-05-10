@@ -11,22 +11,32 @@
      * @returns {_L7.MediaLoader}
      */
     function MediaLoader(manifestArray) {
-        this.initialize(manifestArray);
+//        this.initialize(manifestArray);
+          this.init();
     }
    MediaLoader.prototype = new createjs.EventDispatcher();
         MediaLoader.prototype.mediaQueue =  null;
         MediaLoader.prototype.mediaProxy = null;
         MediaLoader.prototype.allManifestConcat = null;
         MediaLoader.prototype.EventDispatcher_initialize = MediaLoader.prototype.initialize;
-        MediaLoader.prototype.initialize  =  function(manifestArray) {
-            MediaLoader.prototype.EventDispatcher_initialize();
-            
-            this.allManifestConcat = [];
+        MediaLoader.prototype.addArrayOfManifests  =  function(manifestArray) {
+//            MediaLoader.prototype.EventDispatcher_initialize();
+//            this.init();
+//            this.allManifestConcat = [];
             //concat all manifests to load all media at once
             for(var i=0; i<manifestArray.length; i++) {
-                this.allManifestConcat = this.allManifestConcat.concat(manifestArray[i]);
+                this.addOneFileManifest(manifestArray[i]);
+                //this.allManifestConcat = this.allManifestConcat.concat(manifestArray[i]);
             }
-
+            
+          //  this.mediaQueue.loadManifest(this.allManifestConcat);
+//            return this;
+        };
+        MediaLoader.prototype.addOneFileManifest = function(fileManifest) {
+            this.mediaQueue.loadManifest(fileManifest);
+        };
+        MediaLoader.prototype.init = function () {
+            MediaLoader.prototype.EventDispatcher_initialize();
              //manage loading queue
             this.mediaQueue = new createjs.LoadQueue(false);
             this.mediaQueue.installPlugin(createjs.Sound);
@@ -37,7 +47,6 @@
             //proxy to manage the scope of 'this' 
             this.mediaProxy = createjs.proxy(this.handleComplete, this);
             this.mediaQueue.addEventListener("complete", this.mediaProxy);
-            this.mediaQueue.loadManifest(this.allManifestConcat);
             return this;
         };
         MediaLoader.prototype.handleProgress =  function() {
