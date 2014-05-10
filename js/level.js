@@ -61,7 +61,7 @@
             //clear stage before creating new level
             this.stage.removeAllChildren();
             
-//            TODO reactivate this once the refactor of same file load is donethis.loadNextLevelSilently();
+            this.loadNextLevelSilently();
             
             //adding the background image
             background = new createjs.Bitmap(this.fileManifest[0].src);

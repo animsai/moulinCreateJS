@@ -161,7 +161,6 @@ var animaux1_fileManifest = [
     {id: "oiseau_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_1.wav"},
     {id: "tortue_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_4.wav"},
     {id: "lapin_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_2.wav"},
-    /*{id: "canard_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_5.wav"},*/
     {id: "chat_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_3.wav"},
     //instruction and feedback sounds
     {id: "consignes_animaux1", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_consigne_1.wav"}
@@ -462,7 +461,7 @@ var objets2_fileManifest = [
     {id: "verre_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.1.wav"},
     {id: "voiture_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.4.wav"},
     //instruction and feedback sounds
-    {id: "consignes_objets2", src: SNDFOLDER + "objets/level1/3objets.consigne.1.wav"}
+    {id: "consignes_objets2", src: SNDFOLDER + "objets/level2/3objets.consigne.1.wav"}
 ];
 
 var objets3_fileManifest = [
@@ -483,7 +482,7 @@ var objets3_fileManifest = [
     {id: "sirop_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.2.wav"},
     {id: "train_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.3.wav"},
     //instruction and feedback sounds
-    {id: "consignes_objets3", src: SNDFOLDER + "objets/level1/3objets.consigne.1.wav"}
+    {id: "consignes_objets3", src: SNDFOLDER + "objets/level3/3objets.consigne.1.wav"}
 ];
 
 
@@ -492,14 +491,6 @@ var objets3_fileManifest = [
 
 
 /************************************************CONTAINERS FOR ALL THE OTHER MANIFESTS **************************************************************************/
-/**
- * these files are loaded after the coreFiles and are loaded in the background
- * without lettting the user notice it, except if the user clicks to fastly on a level which was not loaded yet
- */
-var levelFiles = [
-    animaux1_fileManifest, animaux2_fileManifest, animaux3_fileManifest, animaux4_fileManifest, animaux5_fileManifest, animaux6_fileManifest,animaux7_fileManifest,
-    habits1_fileManifest, habits2_fileManifest, habits3_fileManifest,
-    objets1_fileManifest, objets2_fileManifest, objets3_fileManifest];
 
 /*these files are the ones that are loaded in the beggining of the game
  * they are the most needed for the player to start playing*/
