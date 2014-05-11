@@ -9,7 +9,6 @@
     function LevelTouchGuided(level, stage) {
         this.initialize(level, stage);
     }
-
     LevelTouchGuided.prototype = new Moulin.Level();
 
     LevelTouchGuided.prototype.level_initialize = LevelTouchGuided.prototype.initialize;
@@ -95,26 +94,6 @@
      LevelTouchGuided.prototype.level_playFeedbackAndContinue = LevelTouchGuided.prototype.playFeedbackAndContinue ;
     LevelTouchGuided.prototype.playFeedbackAndContinue = function(itemId, isPositiveFB) {
         LevelTouchGuided.prototype.level_playFeedbackAndContinue(itemId, isPositiveFB);
-//        this.setSoundPlaying(null, true);
-//        var soundId = "";
-//        var feedbackSound;
-//        var randomFBNum = Math.round(Math.random() * 2);
-//        soundId = randomFBNum + FEEDBACK_SUFFIX;
-//        if (isPositiveFB) {
-//            soundId = "pos" + soundId;
-//            this.levelProxy = createjs.proxy(this.playRandomSound, this);
-//        } else {
-//            soundId = "neg" + soundId;
-//            this.levelProxy = createjs.proxy(this.replayLastSound, this);
-//        }
-//
-//        //in any type of interaction, if the level is finished then we manage the level end after last feedback sentence
-//        if (this.levelImages.length === 0) { //level finished
-//            this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
-//        }
-//
-//        feedbackSound = createjs.Sound.play(soundId);
-//        feedbackSound.addEventListener("complete", this.levelProxy);
     };
     LevelTouchGuided.prototype.level_playRandomSound = LevelTouchGuided.prototype.playRandomSound;
     LevelTouchGuided.prototype.playRandomSound = function() {

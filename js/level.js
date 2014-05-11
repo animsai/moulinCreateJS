@@ -1,6 +1,5 @@
 /* 
- * Manages a level of the game once the user has chosen a level from the navigation screen
- * The class manages different level interaction types, guided, with click drag n drop etc.
+ * Common Level class, that has to be inherited, contains only common behaviours to all levels
  * Author : J. Travnjak
  * Date : may 2014
  */
