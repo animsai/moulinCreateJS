@@ -80,18 +80,18 @@
                     this.startNextLevel();
                     break;
                 case "replay" :
-                    this.stage.removeAllChildren();
-                    new Moulin.Level(this.finishedLevel, this.stage);
+                    this.launchLevel(this.finishedLevel);
                     break;
             }
         },
         startNextLevel: function() {
-            //set the score for this level
-            this.stage.removeAllChildren();
+            this.launchLevel(this.nextLevel);
+        },
+        launchLevel: function(level) {
             if (level.interaction === InteractionTypeEnum.GUIDEDDRAG) {
                 new Moulin.LevelDragGuided(level, this.stage);
             } else {
-                new Moulin.Level(this.nextLevel, this.stage);
+                new Moulin.Level(level, this.stage);
             }
         },
         isNextLevelAvailable: function() {

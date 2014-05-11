@@ -119,7 +119,8 @@ var adjectifs_nav_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_decor.png"},
     //level images
-    {id: "adjectifsEx1", levelId: "adjectifs1", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_ex1.png", "x": 42, "y": 254}
+    {id: "adjectifsEx1", levelId: "adjectifs1", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_ex1.png", "x": 42, "y": 254},
+    {id: "adjectifsEx2", levelId: "adjectifs2", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_ex2.png", "x": 228, "y": 254}
 ];
 /**************************************************************************************************************************/
 
@@ -141,7 +142,8 @@ var levels = [
     {id: "objets1", theme: "objets", media: "objets1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "objets2", theme: "objets", media: "objets2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "objets3", theme: "objets", media: "objets3_fileManifest", interaction: InteractionTypeEnum.GUIDED},
-    {id: "adjectifs1", theme: "adjectifs", media: "adjectifs1_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG}
+    {id: "adjectifs1", theme: "adjectifs", media: "adjectifs1_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG},
+    {id: "adjectifs2", theme: "adjectifs", media: "adjectifs2_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG}
 ];
 
 
@@ -523,29 +525,29 @@ var adjectifs1_fileManifest = [
 ];
 
 
-var adjectifs1_fileManifest = [
+var adjectifs2_fileManifest = [
     //background
-    {id: "scene", src: IMGFOLDER + "adjectifs/level1/adjectifs_cartes_ex1_decor.png"},
+    {id: "scene", src: IMGFOLDER + "adjectifs/level2/adjectifs_cartes_ex2_decor.png"},
     //level outlines
-    {id: "couche_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_couche_decor.png", "x": 130, "y": 428},
-    {id: "debout_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_debout_decor.png", "x": 427, "y": 428},
-    {id: "ferme_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_ferme_decor.png", "x": 427, "y": 128},
-    {id: "ouvert_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_ouvert_decor.png", "x": 130, "y": 128},
+    {id: "couche_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_couche_decor.png", "x": 130, "y": 428},
+    {id: "debout_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_debout_decor.png", "x": 427, "y": 428},
+    {id: "ferme_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_ferme_decor.png", "x": 427, "y": 128},
+    {id: "ouvert_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_ouvert_decor.png", "x": 130, "y": 128},
     
     //level clickable items
-    {id: "chaud", src: IMGFOLDER + "adjectifs/level1/adjectifs_chaud.png", "x": 818, "y": 575},
-    {id: "froid", src: IMGFOLDER + "adjectifs/level1/adjectifs_froid.png", "x": 818, "y": 410},
-    {id: "grand", src: IMGFOLDER + "adjectifs/level1/adjectifs_grand.png", "x": 818, "y": 240},
-    {id: "petit", src: IMGFOLDER + "adjectifs/level1/adjectifs_petit.png", "x": 818, "y": 75},
+    {id: "couche", src: IMGFOLDER + "adjectifs/level2/adjectifs_couche.png", "x": 818, "y": 575},
+    {id: "debout", src: IMGFOLDER + "adjectifs/level2/adjectifs_debout.png", "x": 818, "y": 410},
+    {id: "ferme", src: IMGFOLDER + "adjectifs/level2/adjectifs_ferme.png", "x": 818, "y": 240},
+    {id: "ouvert", src: IMGFOLDER + "adjectifs/level2/adjectifs_ouvert.png", "x": 818, "y": 75},
     
     //level sounds
-    {id: "chaud_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.chaud.wav"},
-    {id: "froid_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.froid.wav"},
-    {id: "grand_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.grand.wav"},
-    {id: "petit_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.petit.wav"},
+    {id: "couche_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.couche.wav"},
+    {id: "debout_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.debout.wav"},
+    {id: "ferme_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.ferme.wav"},
+    {id: "ouvert_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.ouvert.wav"},
    
     //instruction and feedback sounds
-    {id: "consignes_adjectifs1", src: SNDFOLDER + "adjectifs/level1/9adjectifs.consigne.1.wav"}
+    {id: "consignes_adjectifs2", src: SNDFOLDER + "adjectifs/level2/9adjectifs.consigne.1.wav"}
 ];
 
 
