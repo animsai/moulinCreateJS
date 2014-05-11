@@ -88,7 +88,11 @@
         startNextLevel: function() {
             //set the score for this level
             this.stage.removeAllChildren();
-            new Moulin.Level(this.nextLevel, this.stage);
+            if (level.interaction === InteractionTypeEnum.GUIDEDDRAG) {
+                new Moulin.LevelDragGuided(level, this.stage);
+            } else {
+                new Moulin.Level(this.nextLevel, this.stage);
+            }
         },
         isNextLevelAvailable: function() {
             if (this.nextLevel !== null && this.nextLevel.theme === this.finishedLevel.theme) {

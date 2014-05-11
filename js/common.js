@@ -27,14 +27,16 @@ var userScore = [
 
 var InteractionTypeEnum = {
     GUIDED: 1,
-    FREEDRAG: 2
+    FREEDRAG: 2,
+    GUIDEDDRAG: 3
 };
 
 var themes = [
     {id: "nav"},
     {id: "animaux"},
     {id: "habits"},
-    {id: "objets"}
+    {id: "objets"},
+    {id: "adjectifs"}
 ];
 
 /*******************************global files, can be used anywhere in the game****************************************************/
@@ -62,7 +64,8 @@ var feedback_fileManifest = [
     {id: "neg2_fb", src: SNDFOLDER +  FB_FOLDER + "1animaux.reponse.mauvais.3.wav"},
     {id: "animaux_conclusion_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.conclusion.1.wav"},
     {id: "habits_conclusion_fb", src: SNDFOLDER + "habits/" + FB_FOLDER + "2habit.ex3.conclusion.1.wav"},
-    {id: "objets_conclusion_fb", src: SNDFOLDER + "objets/" + FB_FOLDER + "3objets.conclusion.wav"}
+    {id: "objets_conclusion_fb", src: SNDFOLDER + "objets/" + FB_FOLDER + "3objets.conclusion.wav"},
+     {id: "adjectifs_conclusion_fb", src: SNDFOLDER + "adjectifs/" + FB_FOLDER + "9adjectifs.conclusion.1.wav"}
 ];
 /***********************************************************************""""""""""""""""""""""""""""**************************/
 
@@ -75,6 +78,7 @@ var nav_fileManifest = [
     {id: "animaux", src: IMGFOLDER + NAV_FOLDER + "niveau1_animaux.png", x: 42, y: 184},
     {id: "habits", src: IMGFOLDER + NAV_FOLDER + "niveau1_habits.png", x: 238, y: 184},
     {id: "objets", src: IMGFOLDER + NAV_FOLDER + "niveau1_objets.png", x: 438, y: 184},
+    {id: "adjectifs", src: IMGFOLDER + NAV_FOLDER + "niveau1_adjectifs.png", x: 628, y: 184},
     //instruction and feedback sounds
     {id: "nav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"},
     {id: "subNav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "son_5.wav"}
@@ -110,6 +114,13 @@ var objets_nav_fileManifest = [
     {id: "objetsEx2", levelId: "objets2", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex2.png", "x": 228, "y": 254},
     {id: "objetsEx3", levelId: "objets3", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex3.png", "x": 408, "y": 254}
 ];
+
+var adjectifs_nav_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_decor.png"},
+    //level images
+    {id: "adjectifsEx1", levelId: "adjectifs1", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_ex1.png", "x": 42, "y": 254}
+];
 /**************************************************************************************************************************/
 
 
@@ -129,7 +140,8 @@ var levels = [
     {id: "habits3", theme: "habits", media: "habits3_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
     {id: "objets1", theme: "objets", media: "objets1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "objets2", theme: "objets", media: "objets2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
-    {id: "objets3", theme: "objets", media: "objets3_fileManifest", interaction: InteractionTypeEnum.GUIDED}
+    {id: "objets3", theme: "objets", media: "objets3_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "adjectifs1", theme: "adjectifs", media: "adjectifs1_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG}
 ];
 
 
@@ -485,6 +497,57 @@ var objets3_fileManifest = [
     {id: "consignes_objets3", src: SNDFOLDER + "objets/level3/3objets.consigne.1.wav"}
 ];
 
+var adjectifs1_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "adjectifs/level1/adjectifs_cartes_ex1_decor.png"},
+    //level outlines
+    {id: "chaud_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_chaud_decor.png", "x": 130, "y": 428},
+    {id: "froid_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_froid_decor.png", "x": 427, "y": 428},
+    {id: "grand_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_grand_decor.png", "x": 427, "y": 128},
+    {id: "petit_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_petit_decor.png", "x": 130, "y": 128},
+    
+    //level clickable items
+    {id: "chaud", src: IMGFOLDER + "adjectifs/level1/adjectifs_chaud.png", "x": 818, "y": 575},
+    {id: "froid", src: IMGFOLDER + "adjectifs/level1/adjectifs_froid.png", "x": 818, "y": 410},
+    {id: "grand", src: IMGFOLDER + "adjectifs/level1/adjectifs_grand.png", "x": 818, "y": 240},
+    {id: "petit", src: IMGFOLDER + "adjectifs/level1/adjectifs_petit.png", "x": 818, "y": 75},
+    
+    //level sounds
+    {id: "chaud_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.chaud.wav"},
+    {id: "froid_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.froid.wav"},
+    {id: "grand_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.grand.wav"},
+    {id: "petit_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.petit.wav"},
+   
+    //instruction and feedback sounds
+    {id: "consignes_adjectifs1", src: SNDFOLDER + "adjectifs/level1/9adjectifs.consigne.1.wav"}
+];
+
+
+var adjectifs1_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "adjectifs/level1/adjectifs_cartes_ex1_decor.png"},
+    //level outlines
+    {id: "couche_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_couche_decor.png", "x": 130, "y": 428},
+    {id: "debout_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_debout_decor.png", "x": 427, "y": 428},
+    {id: "ferme_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_ferme_decor.png", "x": 427, "y": 128},
+    {id: "ouvert_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_ouvert_decor.png", "x": 130, "y": 128},
+    
+    //level clickable items
+    {id: "chaud", src: IMGFOLDER + "adjectifs/level1/adjectifs_chaud.png", "x": 818, "y": 575},
+    {id: "froid", src: IMGFOLDER + "adjectifs/level1/adjectifs_froid.png", "x": 818, "y": 410},
+    {id: "grand", src: IMGFOLDER + "adjectifs/level1/adjectifs_grand.png", "x": 818, "y": 240},
+    {id: "petit", src: IMGFOLDER + "adjectifs/level1/adjectifs_petit.png", "x": 818, "y": 75},
+    
+    //level sounds
+    {id: "chaud_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.chaud.wav"},
+    {id: "froid_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.froid.wav"},
+    {id: "grand_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.grand.wav"},
+    {id: "petit_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.petit.wav"},
+   
+    //instruction and feedback sounds
+    {id: "consignes_adjectifs1", src: SNDFOLDER + "adjectifs/level1/9adjectifs.consigne.1.wav"}
+];
+
 
 /**************************************************************************************************************************/
 
@@ -495,6 +558,6 @@ var objets3_fileManifest = [
 /*these files are the ones that are loaded in the beggining of the game
  * they are the most needed for the player to start playing*/
 var coreFiles = [interLevel_fileManifest, nav_fileManifest, feedback_fileManifest, speakerIconFile, backButtonFile, introImg,
-                 animaux_nav_fileManifest,habits_nav_fileManifest,objets_nav_fileManifest];
+                 animaux_nav_fileManifest, habits_nav_fileManifest, objets_nav_fileManifest, adjectifs_nav_fileManifest];
              
 /**************************************************************************************************************************/

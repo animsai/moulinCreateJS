@@ -5,11 +5,11 @@
  * Date : may 2014
  */
 (function() {
-    function Level(level, stage) {
+    function LevelDragGuided(level, stage) {
         this.initialize(level, stage);
     }
 
-    Level.prototype = {
+    LevelDragGuided.prototype = {
         fileManifest: null,
         stage: null,
         level: null,
@@ -60,9 +60,9 @@
         createLevel: function() {
             //clear stage before creating new level
             this.stage.removeAllChildren();
-            
+
             this.loadNextLevelSilently();
-            
+
             //adding the background image
             background = new createjs.Bitmap(this.fileManifest[0].src);
             this.stage.addChild(background);
@@ -73,10 +73,7 @@
             //add back button
             Utils.addBackButton(this.stage, this.level.theme, false);
 
-            //add repeat button if guided level
-            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
-                this.addRepeatButton();
-            }
+            this.addRepeatButton();
             //play instruction sentence
             this.playInstructions();
         },
@@ -107,15 +104,12 @@
                 //set an item name to be able to retrieve it later directly within the stage.getChildByName function
                 item.name = entry.id;
 
-                if (this.level.interaction === InteractionTypeEnum.GUIDED) {
-                    this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
-                    item.addEventListener("pressup", this.levelProxy)
-                } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
+                if (this.level.interaction === InteractionTypeEnum.GUIDEDDRAG) {
                     this.levelProxy = createjs.proxy(this.handleStartDrag, this, entry.id);
                     item.addEventListener("mousedown", this.levelProxy);
                     this.levelProxy = createjs.proxy(this.handleDrag, this, entry.id);
                     item.addEventListener("pressmove", this.levelProxy);
-                    this.levelProxy = createjs.proxy(this.handlePressup, this, entry.id);
+                    this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
                     item.addEventListener("pressup", this.levelProxy);
                 }
 
@@ -129,13 +123,8 @@
         playInstructions: function() {
             //play instruction sentence
             var consigneSound = createjs.Sound.play("consignes_" + this.level.id);
-         
             this.setSoundPlaying(null, true);
-            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
-                this.levelProxy = createjs.proxy(this.playRandomSound, this, false);
-            } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
-                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-            }
+            this.levelProxy = createjs.proxy(this.playRandomSound, this, false);
             consigneSound.addEventListener("complete", this.levelProxy);
         },
         //get a given item from the current file manifest
@@ -155,16 +144,22 @@
             }
         },
         handlePressup: function(event, itemId) {
-            if (this.isCorrectAnswer(event, itemId)) {
-                this.manageCorrectAnswer(event, itemId);
-            } else {
-                this.manageWrongAnswer(event, itemId);
+            console.log("hanlde press up " + itemId + " " + this.isDragged);
+            if (this.isDragged === true) {
+                if (this.isCorrectAnswer(event, itemId)) {
+                    this.manageCorrectAnswer(event, itemId);
+                } else {
+                    this.manageWrongAnswer(event, itemId);
+                }
+                this.isDragged = false;
             }
+
         },
         handleStartDrag: function(evt, itemId) {
             this.isDragged = false;
+            console.log ("handle start drag");
             if (this.soundPlaying === false) {
-                this.playItemSound(itemId, false);
+//                this.playItemSound(itemId, false);
                 /**************************/
                 //this code was found here : http://stackoverflow.com/questions/22829143/easeljs-glitchy-drag-drop
                 var ct = evt.currentTarget;
@@ -183,9 +178,11 @@
             }
         },
         handleDrag: function(event) {
+                        if (this.soundPlaying === false) {
             event.target.x = (event.stageX - this.stage.x) / this.stage.scaleX;
             event.target.y = event.stageY / this.stage.scaleY;
             this.isDragged = true;
+        }
         },
         handleGuidedInteraction: function(event, itemId) {
             if (this.soundPlaying === false) {
@@ -195,21 +192,18 @@
             }
         },
         manageWrongAnswer: function(event, itemId) {
-            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
-                //reduce score
+            if (this.isDragged) {
+                console.log("wrong answer " + itemId + " " + this.isDragged)
                 this.score--;
                 // play negative feedback and continue game
                 this.playFeedbackAndContinue(itemId, false);
-            }
-            else if (this.level.interaction === InteractionTypeEnum.FREEDRAG && this.isDragged) {
-                //reduce score
-                this.score--;
                 //move back the dragged item to its initial position 
                 var originItem = this.getItemFromManifest(itemId);
                 event.target.regX = 0;
                 event.target.regY = 0;
                 createjs.Tween.get(event.target).to({x: originItem.x, y: originItem.y}, 400, createjs.Ease.linear);
             }
+
         },
         manageCorrectAnswer: function(event, itemId) {
             var clickedItem = event.target;
@@ -239,18 +233,16 @@
             this.playFeedbackAndContinue(itemId, true);
         },
         isCorrectAnswer: function(event, itemId) {
-            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
-                var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
-                return (itemId + SOUND_SUFFIX === lastPlayedSound);
-            } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
-                var outlineItem = this.getItemFromManifest(itemId + OUTLINE_SUFFIX);
-                return this.isRightDropPosition(event.target, outlineItem);
-            }
-            return false;
+
+            var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
+            var outlineItem = this.getItemFromManifest(itemId + OUTLINE_SUFFIX);
+            console.log("isCorrectANswer " + itemId + " " + outlineItem.id + " " + lastPlayedSound);
+            return itemId + SOUND_SUFFIX === lastPlayedSound && this.isRightDropPosition(event.target, outlineItem);
         },
         isRightDropPosition: function(draggedItem, dropOutline) {
             var xDiff = dropOutline.x - draggedItem.x;
             var yDiff = dropOutline.y - draggedItem.y;
+            
             if (Math.abs(Math.abs(xDiff) - draggedItem.image.width) > draggedItem.image.width) {
                 return false;
             }
@@ -264,19 +256,14 @@
             this.setSoundPlaying(null, true);
             var soundId = "";
             var feedbackSound;
-            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
-                var randomFBNum = Math.round(Math.random() * 2);
-                soundId = randomFBNum + FEEDBACK_SUFFIX;
-                if (isPositiveFB) {
-                    soundId = "pos" + soundId;
-                    this.levelProxy = createjs.proxy(this.playRandomSound, this);
-                } else {
-                    soundId = "neg" + soundId;
-                    this.levelProxy = createjs.proxy(this.replayLastSound, this);
-                }
-            } else if (this.level.interaction === InteractionTypeEnum.FREEDRAG) {
-                soundId = "conf_" + itemId + "_snd";
-                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
+            var randomFBNum = Math.round(Math.random() * 2);
+            soundId = randomFBNum + FEEDBACK_SUFFIX;
+            if (isPositiveFB) {
+                soundId = "pos" + soundId;
+                this.levelProxy = createjs.proxy(this.playRandomSound, this);
+            } else {
+                soundId = "neg" + soundId;
+                this.levelProxy = createjs.proxy(this.replayLastSound, this);
             }
 
             //in any type of interaction, if the level is finished then we manage the level end after last feedback sentence
@@ -286,12 +273,6 @@
 
             feedbackSound = createjs.Sound.play(soundId);
             feedbackSound.addEventListener("complete", this.levelProxy);
-        },
-        playItemSound: function(itemId) {
-            this.setSoundPlaying(null, true);
-            this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-            var itemSound = createjs.Sound.play(itemId + "_snd");
-            itemSound.addEventListener("complete", this.levelProxy);
         },
         playRandomSound: function() {
             var randomIndex = Math.floor(Math.random() * this.levelSoundIds.length);
@@ -307,7 +288,7 @@
 //                newSound.addEventListener("complete", this.levelProxy);
         },
         replayLastSound: function() {
-            if(this.playedSoundIds.length > 0) {
+            if (this.playedSoundIds.length > 0) {
                 var lastSound = createjs.Sound.play(this.playedSoundIds[this.playedSoundIds.length - 1]);
                 this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
                 lastSound.addEventListener("complete", this.levelProxy);
@@ -362,7 +343,7 @@
                     levelLoader.addOneFileManifest(eval(nextLevel.media));
                     this.levelProxy = new createjs.proxy(this.handleNextLevelLoadCompletion, this, nextLevel);
                     levelLoader.addEventListener("assetsComplete", this.levelProxy);
-                } 
+                }
             }
         },
         handleNextLevelLoadCompletion: function(event, nextLevel) {
@@ -374,25 +355,25 @@
                 Utils.createBlurredRectangle(this.stage);
                 var bar = new Moulin.LoadingBar(500, 90, 5, "#72AF2C", "#8CCF3F");
                 this.stage.addChild(bar);
-                var currentlevelLoader = new Moulin.MediaLoader() ;
+                var currentlevelLoader = new Moulin.MediaLoader();
                 currentlevelLoader.addOneFileManifest(eval(this.level.media));
                 this.levelProxy = new createjs.proxy(this.handleLevelLoadProgress, this, bar, currentlevelLoader);
                 currentlevelLoader.addEventListener("assetsLoadingProgress", this.levelProxy);
                 this.levelProxy = new createjs.proxy(this.handleLevelLoadCompletion, this, this.level);
                 currentlevelLoader.addEventListener("assetsComplete", this.levelProxy);
             } else {
-                 this.createLevel();
+                this.createLevel();
             }
         },
-        handleLevelLoadCompletion: function(event, level){
+        handleLevelLoadCompletion: function(event, level) {
             game.loadedLevels.push(level.id);
             this.createLevel();
         },
-        handleLevelLoadProgress : function(event, loadingBar, assets){
-             loadingBar.loadingBar.scaleX = assets.mediaQueue.progress * loadingBar.width;
+        handleLevelLoadProgress: function(event, loadingBar, assets) {
+            loadingBar.loadingBar.scaleX = assets.mediaQueue.progress * loadingBar.width;
         },
     };
-    Moulin.Level = Level;
+    Moulin.LevelDragGuided = LevelDragGuided;
 }());
 
 

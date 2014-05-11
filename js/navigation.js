@@ -100,8 +100,11 @@
                     this.initSubNavigation(itemId);
                 } else {
                     var level = Utils.getLevelById(itemId);
-                    new Moulin.Level(level, this.stage);
-//                    this.manageLevelLoadifNeeded(level);
+                    if(level.interaction === InteractionTypeEnum.GUIDEDDRAG){
+                        new Moulin.LevelDragGuided(level, this.stage);
+                    } else {
+                        new Moulin.Level(level, this.stage);
+                    }
                 }
             } else {
                  Utils.manageSpeaker(this.stage);
