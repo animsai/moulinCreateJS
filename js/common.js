@@ -1,4 +1,4 @@
- /* 
+/* 
  * Contains all the global variables as well as all the file manifests needed for the game
  * Author : J. Travnjak
  * Date : may 2014
@@ -57,15 +57,15 @@ var introImg = {id: "introImg", src: IMGFOLDER + NAV_FOLDER + "ecran_debut_coule
 
 var feedback_fileManifest = [
     {id: "pos0_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.bon.1.wav"},
-    {id: "pos1_fb", src: SNDFOLDER +  FB_FOLDER + "1animaux.reponse.bon.2.wav"},
-    {id: "pos2_fb", src: SNDFOLDER +  FB_FOLDER + "1animaux.reponse.bon.3.wav"},
-    {id: "neg0_fb", src: SNDFOLDER +  FB_FOLDER + "1animaux.reponse.mauvais.1.wav"},
-    {id: "neg1_fb", src: SNDFOLDER +  FB_FOLDER + "1animaux.reponse.mauvais.2.wav"},
-    {id: "neg2_fb", src: SNDFOLDER +  FB_FOLDER + "1animaux.reponse.mauvais.3.wav"},
+    {id: "pos1_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.bon.2.wav"},
+    {id: "pos2_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.bon.3.wav"},
+    {id: "neg0_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.mauvais.1.wav"},
+    {id: "neg1_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.mauvais.2.wav"},
+    {id: "neg2_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.mauvais.3.wav"},
     {id: "animaux_conclusion_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.conclusion.1.wav"},
     {id: "habits_conclusion_fb", src: SNDFOLDER + "habits/" + FB_FOLDER + "2habit.ex3.conclusion.1.wav"},
     {id: "objets_conclusion_fb", src: SNDFOLDER + "objets/" + FB_FOLDER + "3objets.conclusion.wav"},
-     {id: "adjectifs_conclusion_fb", src: SNDFOLDER + "adjectifs/" + FB_FOLDER + "9adjectifs.conclusion.1.wav"}
+    {id: "adjectifs_conclusion_fb", src: SNDFOLDER + "adjectifs/" + FB_FOLDER + "9adjectifs.conclusion.1.wav"}
 ];
 /***********************************************************************""""""""""""""""""""""""""""**************************/
 
@@ -122,7 +122,10 @@ var adjectifs_nav_fileManifest = [
     {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_decor.png"},
     //level images
     {id: "adjectifsEx1", levelId: "adjectifs1", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_ex1.png", "x": 42, "y": 254},
-    {id: "adjectifsEx2", levelId: "adjectifs2", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_ex2.png", "x": 228, "y": 254}
+    {id: "adjectifsEx2", levelId: "adjectifs2", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_ex2.png", "x": 228, "y": 254},
+    {id: "adjectifsEx3", levelId: "adjectifs3", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_ex3.png", "x": 408, "y": 254},
+    {id: "adjectifsEx4", levelId: "adjectifs4", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_ex4.png", "x": 595, "y": 254},
+    {id: "adjectifsEx5", levelId: "adjectifs5", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_ex5.png", "x": 778, "y": 254}
 ];
 /**************************************************************************************************************************/
 
@@ -147,7 +150,10 @@ var levels = [
     {id: "objets2", theme: "objets", media: "objets2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "objets3", theme: "objets", media: "objets3_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "adjectifs1", theme: "adjectifs", media: "adjectifs1_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG},
-    {id: "adjectifs2", theme: "adjectifs", media: "adjectifs2_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG}
+    {id: "adjectifs2", theme: "adjectifs", media: "adjectifs2_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG},
+    {id: "adjectifs3", theme: "adjectifs", media: "adjectifs3_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG},
+    {id: "adjectifs4", theme: "adjectifs", media: "adjectifs4_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG},
+    {id: "adjectifs5", theme: "adjectifs", media: "adjectifs5_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG}
 ];
 
 
@@ -338,12 +344,12 @@ var habits1_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "habits/level1/habits_decor_ex1.png"},
     //image outlines
-    {id: "chaussettes_outline", src: IMGFOLDER + "habits/level1/habits_chaussettes_seul.png", "x": 413, "y": 640, width:190, height:70},
-    {id: "baskets_outline", src: IMGFOLDER + "habits/level1/habits_baskets_seul.png", "x": 413, "y": 660, width:200, height:50},
-    {id: "pantalon_outline", src: IMGFOLDER + "habits/level1/habits_pantalon_seul.png", "x": 445, "y": 465, width:145, height:200},
-    {id: "pull_outline", src: IMGFOLDER + "habits/level1/habits_pull_seul.png", "x": 370, "y": 338, width:270, height:125},
-    {id: "mouffles_outline", src: IMGFOLDER + "habits/level1/habits_mouffles_seul.png", "x": 335, "y": 450, width:350, height:70},
-    {id: "manteau_outline", src: IMGFOLDER + "habits/level1/habits_manteau_seul.png", "x": 357, "y": 337, width:300, height:250},
+    {id: "chaussettes_outline", src: IMGFOLDER + "habits/level1/habits_chaussettes_seul.png", "x": 413, "y": 640, width: 190, height: 70},
+    {id: "baskets_outline", src: IMGFOLDER + "habits/level1/habits_baskets_seul.png", "x": 413, "y": 660, width: 200, height: 50},
+    {id: "pantalon_outline", src: IMGFOLDER + "habits/level1/habits_pantalon_seul.png", "x": 445, "y": 465, width: 145, height: 200},
+    {id: "pull_outline", src: IMGFOLDER + "habits/level1/habits_pull_seul.png", "x": 370, "y": 338, width: 270, height: 125},
+    {id: "mouffles_outline", src: IMGFOLDER + "habits/level1/habits_mouffles_seul.png", "x": 335, "y": 450, width: 350, height: 70},
+    {id: "manteau_outline", src: IMGFOLDER + "habits/level1/habits_manteau_seul.png", "x": 357, "y": 337, width: 300, height: 250},
     //level images
     {id: "chaussettes", src: IMGFOLDER + "habits/level1/habits_chaussettes.png", "x": 790, "y": 212},
     {id: "baskets", src: IMGFOLDER + "habits/level1/habits_baskets.png", "x": 36, "y": 383},
@@ -373,12 +379,12 @@ var habits2_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "habits/level2/habits_decor_ex2.png"},
     //image outlines
-    {id: "chaussures_outline", src: IMGFOLDER + "habits/level2/habits_chaussures_seul.png", "x": 410, "y": 660, width:195, height:40},
-    {id: "lunettes_outline", src: IMGFOLDER + "habits/level2/habits_lunettes_seul.png", "x": 400, "y": 253, width:215, height:40},
-    {id: "casquette_outline", src: IMGFOLDER + "habits/level2/habits_casquette_seul.png", "x": 360, "y": 136, width:250, height:130},
-    {id: "montre_outline", src: IMGFOLDER + "habits/level2/habits_montre_seul.png", "x": 370, "y": 440, width:50, height:50},
-    {id: "tshirt_outline", src: IMGFOLDER + "habits/level2/habits_tshirt_seul.png", "x": 417, "y": 338, width:180, height:130},
-    {id: "short_outline", src: IMGFOLDER + "habits/level2/habits_short_seul.png", "x": 450, "y": 458, width:120, height:90},
+    {id: "chaussures_outline", src: IMGFOLDER + "habits/level2/habits_chaussures_seul.png", "x": 410, "y": 660, width: 195, height: 40},
+    {id: "lunettes_outline", src: IMGFOLDER + "habits/level2/habits_lunettes_seul.png", "x": 400, "y": 253, width: 215, height: 40},
+    {id: "casquette_outline", src: IMGFOLDER + "habits/level2/habits_casquette_seul.png", "x": 360, "y": 136, width: 250, height: 130},
+    {id: "montre_outline", src: IMGFOLDER + "habits/level2/habits_montre_seul.png", "x": 370, "y": 440, width: 50, height: 50},
+    {id: "tshirt_outline", src: IMGFOLDER + "habits/level2/habits_tshirt_seul.png", "x": 417, "y": 338, width: 180, height: 130},
+    {id: "short_outline", src: IMGFOLDER + "habits/level2/habits_short_seul.png", "x": 450, "y": 458, width: 120, height: 90},
     //level images
     {id: "chaussures", src: IMGFOLDER + "habits/level2/habits_chaussures.png", "x": 790, "y": 212},
     {id: "lunettes", src: IMGFOLDER + "habits/level2/habits_lunettes.png", "x": 36, "y": 580},
@@ -408,12 +414,12 @@ var habits3_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "habits/level3/habits_decor_ex3.png"},
     //image outlines
-    {id: "blouse_outline", src: IMGFOLDER + "habits/level3/habits_blouse_seul.png", "x": 371, "y": 333, width:203, height:125},
-    {id: "collants_outline", src: IMGFOLDER + "habits/level3/habits_collants_seul.png", "x": 413, "y": 460, width:200, height:250},
-    {id: "jupe_outline", src: IMGFOLDER + "habits/level3/habits_jupe_seul.png", "x": 411, "y": 460, width:200, height:110},
-    {id: "veste_outline", src: IMGFOLDER + "habits/level3/habits_veste_seul.png", "x": 370, "y": 334, width:290, height:150},
-    {id: "bottes_outline", src: IMGFOLDER + "habits/level3/habits_bottes_seul.png", "x": 410, "y": 647, width:200, height:70},
-    {id: "foulard_outline", src: IMGFOLDER + "habits/level3/habits_foulard_seul.png", "x": 410, "y": 305, width:180, height:110},
+    {id: "blouse_outline", src: IMGFOLDER + "habits/level3/habits_blouse_seul.png", "x": 371, "y": 333, width: 203, height: 125},
+    {id: "collants_outline", src: IMGFOLDER + "habits/level3/habits_collants_seul.png", "x": 413, "y": 460, width: 200, height: 250},
+    {id: "jupe_outline", src: IMGFOLDER + "habits/level3/habits_jupe_seul.png", "x": 411, "y": 460, width: 200, height: 110},
+    {id: "veste_outline", src: IMGFOLDER + "habits/level3/habits_veste_seul.png", "x": 370, "y": 334, width: 290, height: 150},
+    {id: "bottes_outline", src: IMGFOLDER + "habits/level3/habits_bottes_seul.png", "x": 410, "y": 647, width: 200, height: 70},
+    {id: "foulard_outline", src: IMGFOLDER + "habits/level3/habits_foulard_seul.png", "x": 410, "y": 305, width: 180, height: 110},
     //level images
     {id: "blouse", src: IMGFOLDER + "habits/level3/habits_blouse.png", "x": 790, "y": 212},
     {id: "collants", src: IMGFOLDER + "habits/level3/habits_collants.png", "x": 36, "y": 510},
@@ -443,12 +449,12 @@ var habits4_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "habits/level4/habits_decor_ex4.png"},
     //image outlines
-    {id: "chemise_outline", src: IMGFOLDER + "habits/level4/habits_chemise_seul.png", "x": 365, "y": 333, width:280, height:140},
-    {id: "jupe_jaune_outline", src: IMGFOLDER + "habits/level4/habits_jupe_jaune_seul.png", "x": 408, "y": 460, width:200, height:110},
-    {id: "bracelet_outline", src: IMGFOLDER + "habits/level4/habits_bracelet_seul.png", "x": 360, "y": 450, width:40, height:30},
-    {id: "collier_outline", src: IMGFOLDER + "habits/level4/habits_collier_seul.png", "x": 477, "y": 330, width:70, height:40},
-    {id: "ballerines_outline", src: IMGFOLDER + "habits/level4/habits_chaussures_ballerines_seul.png", "x": 408, "y": 670, width:200, height:70},
-    {id: "chapeau_outline", src: IMGFOLDER + "habits/level4/habits_chapeau_seul.png", "x": 345, "y": 129, width:300, height:130},
+    {id: "chemise_outline", src: IMGFOLDER + "habits/level4/habits_chemise_seul.png", "x": 365, "y": 333, width: 280, height: 140},
+    {id: "jupe_jaune_outline", src: IMGFOLDER + "habits/level4/habits_jupe_jaune_seul.png", "x": 408, "y": 460, width: 200, height: 110},
+    {id: "bracelet_outline", src: IMGFOLDER + "habits/level4/habits_bracelet_seul.png", "x": 360, "y": 450, width: 40, height: 30},
+    {id: "collier_outline", src: IMGFOLDER + "habits/level4/habits_collier_seul.png", "x": 477, "y": 330, width: 70, height: 40},
+    {id: "ballerines_outline", src: IMGFOLDER + "habits/level4/habits_chaussures_ballerines_seul.png", "x": 408, "y": 670, width: 200, height: 70},
+    {id: "chapeau_outline", src: IMGFOLDER + "habits/level4/habits_chapeau_seul.png", "x": 345, "y": 129, width: 300, height: 130},
     //level images
     {id: "chemise", src: IMGFOLDER + "habits/level4/habits_chemise.png", "x": 790, "y": 212},
     {id: "jupe_jaune", src: IMGFOLDER + "habits/level4/habits_jupe_jaune.png", "x": 36, "y": 510},
@@ -478,23 +484,20 @@ var habits5_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "habits/level5/habits_decor_ex5.png"},
     //image outlines
-    {id: "body_outline", src: IMGFOLDER + "habits/level5/habits_body_seul.png", "x": 368, "y": 337, width:290, height:190},
-    {id: "pyjama_outline", src: IMGFOLDER + "habits/level5/habits_pyjama_seul.png", "x": 368, "y": 337, width:290, height:345},
-    {id: "bonnet_outline", src: IMGFOLDER + "habits/level5/habits_bonnet_seul.png", "x": 390, "y": 150, width:250, height:210},
-    {id: "pantoufles_outline", src: IMGFOLDER + "habits/level5/habits_pantoufles_seul.png", "x": 412, "y": 673, width:200, height:50},
-
+    {id: "body_outline", src: IMGFOLDER + "habits/level5/habits_body_seul.png", "x": 368, "y": 337, width: 290, height: 190},
+    {id: "pyjama_outline", src: IMGFOLDER + "habits/level5/habits_pyjama_seul.png", "x": 368, "y": 337, width: 290, height: 345},
+    {id: "bonnet_outline", src: IMGFOLDER + "habits/level5/habits_bonnet_seul.png", "x": 390, "y": 150, width: 250, height: 210},
+    {id: "pantoufles_outline", src: IMGFOLDER + "habits/level5/habits_pantoufles_seul.png", "x": 412, "y": 673, width: 200, height: 50},
     //level images
     {id: "body", src: IMGFOLDER + "habits/level5/habits_body.png", "x": 790, "y": 212},
     {id: "pyjama", src: IMGFOLDER + "habits/level5/habits_pyjama.png", "x": 36, "y": 210},
     {id: "bonnet", src: IMGFOLDER + "habits/level5/habits_bonnet.png", "x": 790, "y": 420},
     {id: "pantoufles", src: IMGFOLDER + "habits/level5/habits_pantoufles.png", "x": 36, "y": 550},
-   
     //level sounds
     {id: "body_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.1.wav"},
     {id: "pyjama_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.2.wav"},
     {id: "bonnet_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.3.wav"},
     {id: "pantoufles_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.4.wav"},
- 
     //instruction and feedback sounds
     {id: "consignes_habits5", src: SNDFOLDER + "habits/level5/2habit.ex3.consigne.1.wav"}
 ];
@@ -566,23 +569,20 @@ var adjectifs1_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "adjectifs/level1/adjectifs_cartes_ex1_decor.png"},
     //level outlines
-    {id: "chaud_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_chaud_decor.png", "x": 130, "y": 428, width:300, height:300},
-    {id: "froid_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_froid_decor.png", "x": 427, "y": 428, width:300, height:300},
-    {id: "grand_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_grand_decor.png", "x": 427, "y": 128, width:300, height:300},
-    {id: "petit_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_petit_decor.png", "x": 130, "y": 128, width:300, height:300},
-    
+    {id: "petit_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_petit_decor.png", "x": 130, "y": 128, width: 300, height: 300},
+    {id: "grand_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_grand_decor.png", "x": 427, "y": 128, width: 300, height: 300},
+    {id: "chaud_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_chaud_decor.png", "x": 130, "y": 428, width: 300, height: 300},
+    {id: "froid_outline", src: IMGFOLDER + "adjectifs/level1/adjectifs_froid_decor.png", "x": 427, "y": 428, width: 300, height: 300},
     //level clickable items
+    {id: "petit", src: IMGFOLDER + "adjectifs/level1/adjectifs_petit.png", "x": 818, "y": 75},
+    {id: "grand", src: IMGFOLDER + "adjectifs/level1/adjectifs_grand.png", "x": 818, "y": 240},
     {id: "chaud", src: IMGFOLDER + "adjectifs/level1/adjectifs_chaud.png", "x": 818, "y": 575},
     {id: "froid", src: IMGFOLDER + "adjectifs/level1/adjectifs_froid.png", "x": 818, "y": 410},
-    {id: "grand", src: IMGFOLDER + "adjectifs/level1/adjectifs_grand.png", "x": 818, "y": 240},
-    {id: "petit", src: IMGFOLDER + "adjectifs/level1/adjectifs_petit.png", "x": 818, "y": 75},
-    
     //level sounds
+    {id: "petit_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.petit.wav"},
+    {id: "grand_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.grand.wav"},
     {id: "chaud_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.chaud.wav"},
     {id: "froid_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.froid.wav"},
-    {id: "grand_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.grand.wav"},
-    {id: "petit_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.petit.wav"},
-   
     //instruction and feedback sounds
     {id: "consignes_adjectifs1", src: SNDFOLDER + "adjectifs/level1/9adjectifs.consigne.1.wav"}
 ];
@@ -592,25 +592,88 @@ var adjectifs2_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "adjectifs/level2/adjectifs_cartes_ex2_decor.png"},
     //level outlines
-    {id: "couche_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_couche_decor.png", "x": 130, "y": 428, width:300, height:300},
-    {id: "debout_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_debout_decor.png", "x": 427, "y": 428, width:300, height:300},
-    {id: "ferme_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_ferme_decor.png", "x": 427, "y": 128, width:300, height:300},
-    {id: "ouvert_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_ouvert_decor.png", "x": 130, "y": 128, width:300, height:300},
-    
+    {id: "ouvert_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_ouvert_decor.png", "x": 130, "y": 128, width: 300, height: 300},
+    {id: "ferme_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_ferme_decor.png", "x": 427, "y": 128, width: 300, height: 300},
+    {id: "couche_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_couche_decor.png", "x": 130, "y": 428, width: 300, height: 300},
+    {id: "debout_outline", src: IMGFOLDER + "adjectifs/level2/adjectifs_debout_decor.png", "x": 427, "y": 428, width: 300, height: 300},
     //level clickable items
+    {id: "ouvert", src: IMGFOLDER + "adjectifs/level2/adjectifs_ouvert.png", "x": 818, "y": 75},
+    {id: "ferme", src: IMGFOLDER + "adjectifs/level2/adjectifs_ferme.png", "x": 818, "y": 240},
     {id: "couche", src: IMGFOLDER + "adjectifs/level2/adjectifs_couche.png", "x": 818, "y": 575},
     {id: "debout", src: IMGFOLDER + "adjectifs/level2/adjectifs_debout.png", "x": 818, "y": 410},
-    {id: "ferme", src: IMGFOLDER + "adjectifs/level2/adjectifs_ferme.png", "x": 818, "y": 240},
-    {id: "ouvert", src: IMGFOLDER + "adjectifs/level2/adjectifs_ouvert.png", "x": 818, "y": 75},
-    
     //level sounds
+    {id: "ouvert_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.ouvert.wav"},
+    {id: "ferme_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.ferme.wav"},
     {id: "couche_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.couche.wav"},
     {id: "debout_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.debout.wav"},
-    {id: "ferme_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.ferme.wav"},
-    {id: "ouvert_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.ouvert.wav"},
-   
     //instruction and feedback sounds
     {id: "consignes_adjectifs2", src: SNDFOLDER + "adjectifs/level2/9adjectifs.consigne.1.wav"}
+];
+
+var adjectifs3_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "adjectifs/level3/adjectifs_cartes_ex3_decor.png"},
+    //level outlines
+    {id: "rapide_outline", src: IMGFOLDER + "adjectifs/level3/adjectifs_rapide_decor.png", "x": 130, "y": 128, width: 300, height: 300},
+    {id: "lent_outline", src: IMGFOLDER + "adjectifs/level3/adjectifs_lent_decor.png", "x": 427, "y": 128, width: 300, height: 300},
+    {id: "jeune_outline", src: IMGFOLDER + "adjectifs/level3/adjectifs_jeune_decor.png", "x": 130, "y": 428, width: 300, height: 300},
+    {id: "vieux_outline", src: IMGFOLDER + "adjectifs/level3/adjectifs_vieux_decor.png", "x": 427, "y": 428, width: 300, height: 300},
+    //level clickable items
+    {id: "rapide", src: IMGFOLDER + "adjectifs/level3/adjectifs_rapide.png", "x": 818, "y": 75},
+    {id: "lent", src: IMGFOLDER + "adjectifs/level3/adjectifs_lent.png", "x": 818, "y": 240},
+    {id: "jeune", src: IMGFOLDER + "adjectifs/level3/adjectifs_jeune.png", "x": 818, "y": 575},
+    {id: "vieux", src: IMGFOLDER + "adjectifs/level3/adjectifs_vieux.png", "x": 818, "y": 410},
+    //level sounds
+    {id: "rapide_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.rapide.wav"},
+    {id: "lent_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.lent.wav"},
+    {id: "jeune_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.jeune.wav"},
+    {id: "vieux_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.vieux.wav"},
+    //instruction and feedback sounds
+    {id: "consignes_adjectifs3", src: SNDFOLDER + "adjectifs/level3/9adjectifs.consigne.1.wav"}
+];
+
+var adjectifs4_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "adjectifs/level4/adjectifs_cartes_ex4_decor.png"},
+    //level outlines
+    {id: "propre_outline", src: IMGFOLDER + "adjectifs/level4/adjectifs_propre_decor.png", "x": 130, "y": 128, width: 300, height: 300},
+    {id: "sale_outline", src: IMGFOLDER + "adjectifs/level4/adjectifs_sale_decor.png", "x": 427, "y": 128, width: 300, height: 300},
+    {id: "gros_outline", src: IMGFOLDER + "adjectifs/level4/adjectifs_gros_decor.png", "x": 130, "y": 428, width: 300, height: 300},
+    {id: "mince_outline", src: IMGFOLDER + "adjectifs/level4/adjectifs_mince_decor.png", "x": 427, "y": 428, width: 300, height: 300},
+    //level clickable items
+    {id: "propre", src: IMGFOLDER + "adjectifs/level4/adjectifs_propre.png", "x": 818, "y": 75},
+    {id: "sale", src: IMGFOLDER + "adjectifs/level4/adjectifs_sale.png", "x": 818, "y": 240},
+    {id: "gros", src: IMGFOLDER + "adjectifs/level4/adjectifs_gros.png", "x": 818, "y": 575},
+    {id: "mince", src: IMGFOLDER + "adjectifs/level4/adjectifs_mince.png", "x": 818, "y": 410},
+    //level sounds
+    {id: "propre_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.propre.wav"},
+    {id: "sale_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.sale.wav"},
+    {id: "gros_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.gros.wav"},
+    {id: "mince_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.mince.wav"},
+    //instruction and feedback sounds
+    {id: "consignes_adjectifs4", src: SNDFOLDER + "adjectifs/level4/9adjectifs.consigne.1.wav"}
+];
+
+var adjectifs5_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "adjectifs/level5/adjectifs_cartes_ex5_decor.png"},
+    //level outlines
+    {id: "plein_outline", src: IMGFOLDER + "adjectifs/level5/adjectifs_plein_decor.png", "x": 130, "y": 128, width: 300, height: 300},
+    {id: "vide_outline", src: IMGFOLDER + "adjectifs/level5/adjectifs_vide_decor.png", "x": 427, "y": 128, width: 300, height: 300},
+    {id: "dur_outline", src: IMGFOLDER + "adjectifs/level5/adjectifs_dur_decor.png", "x": 130, "y": 428, width: 300, height: 300},
+    {id: "mou_outline", src: IMGFOLDER + "adjectifs/level5/adjectifs_mou_decor.png", "x": 427, "y": 428, width: 300, height: 300},
+    //level clickable items
+    {id: "plein", src: IMGFOLDER + "adjectifs/level5/adjectifs_plein.png", "x": 818, "y": 75},
+    {id: "vide", src: IMGFOLDER + "adjectifs/level5/adjectifs_vide.png", "x": 818, "y": 240},
+    {id: "dur", src: IMGFOLDER + "adjectifs/level5/adjectifs_dur.png", "x": 818, "y": 575},
+    {id: "mou", src: IMGFOLDER + "adjectifs/level5/adjectifs_mou.png", "x": 818, "y": 410},
+    //level sounds
+    {id: "plein_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.plein.wav"},
+    {id: "vide_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.vide.wav"},
+    {id: "dur_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.dur.wav"},
+    {id: "mou_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.mou.wav"},
+    //instruction and feedback sounds
+    {id: "consignes_adjectifs5", src: SNDFOLDER + "adjectifs/level5/9adjectifs.consigne.1.wav"}
 ];
 
 
@@ -623,6 +686,6 @@ var adjectifs2_fileManifest = [
 /*these files are the ones that are loaded in the beggining of the game
  * they are the most needed for the player to start playing*/
 var coreFiles = [interLevel_fileManifest, nav_fileManifest, feedback_fileManifest, speakerIconFile, backButtonFile, introImg,
-                 animaux_nav_fileManifest, habits_nav_fileManifest, objets_nav_fileManifest, adjectifs_nav_fileManifest];
-             
+    animaux_nav_fileManifest, habits_nav_fileManifest, objets_nav_fileManifest, adjectifs_nav_fileManifest];
+
 /**************************************************************************************************************************/
