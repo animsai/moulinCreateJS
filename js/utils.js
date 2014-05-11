@@ -96,6 +96,7 @@ var Utils = {
               break;
           case InteractionTypeEnum.GUIDED :
               //TODO new Moulin.Level(level, this.stage);
+              new Moulin.LevelTouchGuided(level, stage);
               break;
           case InteractionTypeEnum.FREEDRAG :
               new Moulin.LevelDragFree(level, stage);

@@ -118,7 +118,6 @@
     };
     LevelDragGuided.prototype.manageWrongAnswer = function(event, itemId) {
         if (this.isDragged) {
-            console.log("wrong answer " + itemId + " " + this.isDragged)
             this.score--;
             // play negative feedback and continue game
             this.playFeedbackAndContinue(itemId, false);
@@ -143,27 +142,29 @@
     LevelDragGuided.prototype.isRightDropPosition = function(draggedItem, dropOutline) {
         return LevelDragGuided.prototype.level_isRightDropPosition(draggedItem, dropOutline);
     };
+    LevelDragGuided.prototype.level_playFeedbackAndContinue = LevelDragGuided.prototype.playFeedbackAndContinue ;
     LevelDragGuided.prototype.playFeedbackAndContinue = function(itemId, isPositiveFB) {
-        this.setSoundPlaying(null, true);
-        var soundId = "";
-        var feedbackSound;
-        var randomFBNum = Math.round(Math.random() * 2);
-        soundId = randomFBNum + FEEDBACK_SUFFIX;
-        if (isPositiveFB) {
-            soundId = "pos" + soundId;
-            this.levelProxy = createjs.proxy(this.playRandomSound, this);
-        } else {
-            soundId = "neg" + soundId;
-            this.levelProxy = createjs.proxy(this.replayLastSound, this);
-        }
-
-        //in any type of interaction, if the level is finished then we manage the level end after last feedback sentence
-        if (this.levelImages.length === 0) { //level finished
-            this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
-        }
-
-        feedbackSound = createjs.Sound.play(soundId);
-        feedbackSound.addEventListener("complete", this.levelProxy);
+        LevelDragGuided.prototype.level_playFeedbackAndContinue(itemId, isPositiveFB);
+//        this.setSoundPlaying(null, true);
+//        var soundId = "";
+//        var feedbackSound;
+//        var randomFBNum = Math.round(Math.random() * 2);
+//        soundId = randomFBNum + FEEDBACK_SUFFIX;
+//        if (isPositiveFB) {
+//            soundId = "pos" + soundId;
+//            this.levelProxy = createjs.proxy(this.playRandomSound, this);
+//        } else {
+//            soundId = "neg" + soundId;
+//            this.levelProxy = createjs.proxy(this.replayLastSound, this);
+//        }
+//
+//        //in any type of interaction, if the level is finished then we manage the level end after last feedback sentence
+//        if (this.levelImages.length === 0) { //level finished
+//            this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
+//        }
+//
+//        feedbackSound = createjs.Sound.play(soundId);
+//        feedbackSound.addEventListener("complete", this.levelProxy);
     };
     LevelDragGuided.prototype.level_playRandomSound = LevelDragGuided.prototype.playRandomSound;
     LevelDragGuided.prototype.playRandomSound = function() {
