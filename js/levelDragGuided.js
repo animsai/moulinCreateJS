@@ -1,6 +1,7 @@
 /* 
- * Manages a level of the game once the user has chosen a level from the navigation screen
- * The class manages different level interaction types, guided, with click drag n drop etc.
+ * Manages a level of type Guided Drag n drop, meaning that the voice tells which item to
+ * drag on the scene
+ * Inherits of the main Level class to reuse the main common functionnalities
  * Author : J. Travnjak
  * Date : may 2014
  */
@@ -9,369 +10,201 @@
         this.initialize(level, stage);
     }
 
-    LevelDragGuided.prototype = {
-        fileManifest: null,
-        stage: null,
-        level: null,
-        score: 0,
-        levelProxy: null,
-        playedSoundIds: null,
-        levelSoundIds: null,
-        levelOutlines: null,
-        levelImages: null,
-        soundPlaying: false,
-        isDragged: false,
-        itemNumber: 0,
-        initialize: function(level, stage) {
-            //init internal variables
-            this.fileManifest = eval(level.media);
-            this.level = level;
-            this.stage = stage;
-            this.playedSoundIds = new Array();
-            this.levelSoundIds = new Array();
-            this.levelOutlines = new Array();
-            this.levelImages = new Array();
-            this.soundPlaying = false;
+    LevelDragGuided.prototype = new Moulin.Level();
 
-            //split file manifest after it's loaded in order to have an array for each type of objects
-            this.splitFiles();
-            this.itemNumber = this.levelImages.length; //store the number of clickable items on game start to be able to calculate the score at the end
-            //this.createLevel();
-            this.manageLevelLoadifNeeded();
-            return this;
-        },
-        //utility function to separate filemanifest for easier access to files
-        splitFiles: function() {
-            var sndMatch = new RegExp(SOUND_SUFFIX, "g");
-            var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
-            var sceneMatch = new RegExp(SCENE_ID, "g");
-            var consignesMatch = new RegExp(CONSINGES, "g");
-            for (i = 0; i < this.fileManifest.length; i++) {
-                var file = this.fileManifest[i];
-                if (file.id.match(sndMatch) !== null) {
-                    this.levelSoundIds.push(file.id);
-                } else if (file.id.match(outlineMatch) === null && file.id.match(sceneMatch) === null && file.id.match(consignesMatch) === null) {
-                    this.levelImages.push(file.id);
-                } else if (file.id.match(outlineMatch) !== null && file.id.match(sceneMatch) === null && file.id.match(consignesMatch) === null) {
-                    this.levelOutlines.push(file.id);
-                }
+    LevelDragGuided.prototype.level_initialize = LevelDragGuided.prototype.initialize;
+    LevelDragGuided.prototype.initialize = function(level, stage) {
+        return LevelDragGuided.prototype.level_initialize(level, stage);
+    };
+    LevelDragGuided.prototype.level_splitFiles = LevelDragGuided.prototype.splitFiles;
+    LevelDragGuided.prototype.splitFiles = function() {
+        LevelDragGuided.prototype.level_splitFiles();
+    };
+    LevelDragGuided.prototype.level_createLevel = LevelDragGuided.prototype.createLevel;
+    LevelDragGuided.prototype.createLevel = function() {
+        LevelDragGuided.prototype.level_createLevel();
+    };
+    LevelDragGuided.prototype.level_addRepeatButton = LevelDragGuided.prototype.addRepeatButton;
+    LevelDragGuided.prototype.addRepeatButton = function() {
+        LevelDragGuided.prototype.level_addRepeatButton();
+    };
+    /***
+     * adds the game items to the scene
+     * the function adds the clickable (interactive) items and their outlines (if any)
+     * the outlines are hidden in the first place and are shown once the user clicks on the right interactive item
+     */
+    LevelDragGuided.prototype.addGameItems = function() {
+        var i = 1; // background is already added
+        var entry = this.fileManifest[i];
+        //add images and manage click event, starting at index 1 cause first index is the background already added
+        var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
+        while (i < this.fileManifest.length && entry.type === "image") {
+            if (entry.id.match(outlineMatch) === null) { //add interactive items
+                var shadow = this.levelOutlines.length > 0 ? true : false;
+                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, shadow);
+            } else { //add outlines to stage and hide them to make them appear later during the game
+                var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1, false);
+                item.visible = false;
             }
-        },
-        createLevel: function() {
-            //clear stage before creating new level
-            this.stage.removeAllChildren();
+            //set an item name to be able to retrieve it later directly within the stage.getChildByName function
+            item.name = entry.id;
 
-            this.loadNextLevelSilently();
+            this.levelProxy = createjs.proxy(this.handleStartDrag, this, entry.id);
+            item.addEventListener("mousedown", this.levelProxy);
+            this.levelProxy = createjs.proxy(this.handleDrag, this, entry.id);
+            item.addEventListener("pressmove", this.levelProxy);
+            this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
+            item.addEventListener("pressup", this.levelProxy);
 
-            //adding the background image
-            background = new createjs.Bitmap(this.fileManifest[0].src);
-            this.stage.addChild(background);
-
-            //add interaction items
-            this.addGameItems();
-
-            //add back button
-            Utils.addBackButton(this.stage, this.level.theme, false);
-
-            this.addRepeatButton();
-            //play instruction sentence
-            this.playInstructions();
-        },
-        addRepeatButton: function() {
-            var repeatImg = Utils.generateBitmapItem(repeatButtonFile.src, repeatButtonFile.x, repeatButtonFile.y, 300, true);
-            this.levelProxy = createjs.proxy(this.replayLastSound, this);
-            repeatImg.addEventListener("pressup", this.levelProxy);
-            this.stage.addChild(repeatImg);
-        },
-        /***
-         * adds the game items to the scene
-         * the function adds the clickable (interactive) items and their outlines (if any)
-         * the outlines are hidden in the first place and are shown once the user clicks on the right interactive item
-         */
-        addGameItems: function() {
-            var i = 1; // background is already added
-            var entry = this.fileManifest[i];
-            //add images and manage click event, starting at index 1 cause first index is the background already added
-            var outlineMatch = new RegExp(OUTLINE_SUFFIX, "g");
-            while (i < this.fileManifest.length && entry.type === "image") {
-                if (entry.id.match(outlineMatch) === null) { //add interactive items
-                    var shadow = this.levelOutlines.length > 0 ? true : false;
-                    var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, shadow);
-                } else { //add outlines to stage and hide them to make them appear later during the game
-                    var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1, false);
-                    item.visible = false;
-                }
-                //set an item name to be able to retrieve it later directly within the stage.getChildByName function
-                item.name = entry.id;
-
-                if (this.level.interaction === InteractionTypeEnum.GUIDEDDRAG) {
-                    this.levelProxy = createjs.proxy(this.handleStartDrag, this, entry.id);
-                    item.addEventListener("mousedown", this.levelProxy);
-                    this.levelProxy = createjs.proxy(this.handleDrag, this, entry.id);
-                    item.addEventListener("pressmove", this.levelProxy);
-                    this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
-                    item.addEventListener("pressup", this.levelProxy);
-                }
-
-                this.stage.addChild(item);
-                i++;
-                entry = this.fileManifest[i];
-            }
-            ;
-        },
-        //manage playing of instruction sound and its completion callback
-        playInstructions: function() {
-            //play instruction sentence
-            var consigneSound = createjs.Sound.play("consignes_" + this.level.id);
-            this.setSoundPlaying(null, true);
-            this.levelProxy = createjs.proxy(this.playRandomSound, this, false);
-            consigneSound.addEventListener("complete", this.levelProxy);
-        },
-        //get a given item from the current file manifest
-        getItemFromManifest: function(itemId) {
-            var i = 0;
-            var itemIndex = -1;
-            while (i < this.fileManifest.length && itemIndex === -1) {
-                if (this.fileManifest[i].id === itemId) {
-                    itemIndex = i;
-                }
-                i++;
-            }
-            if (itemIndex === -1) {
-                return null;
+            this.stage.addChild(item);
+            i++;
+            entry = this.fileManifest[i];
+        }
+        ;
+    };
+    //manage playing of instruction sound and its completion callback
+    LevelDragGuided.prototype.playInstructions = function() {
+        //play instruction sentence
+        var consigneSound = createjs.Sound.play("consignes_" + this.level.id);
+        this.setSoundPlaying(null, true);
+        this.levelProxy = createjs.proxy(this.playRandomSound, this, false);
+        consigneSound.addEventListener("complete", this.levelProxy);
+    };
+    LevelDragGuided.prototype.level_getItemFromManifest = LevelDragGuided.prototype.getItemFromManifest;
+    //get a given item from the current file manifest
+    LevelDragGuided.prototype.getItemFromManifest = function(itemId) {
+        return LevelDragGuided.prototype.level_getItemFromManifest(itemId);
+    };
+    LevelDragGuided.prototype.handlePressup = function(event, itemId) {
+        if (this.isDragged === true) {
+            if (this.isCorrectAnswer(event, itemId)) {
+                this.manageCorrectAnswer(event, itemId);
             } else {
-                return this.fileManifest[itemIndex];
+                this.manageWrongAnswer(event, itemId);
             }
-        },
-        handlePressup: function(event, itemId) {
-            console.log("hanlde press up " + itemId + " " + this.isDragged);
-            if (this.isDragged === true) {
-                if (this.isCorrectAnswer(event, itemId)) {
-                    this.manageCorrectAnswer(event, itemId);
-                } else {
-                    this.manageWrongAnswer(event, itemId);
-                }
-                this.isDragged = false;
-            }
-
-        },
-        handleStartDrag: function(evt, itemId) {
             this.isDragged = false;
-            console.log ("handle start drag");
-            if (this.soundPlaying === false) {
-//                this.playItemSound(itemId, false);
-                /**************************/
-                //this code was found here : http://stackoverflow.com/questions/22829143/easeljs-glitchy-drag-drop
-                var ct = evt.currentTarget;
-                local = ct.globalToLocal(evt.stageX, evt.stageY);
-                nx = ct.regX - local.x;
-                ny = ct.regY - local.y;
-                //set the new regX/Y
-                ct.regX = local.x;
-                ct.regY = local.y;
-                //adjust the real-position, otherwise the new regX/Y would cause a jump
-                ct.x -= nx;
-                ct.y -= ny;
-                /*************************************/
-            } else {
-                Utils.manageSpeaker(this.stage);
-            }
-        },
-        handleDrag: function(event) {
-                        if (this.soundPlaying === false) {
+        }
+    };
+    LevelDragGuided.prototype.handleStartDrag = function(evt, itemId) {
+        this.isDragged = false;
+        if (this.soundPlaying === false) {
+            /**************************/
+            //this code was found here : http://stackoverflow.com/questions/22829143/easeljs-glitchy-drag-drop
+            var ct = evt.currentTarget;
+            local = ct.globalToLocal(evt.stageX, evt.stageY);
+            nx = ct.regX - local.x;
+            ny = ct.regY - local.y;
+            //set the new regX/Y
+            ct.regX = local.x;
+            ct.regY = local.y;
+            //adjust the real-position, otherwise the new regX/Y would cause a jump
+            ct.x -= nx;
+            ct.y -= ny;
+            /*************************************/
+        } else {
+            Utils.manageSpeaker(this.stage);
+        }
+    };
+    LevelDragGuided.prototype.handleDrag = function(event) {
+        if (this.soundPlaying === false) {
             event.target.x = (event.stageX - this.stage.x) / this.stage.scaleX;
             event.target.y = event.stageY / this.stage.scaleY;
             this.isDragged = true;
         }
-        },
-        handleGuidedInteraction: function(event, itemId) {
-            if (this.soundPlaying === false) {
-                this.handlePressup(event, itemId);
-            } else {
-                Utils.manageSpeaker(this.stage);
-            }
-        },
-        manageWrongAnswer: function(event, itemId) {
-            if (this.isDragged) {
-                console.log("wrong answer " + itemId + " " + this.isDragged)
-                this.score--;
-                // play negative feedback and continue game
-                this.playFeedbackAndContinue(itemId, false);
-                //move back the dragged item to its initial position 
-                var originItem = this.getItemFromManifest(itemId);
-                event.target.regX = 0;
-                event.target.regY = 0;
-                createjs.Tween.get(event.target).to({x: originItem.x, y: originItem.y}, 400, createjs.Ease.linear);
-            }
+    };
+    LevelDragGuided.prototype.level_handleGuidedInteraction = LevelDragGuided.prototype.handleGuidedInteraction;
+    LevelDragGuided.prototype.handleGuidedInteraction = function(event, itemId) {
+        LevelDragGuided.prototype.level_handleGuidedInteraction(event, itemId);
+    };
+    LevelDragGuided.prototype.manageWrongAnswer = function(event, itemId) {
+        if (this.isDragged) {
+            console.log("wrong answer " + itemId + " " + this.isDragged)
+            this.score--;
+            // play negative feedback and continue game
+            this.playFeedbackAndContinue(itemId, false);
+            //move back the dragged item to its initial position 
+            var originItem = this.getItemFromManifest(itemId);
+            event.target.regX = 0;
+            event.target.regY = 0;
+            createjs.Tween.get(event.target).to({x: originItem.x, y: originItem.y}, 400, createjs.Ease.linear);
+        }
+    };
+    LevelDragGuided.prototype.level_manageCorrectAnswer = LevelDragGuided.prototype.manageCorrectAnswer;
+    LevelDragGuided.prototype.manageCorrectAnswer = function(event, itemId) {
+        LevelDragGuided.prototype.level_manageCorrectAnswer(event, itemId);
+    };
+    LevelDragGuided.prototype.isCorrectAnswer = function(event, itemId) {
+        var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
+        var outlineItem = this.getItemFromManifest(itemId + OUTLINE_SUFFIX);
+        console.log("isCorrectANswer " + itemId + " " + outlineItem.id + " " + lastPlayedSound);
+        return itemId + SOUND_SUFFIX === lastPlayedSound && this.isRightDropPosition(event.target, outlineItem);
+    };
+    LevelDragGuided.prototype.level_isRightDropPosition = LevelDragGuided.prototype.isRightDropPosition;
+    LevelDragGuided.prototype.isRightDropPosition = function(draggedItem, dropOutline) {
+        return LevelDragGuided.prototype.level_isRightDropPosition(draggedItem, dropOutline);
+    };
+    LevelDragGuided.prototype.playFeedbackAndContinue = function(itemId, isPositiveFB) {
+        this.setSoundPlaying(null, true);
+        var soundId = "";
+        var feedbackSound;
+        var randomFBNum = Math.round(Math.random() * 2);
+        soundId = randomFBNum + FEEDBACK_SUFFIX;
+        if (isPositiveFB) {
+            soundId = "pos" + soundId;
+            this.levelProxy = createjs.proxy(this.playRandomSound, this);
+        } else {
+            soundId = "neg" + soundId;
+            this.levelProxy = createjs.proxy(this.replayLastSound, this);
+        }
 
-        },
-        manageCorrectAnswer: function(event, itemId) {
-            var clickedItem = event.target;
-            var outlineItem = this.getItemFromManifest(itemId + OUTLINE_SUFFIX);
-            //remove clicked item, display outline on stage, update score and play positive feedback
-            clickedItem.removeEventListener("pressup", this.levelProxy);
-
-            //make the item dissapear gently with tween effect
-            var localThis = this;
-            createjs.Tween.get(clickedItem).to({alpha: 0}, 1000).call(function() {
-                localThis.stage.removeChild(clickedItem);
-            });
-
-            if (outlineItem !== null) { // SOME LEVELS DO NOT HAVE OUTLINES
-                var outline = this.stage.getChildByName(outlineItem.id);
-                outline.alpha = 0;
-                outline.visible = true;
-                createjs.Tween.get(outline).to({alpha: 1}, 1000);
-            }
-
-            this.levelImages.splice(this.levelImages.indexOf(itemId), 1);
-
-            //add score
-            this.score++;
-
-            //Play positive feedback
-            this.playFeedbackAndContinue(itemId, true);
-        },
-        isCorrectAnswer: function(event, itemId) {
-
-            var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
-            var outlineItem = this.getItemFromManifest(itemId + OUTLINE_SUFFIX);
-            console.log("isCorrectANswer " + itemId + " " + outlineItem.id + " " + lastPlayedSound);
-            return itemId + SOUND_SUFFIX === lastPlayedSound && this.isRightDropPosition(event.target, outlineItem);
-        },
-        isRightDropPosition: function(draggedItem, dropOutline) {
-            var xDiff = dropOutline.x - draggedItem.x;
-            var yDiff = dropOutline.y - draggedItem.y;
-            
-            if (Math.abs(Math.abs(xDiff) - draggedItem.image.width) > draggedItem.image.width) {
-                return false;
-            }
-            if (Math.abs(Math.abs(yDiff) - draggedItem.image.height) > draggedItem.image.height) {
-                return false;
-            }
-            return true;
-
-        },
-        playFeedbackAndContinue: function(itemId, isPositiveFB) {
-            this.setSoundPlaying(null, true);
-            var soundId = "";
-            var feedbackSound;
-            var randomFBNum = Math.round(Math.random() * 2);
-            soundId = randomFBNum + FEEDBACK_SUFFIX;
-            if (isPositiveFB) {
-                soundId = "pos" + soundId;
-                this.levelProxy = createjs.proxy(this.playRandomSound, this);
-            } else {
-                soundId = "neg" + soundId;
-                this.levelProxy = createjs.proxy(this.replayLastSound, this);
-            }
-
-            //in any type of interaction, if the level is finished then we manage the level end after last feedback sentence
-            if (this.levelImages.length === 0) { //level finished
-                this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
-            }
-
-            feedbackSound = createjs.Sound.play(soundId);
-            feedbackSound.addEventListener("complete", this.levelProxy);
-        },
-        playRandomSound: function() {
-            var randomIndex = Math.floor(Math.random() * this.levelSoundIds.length);
-            var randomSoundId = this.levelSoundIds[randomIndex];
-            this.playedSoundIds.push(randomSoundId);
-            //remove played sound to prevent from being selected again -> TODO remove it on sound play completion to be sure it DID play once
-            this.levelSoundIds.splice(randomIndex, 1);
-            var newSound = createjs.Sound.play(randomSoundId);
-
-            this.setSoundPlaying(null, false); // do not wait for sound to complete, allow the child to click quickly on the item...if it is clear directly which item it is..
-            //LEAVE THIS COMMENTED IN CASE OF NEEDING IT BACK AFTER USABLITIY TEST; I STILL DOUBT if this behaviour is good or not
-//                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-//                newSound.addEventListener("complete", this.levelProxy);
-        },
-        replayLastSound: function() {
-            if (this.playedSoundIds.length > 0) {
-                var lastSound = createjs.Sound.play(this.playedSoundIds[this.playedSoundIds.length - 1]);
-                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-                lastSound.addEventListener("complete", this.levelProxy);
-            }
-        },
-        setSoundPlaying: function(event, val) { //event param needed because of proxy but not used
-            this.soundPlaying = val;
-        },
-        manageLevelEnd: function() {
-            //set the score for this level
-            this.stage.removeAllEventListeners();
-            this.updateLevelScore(this.level, this.score);
-            var nextLevel = Utils.getNextDirectLevel(this.level.id);
-
-            var score = new Moulin.Score(this.level, nextLevel, this.stage, this.score);
-            var conclusion = createjs.Sound.play(this.level.theme + "_conclusion_fb");
-
+        //in any type of interaction, if the level is finished then we manage the level end after last feedback sentence
+        if (this.levelImages.length === 0) { //level finished
             this.levelProxy = createjs.proxy(this.manageLevelEnd, this);
-            //once the conclusion is over, add the navigation buttons
-            conclusion.addEventListener("complete", function() {
-                score.addScoreScreenItems();
-            });
-        },
-        updateLevelScore: function(level, score) {
-            var scoreIndex = userScore.length;
-            var finalScore = score - this.itemNumber + 3;
-            finalScore <= 0 ? 1 : finalScore;
-            this.score = finalScore;
-            var update = 0;
-            //set the score for this level
-            //first check if already played and update it
-            for (var i = 0; i < scoreIndex; i++) {
-                if (userScore[i].user === "test" && userScore[i].levelId === level.id) {
-                    userScore[i].score = finalScore;
-                    update = 1;
-                }
-            }
-            if (update === 0) { //add a new score instad of updating existing
-                userScore[scoreIndex] = {user: "test", levelId: level.id, theme: level.theme, score: finalScore};
-            }
+        }
 
-            if (Utils.supportsLocalStorage()) {
-                localStorage["moulin.scores"] = JSON.stringify(userScore);
-            }
-        },
-        loadNextLevelSilently: function() {
-            var nextLevel = Utils.getNextDirectLevel(this.level.id);
-            if (nextLevel !== null) {
-                var levelIndex = game.loadedLevels.indexOf(nextLevel.id);
-                if (levelIndex === -1) {
-                    var levelLoader = new Moulin.MediaLoader();
-                    levelLoader.addOneFileManifest(eval(nextLevel.media));
-                    this.levelProxy = new createjs.proxy(this.handleNextLevelLoadCompletion, this, nextLevel);
-                    levelLoader.addEventListener("assetsComplete", this.levelProxy);
-                }
-            }
-        },
-        handleNextLevelLoadCompletion: function(event, nextLevel) {
-            game.loadedLevels.push(nextLevel.id);
-        },
-        manageLevelLoadifNeeded: function() {
-            var levelIndex = game.loadedLevels.indexOf(this.level.id);
-            if (levelIndex === -1) {
-                Utils.createBlurredRectangle(this.stage);
-                var bar = new Moulin.LoadingBar(500, 90, 5, "#72AF2C", "#8CCF3F");
-                this.stage.addChild(bar);
-                var currentlevelLoader = new Moulin.MediaLoader();
-                currentlevelLoader.addOneFileManifest(eval(this.level.media));
-                this.levelProxy = new createjs.proxy(this.handleLevelLoadProgress, this, bar, currentlevelLoader);
-                currentlevelLoader.addEventListener("assetsLoadingProgress", this.levelProxy);
-                this.levelProxy = new createjs.proxy(this.handleLevelLoadCompletion, this, this.level);
-                currentlevelLoader.addEventListener("assetsComplete", this.levelProxy);
-            } else {
-                this.createLevel();
-            }
-        },
-        handleLevelLoadCompletion: function(event, level) {
-            game.loadedLevels.push(level.id);
-            this.createLevel();
-        },
-        handleLevelLoadProgress: function(event, loadingBar, assets) {
-            loadingBar.loadingBar.scaleX = assets.mediaQueue.progress * loadingBar.width;
-        },
+        feedbackSound = createjs.Sound.play(soundId);
+        feedbackSound.addEventListener("complete", this.levelProxy);
+    };
+    LevelDragGuided.prototype.level_playRandomSound = LevelDragGuided.prototype.playRandomSound;
+    LevelDragGuided.prototype.playRandomSound = function() {
+        LevelDragGuided.prototype.level_playRandomSound();
+    };
+    LevelDragGuided.prototype.level_replayLastSound = LevelDragGuided.prototype.replayLastSound;
+    LevelDragGuided.prototype.replayLastSound = function() {
+        LevelDragGuided.prototype.level_replayLastSound();
+    };
+    LevelDragGuided.prototype.level_setSoundPlaying = LevelDragGuided.prototype.setSoundPlaying;
+    LevelDragGuided.prototype.setSoundPlaying = function(event, val) { //event param needed because of proxy but not used
+        LevelDragGuided.prototype.level_setSoundPlaying(event, val);
+    };
+    LevelDragGuided.prototype.level_manageLevelEnd = LevelDragGuided.prototype.manageLevelEnd;
+    LevelDragGuided.prototype.manageLevelEnd = function() {
+        LevelDragGuided.prototype.level_manageLevelEnd();
+    };
+    LevelDragGuided.prototype.level_updateLevelScore = LevelDragGuided.prototype.updateLevelScore;
+    LevelDragGuided.prototype.updateLevelScore = function(level, score) {
+        LevelDragGuided.prototype.level_updateLevelScore(level, score);
+    };
+    LevelDragGuided.prototype.level_loadNextLevelSilently = LevelDragGuided.prototype.loadNextLevelSilently;
+    LevelDragGuided.prototype.loadNextLevelSilently = function() {
+        LevelDragGuided.prototype.level_loadNextLevelSilently();
+    };
+    LevelDragGuided.prototype.level_handleNextLevelLoadCompletion = LevelDragGuided.prototype.handleNextLevelLoadCompletion;
+    LevelDragGuided.prototype.handleNextLevelLoadCompletion = function(event, nextLevel) {
+        LevelDragGuided.prototype.level_handleNextLevelLoadCompletion(event, nextLevel);
+        //game.loadedLevels.push(nextLevel.id);
+    };
+    LevelDragGuided.prototype.level_manageLevelLoadifNeeded = LevelDragGuided.prototype.manageLevelLoadifNeeded;
+    LevelDragGuided.prototype.manageLevelLoadifNeeded = function() {
+        LevelDragGuided.prototype.level_manageLevelLoadifNeeded();
+    };
+    LevelDragGuided.prototype.level_handleLevelLoadCompletion = LevelDragGuided.prototype.handleLevelLoadCompletion;
+    LevelDragGuided.prototype.handleLevelLoadCompletion = function(event, level) {
+        LevelDragGuided.prototype.level_handleLevelLoadCompletion(event, level);
+    };
+    LevelDragGuided.prototype.level_handleLevelLoadProgress = LevelDragGuided.prototype.handleLevelLoadProgress;
+    LevelDragGuided.prototype.handleLevelLoadProgress = function(event, loadingBar, assets) {
+        LevelDragGuided.prototype.level_handleLevelLoadProgress(event, loadingBar, assets);
     };
     Moulin.LevelDragGuided = LevelDragGuided;
 }());

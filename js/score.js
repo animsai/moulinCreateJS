@@ -77,21 +77,11 @@
                     new Moulin.Navigation(nav_fileManifest, this.stage);
                     break;
                 case "next" :
-                    this.startNextLevel();
+                    Utils.launchLevel(this.nextLevel.id, this.stage);
                     break;
                 case "replay" :
-                    this.launchLevel(this.finishedLevel);
+                    Utils.launchLevel(this.finishedLevel.id, this.stage);
                     break;
-            }
-        },
-        startNextLevel: function() {
-            this.launchLevel(this.nextLevel);
-        },
-        launchLevel: function(level) {
-            if (level.interaction === InteractionTypeEnum.GUIDEDDRAG) {
-                new Moulin.LevelDragGuided(level, this.stage);
-            } else {
-                new Moulin.Level(level, this.stage);
             }
         },
         isNextLevelAvailable: function() {

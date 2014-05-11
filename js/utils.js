@@ -87,7 +87,21 @@ var Utils = {
         blurredRectangle.graphics.beginFill("white").drawRect(0, 0, stage.canvas.width * 2, stage.canvas.height * 2);
         stage.addChild(blurredRectangle);
         createjs.Tween.get(blurredRectangle).to({alpha: 0.8}, 1000);
-  }
+  },
+  launchLevel : function(itemId, stage){
+      var level = Utils.getLevelById(itemId);
+      switch(level.interaction) {
+          case InteractionTypeEnum.GUIDEDDRAG :
+              new Moulin.LevelDragGuided(level, stage);
+              break;
+          case InteractionTypeEnum.GUIDED :
+              //TODO new Moulin.Level(level, this.stage);
+              break;
+          case InteractionTypeEnum.FREEDRAG :
+              new Moulin.LevelDragFree(level, stage);
+              break;
+      }
+    }
 };
 
 

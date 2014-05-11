@@ -99,12 +99,7 @@
                 if (isMainNav) {
                     this.initSubNavigation(itemId);
                 } else {
-                    var level = Utils.getLevelById(itemId);
-                    if(level.interaction === InteractionTypeEnum.GUIDEDDRAG){
-                        new Moulin.LevelDragGuided(level, this.stage);
-                    } else {
-                        new Moulin.Level(level, this.stage);
-                    }
+                    Utils.launchLevel(itemId, this.stage);
                 }
             } else {
                  Utils.manageSpeaker(this.stage);

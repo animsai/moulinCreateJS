@@ -5,9 +5,9 @@
  * Date : may 2014
  */
 (function() {
-    function Level(level, stage) {
-        this.initialize(level, stage);
-    }
+    function Level() {
+        //do nothing
+    };
 
     Level.prototype = {
         fileManifest: null,
@@ -74,7 +74,7 @@
             Utils.addBackButton(this.stage, this.level.theme, false);
 
             //add repeat button if guided level
-            if (this.level.interaction === InteractionTypeEnum.GUIDED) {
+            if (this.level.interaction !== InteractionTypeEnum.FREEDRAG) {
                 this.addRepeatButton();
             }
             //play instruction sentence
@@ -249,16 +249,11 @@
             return false;
         },
         isRightDropPosition: function(draggedItem, dropOutline) {
-            var xDiff = dropOutline.x - draggedItem.x;
-            var yDiff = dropOutline.y - draggedItem.y;
-            if (Math.abs(Math.abs(xDiff) - draggedItem.image.width) > draggedItem.image.width) {
-                return false;
+            if((draggedItem.x >= dropOutline.x - 20) && (draggedItem.x <= dropOutline.x + dropOutline.width) && (draggedItem.y >= dropOutline.y - 20) && (draggedItem.y <= dropOutline.y + dropOutline.height)) {
+                return true;
+            } else {
+                 return false;
             }
-            if (Math.abs(Math.abs(yDiff) - draggedItem.image.height) > draggedItem.image.height) {
-                return false;
-            }
-            return true;
-
         },
         playFeedbackAndContinue: function(itemId, isPositiveFB) {
             this.setSoundPlaying(null, true);
