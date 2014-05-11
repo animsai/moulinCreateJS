@@ -104,7 +104,8 @@ var habits_nav_fileManifest = [
     {id: "habitsEx1", levelId: "habits1", src: IMGFOLDER + NAV_FOLDER + "niveau2_habits_ex1.png", "x": 42, "y": 254},
     {id: "habitsEx2", levelId: "habits2", src: IMGFOLDER + NAV_FOLDER + "niveau2_habits_ex2.png", "x": 228, "y": 254},
     {id: "habitsEx3", levelId: "habits3", src: IMGFOLDER + NAV_FOLDER + "niveau2_habits_ex3.png", "x": 408, "y": 254},
-    {id: "habitsEx4", levelId: "habits4", src: IMGFOLDER + NAV_FOLDER + "niveau2_habits_ex4.png", "x": 598, "y": 254}
+    {id: "habitsEx4", levelId: "habits4", src: IMGFOLDER + NAV_FOLDER + "niveau2_habits_ex4.png", "x": 595, "y": 254},
+    {id: "habitsEx5", levelId: "habits5", src: IMGFOLDER + NAV_FOLDER + "niveau2_habits_ex5.png", "x": 778, "y": 254}
 ];
 
 var objets_nav_fileManifest = [
@@ -141,6 +142,7 @@ var levels = [
     {id: "habits2", theme: "habits", media: "habits2_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
     {id: "habits3", theme: "habits", media: "habits3_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
     {id: "habits4", theme: "habits", media: "habits4_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
+    {id: "habits5", theme: "habits", media: "habits5_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG},
     {id: "objets1", theme: "objets", media: "objets1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "objets2", theme: "objets", media: "objets2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "objets3", theme: "objets", media: "objets3_fileManifest", interaction: InteractionTypeEnum.GUIDED},
@@ -472,6 +474,30 @@ var habits4_fileManifest = [
     {id: "consignes_habits4", src: SNDFOLDER + "habits/level4/2habit.ex2.consigne1.wav"}
 ];
 
+var habits5_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "habits/level5/habits_decor_ex5.png"},
+    //image outlines
+    {id: "body_outline", src: IMGFOLDER + "habits/level5/habits_body_seul.png", "x": 368, "y": 337, width:290, height:190},
+    {id: "pyjama_outline", src: IMGFOLDER + "habits/level5/habits_pyjama_seul.png", "x": 368, "y": 337, width:290, height:345},
+    {id: "bonnet_outline", src: IMGFOLDER + "habits/level5/habits_bonnet_seul.png", "x": 390, "y": 150, width:250, height:210},
+    {id: "pantoufles_outline", src: IMGFOLDER + "habits/level5/habits_pantoufles_seul.png", "x": 412, "y": 673, width:200, height:50},
+
+    //level images
+    {id: "body", src: IMGFOLDER + "habits/level5/habits_body.png", "x": 790, "y": 212},
+    {id: "pyjama", src: IMGFOLDER + "habits/level5/habits_pyjama.png", "x": 36, "y": 210},
+    {id: "bonnet", src: IMGFOLDER + "habits/level5/habits_bonnet.png", "x": 790, "y": 420},
+    {id: "pantoufles", src: IMGFOLDER + "habits/level5/habits_pantoufles.png", "x": 36, "y": 550},
+   
+    //level sounds
+    {id: "body_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.1.wav"},
+    {id: "pyjama_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.2.wav"},
+    {id: "bonnet_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.3.wav"},
+    {id: "pantoufles_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.4.wav"},
+ 
+    //instruction and feedback sounds
+    {id: "consignes_habits5", src: SNDFOLDER + "habits/level5/2habit.ex3.consigne.1.wav"}
+];
 
 var objets1_fileManifest = [
     //background
