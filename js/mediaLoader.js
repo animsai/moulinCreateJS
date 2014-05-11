@@ -5,32 +5,17 @@
  */
 
 (function() {
-    /***
-     * 
-     * @param {type} manifestArray : array of arrays to load
-     * @returns {_L7.MediaLoader}
-     */
-    function MediaLoader(manifestArray) {
-//        this.initialize(manifestArray);
+    function MediaLoader() {
           this.init();
     }
    MediaLoader.prototype = new createjs.EventDispatcher();
         MediaLoader.prototype.mediaQueue =  null;
         MediaLoader.prototype.mediaProxy = null;
-        MediaLoader.prototype.allManifestConcat = null;
         MediaLoader.prototype.EventDispatcher_initialize = MediaLoader.prototype.initialize;
         MediaLoader.prototype.addArrayOfManifests  =  function(manifestArray) {
-//            MediaLoader.prototype.EventDispatcher_initialize();
-//            this.init();
-//            this.allManifestConcat = [];
-            //concat all manifests to load all media at once
             for(var i=0; i<manifestArray.length; i++) {
                 this.addOneFileManifest(manifestArray[i]);
-                //this.allManifestConcat = this.allManifestConcat.concat(manifestArray[i]);
             }
-            
-          //  this.mediaQueue.loadManifest(this.allManifestConcat);
-//            return this;
         };
         MediaLoader.prototype.addOneFileManifest = function(fileManifest) {
             this.mediaQueue.loadManifest(fileManifest);
