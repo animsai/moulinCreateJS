@@ -36,6 +36,7 @@
             this.splitFiles();
             this.itemNumber = this.levelImages.length; //store the number of clickable items on game start to be able to calculate the score at the end
             //this.createLevel();
+            this.stage.removeAllEventListeners();
             this.manageLevelLoadifNeeded();
             return this;
         },
@@ -59,6 +60,7 @@
         createLevel: function() {
             //clear stage before creating new level
             this.stage.removeAllChildren();
+             createjs.Sound.stop(); //stop all playing sounds before playing instructions
 
             this.loadNextLevelSilently();
 
@@ -183,9 +185,10 @@
             this.playedSoundIds.push(randomSoundId);
             //remove played sound to prevent from being selected again -> TODO remove it on sound play completion to be sure it DID play once
             this.levelSoundIds.splice(randomIndex, 1);
+            this.setSoundPlaying(null, false);
             var newSound = createjs.Sound.play(randomSoundId);
 
-            this.setSoundPlaying(null, false); // do not wait for sound to complete, allow the child to click quickly on the item...if it is clear directly which item it is..
+             // do not wait for sound to complete, allow the child to click quickly on the item...if it is clear directly which item it is..
             //LEAVE THIS COMMENTED IN CASE OF NEEDING IT BACK AFTER USABLITIY TEST; I STILL DOUBT if this behaviour is good or not
 //                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
 //                newSound.addEventListener("complete", this.levelProxy);
@@ -193,8 +196,10 @@
         replayLastSound: function() {
             if (this.playedSoundIds.length > 0) {
                 var lastSound = createjs.Sound.play(this.playedSoundIds[this.playedSoundIds.length - 1]);
-                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
-                lastSound.addEventListener("complete", this.levelProxy);
+                 this.setSoundPlaying(null, false); // allow the child to click without waiting the repetition sound to finish, sometimes they play quickly, if it's clear from the
+                 //sound beginning which item it is
+//                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
+//                lastSound.addEventListener("complete", this.levelProxy);
             }
         },
         setSoundPlaying: function(event, val) { //event param needed because of proxy but not used
@@ -255,6 +260,7 @@
         manageLevelLoadifNeeded: function() {
             var levelIndex = game.loadedLevels.indexOf(this.level.id);
             if (levelIndex === -1) {
+                this.stage.removeAllEventListeners(); //remove all event listeners while loading to avoid error touches
                 Utils.createBlurredRectangle(this.stage);
                 var bar = new Moulin.LoadingBar(500, 90, 5, "#72AF2C", "#8CCF3F");
                 this.stage.addChild(bar);

@@ -21,6 +21,7 @@
             this.nextLevel = nextLevel;
             this.stage = stage;
             this.score = score;
+            this.stage.removeAllEventListeners();
             this.createScoreScreen();
             return this;
         },

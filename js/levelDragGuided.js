@@ -135,7 +135,7 @@
     LevelDragGuided.prototype.isCorrectAnswer = function(event, itemId) {
         var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
         var outlineItem = this.getItemFromManifest(itemId + OUTLINE_SUFFIX);
-        console.log("isCorrectANswer " + itemId + " " + outlineItem.id + " " + lastPlayedSound);
+//        console.log("isCorrectANswer " + itemId + " " + outlineItem.id + " " + lastPlayedSound);
         return itemId + SOUND_SUFFIX === lastPlayedSound && this.isRightDropPosition(event.target, outlineItem);
     };
     LevelDragGuided.prototype.level_isRightDropPosition = LevelDragGuided.prototype.isRightDropPosition;

@@ -37,12 +37,14 @@
         },
         initSubNavigation: function(theme) {
             this.stage.removeAllChildren();
+
             //adding the background image
             this.subFileManifest = eval(theme + "_nav_fileManifest");
             background = new createjs.Bitmap(this.subFileManifest[0].src);
             this.stage.addChild(background);
             //add back button
             Utils.addBackButton(this.stage, theme, true);
+            createjs.Sound.stop(); //stop all playing sounds before playing instructions for sub navigation
             this.handleSoundPlay(null, "subNav_consignes_fb");
             this.addSubNavigationItems();
         },
@@ -95,15 +97,16 @@
             };
         },
         handleItemlick: function(event, itemId, isMainNav) {
-            if (!this.soundPlaying) {
+//            if (!this.soundPlaying) {
+                this.stage.removeAllEventListeners(); //once an item is clicked remove all event listeners to avoid errors
                 if (isMainNav) {
                     this.initSubNavigation(itemId);
                 } else {
                     Utils.launchLevel(itemId, this.stage);
                 }
-            } else {
-                 Utils.manageSpeaker(this.stage);
-            }
+//            } else {
+//                 Utils.manageSpeaker(this.stage);
+//            }
         },
         handleSoundPlay: function(event, soundToPlay) {
             var playingSound = createjs.Sound.play(soundToPlay);
