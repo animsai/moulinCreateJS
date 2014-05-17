@@ -47,7 +47,7 @@ var interLevel_fileManifest = [
 ];
 
 //global var used to inform user that there is a sound going on and that he has to wait
-var speakerIconFile = {id: "speaker", src: IMGFOLDER + NAV_FOLDER + "speaker.png", "x": 410, "y": 350};
+var speakerIconFile = {id: "speaker", src: IMGFOLDER + NAV_FOLDER + "ear.png", "x": 410, "y": 350};
 //global file used in different contexts to go back to previous screen
 var backButtonFile = {id: "previous_small", src: IMGFOLDER + NAV_FOLDER + "previous_small.png", x: 35, y: 35};
 var repeatButtonFile = {id: "repeat", src: IMGFOLDER + NAV_FOLDER + "repeat.png", x: 35, y: 650};
