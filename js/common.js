@@ -155,17 +155,17 @@ var levels = [
     {id: "habits2", theme: "habits", media: "habits2_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
     {id: "habits3", theme: "habits", media: "habits3_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
     {id: "habits4", theme: "habits", media: "habits4_fileManifest", interaction: InteractionTypeEnum.FREEDRAG},
-    {id: "habits5", theme: "habits", media: "habits5_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG},
+    {id: "habits5", theme: "habits", media: "habits5_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:411, dropY:185, dropW:205, dropH:500},
     {id: "objets1", theme: "objets", media: "objets1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "objets2", theme: "objets", media: "objets2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "objets3", theme: "objets", media: "objets3_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "nourriture1", theme: "nourriture", media: "nourriture1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "nourriture12", theme: "nourriture", media: "nourriture12_fileManifest", interaction: InteractionTypeEnum.GUIDED},
-    {id: "adjectifs1", theme: "adjectifs", media: "adjectifs1_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG},
-    {id: "adjectifs2", theme: "adjectifs", media: "adjectifs2_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG},
-    {id: "adjectifs3", theme: "adjectifs", media: "adjectifs3_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG},
-    {id: "adjectifs4", theme: "adjectifs", media: "adjectifs4_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG},
-    {id: "adjectifs5", theme: "adjectifs", media: "adjectifs5_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG}
+    {id: "adjectifs1", theme: "adjectifs", media: "adjectifs1_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605},
+    {id: "adjectifs2", theme: "adjectifs", media: "adjectifs2_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605},
+    {id: "adjectifs3", theme: "adjectifs", media: "adjectifs3_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605},
+    {id: "adjectifs4", theme: "adjectifs", media: "adjectifs4_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605},
+    {id: "adjectifs5", theme: "adjectifs", media: "adjectifs5_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605}
 ];
 
 
@@ -518,12 +518,12 @@ var objets1_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "objets/level1/objets_decor.png"},
     //level images
-    {id: "avion", src: IMGFOLDER + "objets/level1/objets_avion.png", x: 470, y: 490},
-    {id: "balle", src: IMGFOLDER + "objets/level1/objets_balle.png", x: 769, y: 640},
-    {id: "cles", src: IMGFOLDER + "objets/level1/objets_cles.png", x: 546, y: 645},
-    {id: "poupee", src: IMGFOLDER + "objets/level1/objets_poupee.png", x: 484, y: 188},
-    {id: "livre", src: IMGFOLDER + "objets/level1/objets_livre.png", x: 180, y: 463},
-    {id: "tasse", src: IMGFOLDER + "objets/level1/objets_tasse.png", x: 280, y: 604},
+    {id: "avion", src: IMGFOLDER + "objets/level1/objets_avion.png", x: 470, y: 490, width: 110, height: 57},
+    {id: "balle", src: IMGFOLDER + "objets/level1/objets_balle.png", x: 769, y: 640, width: 100, height: 100},
+    {id: "cles", src: IMGFOLDER + "objets/level1/objets_cles.png", x: 546, y: 645, width: 85, height: 45},
+    {id: "poupee", src: IMGFOLDER + "objets/level1/objets_poupee.png", x: 484, y: 188, width: 102, height: 125},
+    {id: "livre", src: IMGFOLDER + "objets/level1/objets_livre.png", x: 180, y: 463, width: 116, height: 46},
+    {id: "tasse", src: IMGFOLDER + "objets/level1/objets_tasse.png", x: 280, y: 604, width: 77, height: 45},
     //level sounds
     {id: "avion_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.3.wav"},
     {id: "balle_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.4.wav"},
@@ -539,12 +539,12 @@ var objets2_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "objets/level2/objets_decor.png"},
     //level images
-    {id: "ballon", src: IMGFOLDER + "objets/level2/objets_ballon.png", x: 63, y: 216},
-    {id: "biberon", src: IMGFOLDER + "objets/level2/objets_biberon.png", x: 816, y: 435},
-    {id: "telephone", src: IMGFOLDER + "objets/level2/objets_telephone.png", x: 608, y: 242},
-    {id: "cadeau", src: IMGFOLDER + "objets/level2/objets_cadeau.png", x: 270, y: 550},
-    {id: "verre", src: IMGFOLDER + "objets/level2/objets_verre.png", x: 450, y: 480},
-    {id: "voiture", src: IMGFOLDER + "objets/level2/objets_voiture.png", x: 680, y: 625},
+    {id: "ballon", src: IMGFOLDER + "objets/level2/objets_ballon.png", x: 63, y: 216, width: 85, height: 85},
+    {id: "biberon", src: IMGFOLDER + "objets/level2/objets_biberon.png", x: 816, y: 435, width: 42, height: 80},
+    {id: "telephone", src: IMGFOLDER + "objets/level2/objets_telephone.png", x: 608, y: 242, width:45, height: 75},
+    {id: "cadeau", src: IMGFOLDER + "objets/level2/objets_cadeau.png", x: 270, y: 550, width: 102, height: 102},
+    {id: "verre", src: IMGFOLDER + "objets/level2/objets_verre.png", x: 450, y: 480, width: 45, height: 60},
+    {id: "voiture", src: IMGFOLDER + "objets/level2/objets_voiture.png", x: 680, y: 625, width: 102, height: 90},
     //level sounds
     {id: "ballon_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.5.wav"},
     {id: "biberon_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.3.wav"},
@@ -560,12 +560,12 @@ var objets3_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "objets/level2/objets_decor.png"},
     //level images
-    {id: "bouteille", src: IMGFOLDER + "objets/level3/objets_bouteille.png", x: 99, y: 180},
-    {id: "cadeau_v2", src: IMGFOLDER + "objets/level3/objets_cadeau_v2.png", x: 800, y: 435},
-    {id: "lampe", src: IMGFOLDER + "objets/level3/objets_lampe.png", x: 430, y: 450},
-    {id: "poubelle", src: IMGFOLDER + "objets/level3/objets_poubelle.png", x: 840, y: 500},
-    {id: "sirop", src: IMGFOLDER + "objets/level3/objets_sirop.png", x: 593, y: 370},
-    {id: "train", src: IMGFOLDER + "objets/level3/objets_train.png", x: 185, y: 630},
+    {id: "bouteille", src: IMGFOLDER + "objets/level3/objets_bouteille.png", x: 99, y: 180, width: 45, height: 120},
+    {id: "cadeau_v2", src: IMGFOLDER + "objets/level3/objets_cadeau_v2.png", x: 797, y: 435, width: 137, height: 148},
+    {id: "lampe", src: IMGFOLDER + "objets/level3/objets_lampe.png", x: 430, y: 450, width: 65, height: 78},
+    {id: "poubelle", src: IMGFOLDER + "objets/level3/objets_poubelle.png", x: 885, y: 500, width: 100, height: 200},
+    {id: "sirop", src: IMGFOLDER + "objets/level3/objets_sirop.png", x: 593, y: 370, width: 80, height: 90},
+    {id: "train", src: IMGFOLDER + "objets/level3/objets_train.png", x: 185, y: 630, width: 155, height: 95},
     //level sounds
     {id: "bouteille_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.5.wav"},
     {id: "cadeau_v2_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.4.wav"},

@@ -77,6 +77,7 @@
     };
     LevelDragGuided.prototype.handlePressup = function(event, itemId) {
         if (this.isDragged === true) {
+//            this.isReallyMoved(event, itemId);
             if (this.isCorrectAnswer(event, itemId)) {
                 this.manageCorrectAnswer(event, itemId);
             } else {
@@ -85,21 +86,36 @@
             this.isDragged = false;
         }
     };
+    LevelDragGuided.prototype.isReallyMoved = function(event){
+        dropZoneX = this.level.dropX;
+        dropZoneY = this.level.dropY;
+        dropWidth = this.level.dropW;
+        dropHeight = this.level.dropH;
+        if(event.target.x >= dropZoneX && event.target.x <= dropWidth + dropZoneX && event.target.y >= dropZoneY && event.target.y <= dropZoneY + dropHeight){
+//            console.log("droped in right zone");
+            return true;
+        } else {
+//            console.log(event.target.x + " " + event.target.y);
+            return false;
+        }
+
+    }
     LevelDragGuided.prototype.handleStartDrag = function(evt, itemId) {
         this.isDragged = false;
+        console.log("isdragged false");
         if (this.soundPlaying === false) {
             /**************************/
             //this code was found here : http://stackoverflow.com/questions/22829143/easeljs-glitchy-drag-drop
             var ct = evt.currentTarget;
-            local = ct.globalToLocal(evt.stageX, evt.stageY);
-            nx = ct.regX - local.x;
-            ny = ct.regY - local.y;
-            //set the new regX/Y
+          var  local = ct.globalToLocal(evt.stageX, evt.stageY);
+//             nx = ct.regX - local.x;
+//            ny = ct.regY - local.y;
+//            //set the new regX/Y
             ct.regX = local.x;
             ct.regY = local.y;
             //adjust the real-position, otherwise the new regX/Y would cause a jump
-            ct.x -= nx;
-            ct.y -= ny;
+            ct.x -= - local.x;
+            ct.y -= - local.y;
             /*************************************/
         } else {
             Utils.manageSpeaker(this.stage);
@@ -107,8 +123,8 @@
     };
     LevelDragGuided.prototype.handleDrag = function(event) {
         if (this.soundPlaying === false) {
-            event.target.x = (event.stageX - this.stage.x) / this.stage.scaleX;
-            event.target.y = event.stageY / this.stage.scaleY;
+            event.target.x = (event.stageX)/ this.stage.scaleX; //- this.stage.x)/ this.stage.scaleX;
+            event.target.y = (event.stageY)/ this.stage.scaleY; //- this.stage.x)/ this.stage.scaleY;
             this.isDragged = true;
         }
     };
@@ -117,10 +133,12 @@
         LevelDragGuided.prototype.level_handleGuidedInteraction(event, itemId);
     };
     LevelDragGuided.prototype.manageWrongAnswer = function(event, itemId) {
-        if (this.isDragged) {
-            this.score--;
-            // play negative feedback and continue game
-            this.playFeedbackAndContinue(itemId, false);
+        if (this.isDragged == true) {
+            if(this.isReallyMoved(event)){
+                this.score--;
+                // play negative feedback and continue game
+                this.playFeedbackAndContinue(itemId, false);
+            }
             //move back the dragged item to its initial position 
             var originItem = this.getItemFromManifest(itemId);
             event.target.regX = 0;
@@ -135,7 +153,6 @@
     LevelDragGuided.prototype.isCorrectAnswer = function(event, itemId) {
         var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
         var outlineItem = this.getItemFromManifest(itemId + OUTLINE_SUFFIX);
-//        console.log("isCorrectANswer " + itemId + " " + outlineItem.id + " " + lastPlayedSound);
         return itemId + SOUND_SUFFIX === lastPlayedSound && this.isRightDropPosition(event.target, outlineItem);
     };
     LevelDragGuided.prototype.level_isRightDropPosition = LevelDragGuided.prototype.isRightDropPosition;

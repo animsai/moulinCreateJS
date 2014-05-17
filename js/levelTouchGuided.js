@@ -41,6 +41,14 @@
             if (entry.id.match(outlineMatch) === null) { //add interactive items
                 var shadow = this.levelOutlines.length > 0 ? true : false;
                 var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, shadow);
+                var hit = new createjs.Shape();
+                if (entry.width !== undefined) { //manage hitarea for small objects, add 25 % error margin
+                   var clickableW = entry.width * 1.5;
+                   var clickableH = entry.height * 1.5;
+                    hit.graphics.beginFill("#000").drawRect(0-(clickableW-entry.width)/2,0-(clickableH-entry.height)/2, clickableW, clickableH);
+                    item.hitArea = hit;
+                }
+
             } else { //add outlines to stage and hide them to make them appear later during the game
                 var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1, false);
                 item.visible = false;
@@ -49,9 +57,10 @@
             item.name = entry.id;
 
             this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
-            item.addEventListener("pressup", this.levelProxy)
+                item.addEventListener("pressup", this.levelProxy)    
 
             this.stage.addChild(item);
+            
             i++;
             entry = this.fileManifest[i];
         }
@@ -71,7 +80,7 @@
     };
     LevelTouchGuided.prototype.level_handlePressup = LevelTouchGuided.prototype.handlePressup;
     LevelTouchGuided.prototype.handlePressup = function(event, itemId) {
-     LevelTouchGuided.prototype.level_handlePressup(event,itemId);
+        LevelTouchGuided.prototype.level_handlePressup(event, itemId);
     };
 
     LevelTouchGuided.prototype.level_handleGuidedInteraction = LevelTouchGuided.prototype.handleGuidedInteraction;
@@ -79,7 +88,7 @@
         LevelTouchGuided.prototype.level_handleGuidedInteraction(event, itemId);
     };
     LevelTouchGuided.prototype.manageWrongAnswer = function(event, itemId) {
-          this.score--;
+        this.score--;
         // play negative feedback and continue game
         this.playFeedbackAndContinue(itemId, false);
     };
@@ -91,7 +100,7 @@
         var lastPlayedSound = this.playedSoundIds[this.playedSoundIds.length - 1]
         return (itemId + SOUND_SUFFIX === lastPlayedSound);
     };
-     LevelTouchGuided.prototype.level_playFeedbackAndContinue = LevelTouchGuided.prototype.playFeedbackAndContinue ;
+    LevelTouchGuided.prototype.level_playFeedbackAndContinue = LevelTouchGuided.prototype.playFeedbackAndContinue;
     LevelTouchGuided.prototype.playFeedbackAndContinue = function(itemId, isPositiveFB) {
         LevelTouchGuided.prototype.level_playFeedbackAndContinue(itemId, isPositiveFB);
     };
