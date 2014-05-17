@@ -89,7 +89,7 @@
                 }
 
                 this.levelProxy = createjs.proxy(this.handleItemlick, this, itemIdForClickEvent, isMainNav);
-                item.addEventListener("pressup", this.levelProxy);
+                container.addEventListener("pressup", this.levelProxy);
 
                 this.stage.addChild(container);
                 i++;
@@ -97,16 +97,12 @@
             };
         },
         handleItemlick: function(event, itemId, isMainNav) {
-//            if (!this.soundPlaying) {
-                this.stage.removeAllEventListeners(); //once an item is clicked remove all event listeners to avoid errors
+                Utils.removeEventListeners(this.stage);
                 if (isMainNav) {
                     this.initSubNavigation(itemId);
                 } else {
                     Utils.launchLevel(itemId, this.stage);
                 }
-//            } else {
-//                 Utils.manageSpeaker(this.stage);
-//            }
         },
         handleSoundPlay: function(event, soundToPlay) {
             var playingSound = createjs.Sound.play(soundToPlay);

@@ -102,6 +102,11 @@ var Utils = {
               new Moulin.LevelDragFree(level, stage);
               break;
       }
+    },
+    removeEventListeners : function(stage){
+        stage.children.forEach(function(child){
+            child.removeAllEventListeners();
+        })
     }
 };
 

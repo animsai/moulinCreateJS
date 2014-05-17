@@ -35,8 +35,6 @@
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
             this.itemNumber = this.levelImages.length; //store the number of clickable items on game start to be able to calculate the score at the end
-            //this.createLevel();
-            this.stage.removeAllEventListeners();
             this.manageLevelLoadifNeeded();
             return this;
         },
