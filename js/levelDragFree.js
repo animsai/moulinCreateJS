@@ -41,6 +41,13 @@
             if (entry.id.match(outlineMatch) === null) { //add interactive items
                 var shadow = this.levelOutlines.length > 0 ? true : false;
                 var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, shadow);
+
+                this.levelProxy = createjs.proxy(this.handleStartDrag, this, entry.id);
+                item.addEventListener("mousedown", this.levelProxy);
+                this.levelProxy = createjs.proxy(this.handleDrag, this, entry.id);
+                item.addEventListener("pressmove", this.levelProxy);
+                this.levelProxy = createjs.proxy(this.handlePressup, this, entry.id);
+                item.addEventListener("pressup", this.levelProxy);
             } else { //add outlines to stage and hide them to make them appear later during the game
                 var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1, false);
                 item.visible = false;
@@ -48,12 +55,6 @@
             //set an item name to be able to retrieve it later directly within the stage.getChildByName function
             item.name = entry.id;
 
-            this.levelProxy = createjs.proxy(this.handleStartDrag, this, entry.id);
-            item.addEventListener("mousedown", this.levelProxy);
-            this.levelProxy = createjs.proxy(this.handleDrag, this, entry.id);
-            item.addEventListener("pressmove", this.levelProxy);
-            this.levelProxy = createjs.proxy(this.handlePressup, this, entry.id);
-            item.addEventListener("pressup", this.levelProxy);
 
             this.stage.addChild(item);
             i++;

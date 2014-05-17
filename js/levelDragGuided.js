@@ -42,6 +42,13 @@
             if (entry.id.match(outlineMatch) === null) { //add interactive items
                 var shadow = this.levelOutlines.length > 0 ? true : false;
                 var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, shadow);
+                this.levelProxy = createjs.proxy(this.handleStartDrag, this, entry.id);
+                item.addEventListener("mousedown", this.levelProxy);
+                this.levelProxy = createjs.proxy(this.handleDrag, this, entry.id);
+                item.addEventListener("pressmove", this.levelProxy);
+                this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
+                item.addEventListener("pressup", this.levelProxy);
+
             } else { //add outlines to stage and hide them to make them appear later during the game
                 var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1, false);
                 item.visible = false;
@@ -49,12 +56,6 @@
             //set an item name to be able to retrieve it later directly within the stage.getChildByName function
             item.name = entry.id;
 
-            this.levelProxy = createjs.proxy(this.handleStartDrag, this, entry.id);
-            item.addEventListener("mousedown", this.levelProxy);
-            this.levelProxy = createjs.proxy(this.handleDrag, this, entry.id);
-            item.addEventListener("pressmove", this.levelProxy);
-            this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
-            item.addEventListener("pressup", this.levelProxy);
 
             this.stage.addChild(item);
             i++;
@@ -86,12 +87,12 @@
             this.isDragged = false;
         }
     };
-    LevelDragGuided.prototype.isReallyMoved = function(event){
+    LevelDragGuided.prototype.isReallyMoved = function(event) {
         dropZoneX = this.level.dropX;
         dropZoneY = this.level.dropY;
         dropWidth = this.level.dropW;
         dropHeight = this.level.dropH;
-        if(event.target.x >= dropZoneX && event.target.x <= dropWidth + dropZoneX && event.target.y >= dropZoneY && event.target.y <= dropZoneY + dropHeight){
+        if (event.target.x >= dropZoneX && event.target.x <= dropWidth + dropZoneX && event.target.y >= dropZoneY && event.target.y <= dropZoneY + dropHeight) {
 //            console.log("droped in right zone");
             return true;
         } else {
@@ -107,15 +108,15 @@
             /**************************/
             //this code was found here : http://stackoverflow.com/questions/22829143/easeljs-glitchy-drag-drop
             var ct = evt.currentTarget;
-          var  local = ct.globalToLocal(evt.stageX, evt.stageY);
+            var local = ct.globalToLocal(evt.stageX, evt.stageY);
 //             nx = ct.regX - local.x;
 //            ny = ct.regY - local.y;
 //            //set the new regX/Y
             ct.regX = local.x;
             ct.regY = local.y;
             //adjust the real-position, otherwise the new regX/Y would cause a jump
-            ct.x -= - local.x;
-            ct.y -= - local.y;
+            ct.x -= -local.x;
+            ct.y -= -local.y;
             /*************************************/
         } else {
             Utils.manageSpeaker(this.stage);
@@ -123,8 +124,8 @@
     };
     LevelDragGuided.prototype.handleDrag = function(event) {
         if (this.soundPlaying === false) {
-            event.target.x = (event.stageX)/ this.stage.scaleX; //- this.stage.x)/ this.stage.scaleX;
-            event.target.y = (event.stageY)/ this.stage.scaleY; //- this.stage.x)/ this.stage.scaleY;
+            event.target.x = (event.stageX) / this.stage.scaleX; //- this.stage.x)/ this.stage.scaleX;
+            event.target.y = (event.stageY) / this.stage.scaleY; //- this.stage.x)/ this.stage.scaleY;
             this.isDragged = true;
         }
     };
@@ -134,7 +135,7 @@
     };
     LevelDragGuided.prototype.manageWrongAnswer = function(event, itemId) {
         if (this.isDragged == true) {
-            if(this.isReallyMoved(event)){
+            if (this.isReallyMoved(event)) {
                 this.score--;
                 // play negative feedback and continue game
                 this.playFeedbackAndContinue(itemId, false);

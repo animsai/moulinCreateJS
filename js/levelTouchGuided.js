@@ -41,11 +41,14 @@
             if (entry.id.match(outlineMatch) === null) { //add interactive items
                 var shadow = this.levelOutlines.length > 0 ? true : false;
                 var item = Utils.generateBitmapItem(entry.src, entry.x, entry.y, 1400, shadow);
+                this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
+                item.addEventListener("pressup", this.levelProxy)
+
                 var hit = new createjs.Shape();
                 if (entry.width !== undefined) { //manage hitarea for small objects, add 25 % error margin
-                   var clickableW = entry.width * 1.5;
-                   var clickableH = entry.height * 1.5;
-                    hit.graphics.beginFill("#000").drawRect(0-(clickableW-entry.width)/2,0-(clickableH-entry.height)/2, clickableW, clickableH);
+                    var clickableW = entry.width * 1.5;
+                    var clickableH = entry.height * 1.5;
+                    hit.graphics.beginFill("#000").drawRect(0 - (clickableW - entry.width) / 2, 0 - (clickableH - entry.height) / 2, clickableW, clickableH);
                     item.hitArea = hit;
                 }
 
@@ -56,11 +59,9 @@
             //set an item name to be able to retrieve it later directly within the stage.getChildByName function
             item.name = entry.id;
 
-            this.levelProxy = createjs.proxy(this.handleGuidedInteraction, this, entry.id);
-                item.addEventListener("pressup", this.levelProxy)    
 
             this.stage.addChild(item);
-            
+
             i++;
             entry = this.fileManifest[i];
         }
