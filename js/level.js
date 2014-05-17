@@ -31,7 +31,7 @@
             this.levelOutlines = new Array();
             this.levelImages = new Array();
             this.soundPlaying = false;
-
+            this.score = 0;
             //split file manifest after it's loaded in order to have an array for each type of objects
             this.splitFiles();
             this.itemNumber = this.levelImages.length; //store the number of clickable items on game start to be able to calculate the score at the end
@@ -195,7 +195,6 @@
             if (this.playedSoundIds.length > 0) {
                 var lastSound = createjs.Sound.play(this.playedSoundIds[this.playedSoundIds.length - 1]);
                  this.setSoundPlaying(null, false); // allow the child to click without waiting the repetition sound to finish, sometimes they play quickly, if it's clear from the
-                 //sound beginning which item it is
 //                this.levelProxy = createjs.proxy(this.setSoundPlaying, this, false);
 //                lastSound.addEventListener("complete", this.levelProxy);
             }

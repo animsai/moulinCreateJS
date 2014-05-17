@@ -79,7 +79,7 @@ var Utils = {
        var speaker = Utils.generateBitmapItem(speakerIconFile.src, speakerIconFile.x, speakerIconFile.y, 0, false);
        stage.addChild(speaker);
        speaker.alpha = 0.2;
-       createjs.Tween.get(speaker).to({alpha: 0.8}, 300).to({alpha: 0}, 300);
+       createjs.Tween.get(speaker).to({alpha: 0.8}, 350).to({alpha: 0}, 350);
   },
   createBlurredRectangle: function(stage){
         var blurredRectangle = new createjs.Shape().set({x: 0, y: 0});
