@@ -66,7 +66,9 @@ var feedback_fileManifest = [
     {id: "habits_conclusion_fb", src: SNDFOLDER + "habits/" + FB_FOLDER + "2habit.ex3.conclusion.1.wav"},
     {id: "objets_conclusion_fb", src: SNDFOLDER + "objets/" + FB_FOLDER + "3objets.conclusion.wav"},
     {id: "nourriture_conclusion_fb", src: SNDFOLDER + "nourriture/" + FB_FOLDER + "4nourriture.conclusion.wav"},
-    {id: "adjectifs_conclusion_fb", src: SNDFOLDER + "adjectifs/" + FB_FOLDER + "9adjectifs.conclusion.1.wav"}
+    {id: "adjectifs_conclusion_fb", src: SNDFOLDER + "adjectifs/" + FB_FOLDER + "9adjectifs.conclusion.1.wav"},
+    {id: "instruments_conclusion_fb", src: SNDFOLDER + "instruments/" + FB_FOLDER + "7instruments.conclusion.1.wav"},
+    
 ];
 /***********************************************************************""""""""""""""""""""""""""""**************************/
 
@@ -80,7 +82,8 @@ var nav_fileManifest = [
     {id: "habits", src: IMGFOLDER + NAV_FOLDER + "niveau1_habits.png", x: 225, y: 180},
     {id: "objets", src: IMGFOLDER + NAV_FOLDER + "niveau1_objets.png", x: 410, y: 180},
     {id: "nourriture", src: IMGFOLDER + NAV_FOLDER + "niveau1_nourriture.png", x: 595, y: 180},
-    {id: "adjectifs", src: IMGFOLDER + NAV_FOLDER + "niveau1_adjectifs.png", x: 780, y: 180},
+    {id: "instruments", src: IMGFOLDER + NAV_FOLDER + "niveau1_instruments.png", x: 780, y: 180},
+    {id: "adjectifs", src: IMGFOLDER + NAV_FOLDER + "niveau1_adjectifs.png", x: 40, y: 370},
     //instruction and feedback sounds
     {id: "nav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"},
     {id: "subNav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "son_5.wav"}
@@ -128,6 +131,13 @@ var nourriture_nav_fileManifest = [
     {id: "nourritureEx12", levelId: "nourriture12", src: IMGFOLDER + NAV_FOLDER + "niveau2_nourriture_ex12.png", x: 228, y: 254}
 ];
 
+var instruments_nav_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau2_instruments_decor.png"},
+    //level images
+    {id: "instrumentsEx1", levelId: "instruments1", src: IMGFOLDER + NAV_FOLDER + "niveau2_instruments_ex1.png", x: 42, y: 254}
+];
+
 var adjectifs_nav_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau2_adjectifs_decor.png"},
@@ -163,6 +173,7 @@ var levels = [
     {id: "objets4", theme: "objets", media: "objets4_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "nourriture1", theme: "nourriture", media: "nourriture1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "nourriture12", theme: "nourriture", media: "nourriture12_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "instruments1", theme: "instruments", media: "instruments1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "adjectifs1", theme: "adjectifs", media: "adjectifs1_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605},
     {id: "adjectifs2", theme: "adjectifs", media: "adjectifs2_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605},
     {id: "adjectifs3", theme: "adjectifs", media: "adjectifs3_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605},
@@ -761,6 +772,32 @@ var nourriture12_fileManifest = [
     {id: "consignes_nourriture12", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.consigne.1.wav"}
 ];
 
+
+var instruments1_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "instruments/level1/instruments_decor.png"},
+    //image outlines
+    {id: "flute_outline", src: IMGFOLDER + "instruments/level1/instruments_flute_enfant_v2.png", x: 300, y: 440},
+    {id: "guitare_outline", src: IMGFOLDER + "instruments/level1/instruments_guitare_enfant.png", x: 115, y: 520},
+    {id: "piano_outline", src: IMGFOLDER + "instruments/level1/instruments_piano_enfant.png", x: 370, y: 530},
+    {id: "trompette_outline", src: IMGFOLDER + "instruments/level1/instruments_trompette_enfant.png", x: 500, y: 450},
+    {id: "violon_outline", src: IMGFOLDER + "instruments/level1/instruments_violon_enfant.png", x: 610, y: 560},
+    //level images
+    {id: "flute", src: IMGFOLDER + "instruments/level1/instruments_flute_v2.png", x: 790, y: 35},
+    {id: "guitare", src: IMGFOLDER + "instruments/level1/instruments_guitare_v3.png", x: 790, y: 146},
+    {id: "piano", src: IMGFOLDER + "instruments/level1/instruments_piano.png", x: 790, y: 290},
+    {id: "trompette", src: IMGFOLDER + "instruments/level1/instruments_trompette.png", x: 790, y: 485},
+    {id: "violon", src: IMGFOLDER + "instruments/level1/instruments_violon.png", x: 790, y: 600},
+    //level sounds
+    {id: "flute_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.5.wav"},
+    {id: "guitare_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.3.wav"},
+    {id: "piano_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.1.wav"},
+    {id: "trompette_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.2.wav"},
+    {id: "violon_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.6.wav"},
+    //instruction and feedback sounds
+    {id: "consignes_instruments1", src: SNDFOLDER + "instruments/level1/7instruments.consigne.1.wav"}
+];
+
 /**************************************************************************************************************************/
 
 
@@ -770,6 +807,6 @@ var nourriture12_fileManifest = [
 /*these files are the ones that are loaded in the beggining of the game
  * they are the most needed for the player to start playing*/
 var coreFiles = [interLevel_fileManifest, nav_fileManifest, feedback_fileManifest, speakerIconFile, backButtonFile, introImg,
-    animaux_nav_fileManifest, habits_nav_fileManifest, objets_nav_fileManifest, nourriture_nav_fileManifest, adjectifs_nav_fileManifest];
+    animaux_nav_fileManifest, habits_nav_fileManifest, objets_nav_fileManifest, nourriture_nav_fileManifest, adjectifs_nav_fileManifest, instruments_nav_fileManifest];
 
 /**************************************************************************************************************************/
