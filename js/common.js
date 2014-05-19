@@ -116,7 +116,8 @@ var objets_nav_fileManifest = [
     //level images
     {id: "objetsEx1", levelId: "objets1", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex1.png", x: 42, y: 254},
     {id: "objetsEx2", levelId: "objets2", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex2.png", x: 228, y: 254},
-    {id: "objetsEx3", levelId: "objets3", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex3.png", x: 408, y: 254}
+    {id: "objetsEx3", levelId: "objets3", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex3.png", x: 408, y: 254},
+    {id: "objetsEx4", levelId: "objets4", src: IMGFOLDER + NAV_FOLDER + "niveau2_objets_ex4.png", x: 595, y: 254}
 ];
 
 var nourriture_nav_fileManifest = [
@@ -159,6 +160,7 @@ var levels = [
     {id: "objets1", theme: "objets", media: "objets1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "objets2", theme: "objets", media: "objets2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "objets3", theme: "objets", media: "objets3_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "objets4", theme: "objets", media: "objets4_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "nourriture1", theme: "nourriture", media: "nourriture1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "nourriture12", theme: "nourriture", media: "nourriture12_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "adjectifs1", theme: "adjectifs", media: "adjectifs1_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605},
@@ -558,7 +560,7 @@ var objets2_fileManifest = [
 
 var objets3_fileManifest = [
     //background
-    {id: "scene", src: IMGFOLDER + "objets/level2/objets_decor.png"},
+    {id: "scene", src: IMGFOLDER + "objets/level3/objets_decor.png"},
     //level images
     {id: "bouteille", src: IMGFOLDER + "objets/level3/objets_bouteille.png", x: 99, y: 180, width: 45, height: 120},
     {id: "cadeau_v2", src: IMGFOLDER + "objets/level3/objets_cadeau_v2.png", x: 797, y: 435, width: 137, height: 148},
@@ -575,6 +577,26 @@ var objets3_fileManifest = [
     {id: "train_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.3.wav"},
     //instruction and feedback sounds
     {id: "consignes_objets3", src: SNDFOLDER + "objets/level3/3objets.consigne.1.wav"}
+];
+var objets4_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "objets/level4/objets_decor.png"},
+    //level images
+    {id: "bateau", src: IMGFOLDER + "objets/level4/objets_bateau.png", x: 163, y: 360, width: 122, height: 150},
+    {id: "boite", src: IMGFOLDER + "objets/level4/objets_boite.png", x: 637, y: 565, width: 121, height: 88},
+    {id: "bol", src: IMGFOLDER + "objets/level4/objets_bol.png", x: 500, y: 470, width: 92, height: 62},
+    {id: "vase", src: IMGFOLDER + "objets/level4/objets_vase.png", x: 885, y: 500, width: 60, height: 150},
+    {id: "photo", src: IMGFOLDER + "objets/level4/objets_photo.png", x: 573, y: 170, width: 96, height: 110},
+    {id: "appareilPhoto", src: IMGFOLDER + "objets/level4/objets_appareil_photo.png", x: 285, y: 630, width: 88, height: 55},
+    //level sounds
+    {id: "bateau_snd", src: SNDFOLDER + "objets/level4/3objets.bateau.wav"},
+    {id: "boite_snd", src: SNDFOLDER + "objets/level4/3objets.boite.wav"},
+    {id: "bol_snd", src: SNDFOLDER + "objets/level4/3objets.bol.wav"},
+    {id: "vase_snd", src: SNDFOLDER + "objets/level4/3objets.vase.wav"},
+    {id: "photo_snd", src: SNDFOLDER + "objets/level4/3objets.photo.wav"},
+    {id: "appareilPhoto_snd", src: SNDFOLDER + "objets/level4/3objets.appareilPhoto.wav"},
+    //instruction and feedback sounds
+    {id: "consignes_objets4", src: SNDFOLDER + "objets/level4/3objets.consigne.1.wav"}
 ];
 
 var adjectifs1_fileManifest = [
@@ -718,11 +740,11 @@ var nourriture12_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + "nourriture/level12/nourriture_decor_pizza_v2.png"},
     //image outlines
-    {id: "champignons_outline", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_champignon_seul.png", x: 270, y: 400},
-    {id: "tomates_outline", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_tomate_seul.png", x: 215, y: 370},
-    {id: "aubergine_outline", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_aubergine_seul.png", x: 190, y: 380},
-    {id: "jambon_outline", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_jambon_seul.png", x: 200, y: 365},
-    {id: "fromage_outline", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_fromage_seul.png", x: 175, y: 400},
+    {id: "champignons_outline", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_champignon_seul.png", x: 215, y: 400},
+    {id: "tomates_outline", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_tomate_seul.png", x: 155, y: 370},
+    {id: "aubergine_outline", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_aubergine_seul.png", x: 130, y: 380},
+    {id: "jambon_outline", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_jambon_seul.png", x: 130, y: 365},
+    {id: "fromage_outline", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_fromage_seul.png", x: 125, y: 400},
     //level images
     {id: "champignons", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_champignon.png", x: 790, y: 35},
     {id: "tomates", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_tomate.png", x: 790, y: 176},

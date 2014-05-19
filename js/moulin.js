@@ -53,7 +53,7 @@
         },
         loadLevelAssets: function() {
             this.levelAssets = new Moulin.MediaLoader();
-            for (var i = 0; i < levels.length; i+=3) { // load one level out of 3 to improve perforamance on 3G network
+            for (var i = 0; i < levels.length; i+=4) { // load one level out of 4 to improve perforamance on 3G network
                 if (this.loadedLevels.indexOf(levels[i].id) === -1) { //check if level was not loaded separatly to avoid double load
                     this.levelAssets.addOneFileManifest(eval(levels[i].media));
                     this.moulinProxy = new createjs.proxy(this.handleLevelAssetsComplete, this, levels[i].id);
