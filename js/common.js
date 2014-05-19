@@ -135,7 +135,8 @@ var instruments_nav_fileManifest = [
     //background
     {id: "scene", src: IMGFOLDER + NAV_FOLDER + "niveau2_instruments_decor.png"},
     //level images
-    {id: "instrumentsEx1", levelId: "instruments1", src: IMGFOLDER + NAV_FOLDER + "niveau2_instruments_ex1.png", x: 42, y: 254}
+    {id: "instrumentsEx1", levelId: "instruments1", src: IMGFOLDER + NAV_FOLDER + "niveau2_instruments_ex1.png", x: 42, y: 254},
+    {id: "instrumentsEx12", levelId: "instruments2", src: IMGFOLDER + NAV_FOLDER + "niveau2_instruments_ex2.png", x: 228, y: 254}
 ];
 
 var adjectifs_nav_fileManifest = [
@@ -174,6 +175,7 @@ var levels = [
     {id: "nourriture1", theme: "nourriture", media: "nourriture1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "nourriture12", theme: "nourriture", media: "nourriture12_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "instruments1", theme: "instruments", media: "instruments1_fileManifest", interaction: InteractionTypeEnum.GUIDED},
+    {id: "instruments2", theme: "instruments", media: "instruments2_fileManifest", interaction: InteractionTypeEnum.GUIDED},
     {id: "adjectifs1", theme: "adjectifs", media: "adjectifs1_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605},
     {id: "adjectifs2", theme: "adjectifs", media: "adjectifs2_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605},
     {id: "adjectifs3", theme: "adjectifs", media: "adjectifs3_fileManifest", interaction: InteractionTypeEnum.GUIDEDDRAG, dropX:130, dropY:130, dropW:605, dropH:605},
@@ -785,7 +787,7 @@ var instruments1_fileManifest = [
     //level images
     {id: "flute", src: IMGFOLDER + "instruments/level1/instruments_flute_v2.png", x: 790, y: 35},
     {id: "guitare", src: IMGFOLDER + "instruments/level1/instruments_guitare_v3.png", x: 790, y: 146},
-    {id: "piano", src: IMGFOLDER + "instruments/level1/instruments_piano.png", x: 790, y: 290},
+    {id: "piano", src: IMGFOLDER + "instruments/level1/instruments_piano.png", x: 790, y: 295},
     {id: "trompette", src: IMGFOLDER + "instruments/level1/instruments_trompette.png", x: 790, y: 485},
     {id: "violon", src: IMGFOLDER + "instruments/level1/instruments_violon.png", x: 790, y: 600},
     //level sounds
@@ -797,6 +799,32 @@ var instruments1_fileManifest = [
     //instruction and feedback sounds
     {id: "consignes_instruments1", src: SNDFOLDER + "instruments/level1/7instruments.consigne.1.wav"}
 ];
+
+var instruments2_fileManifest = [
+    //background
+    {id: "scene", src: IMGFOLDER + "instruments/level2/instruments_decor.png"},
+    //image outlines
+    {id: "cymbales_outline", src: IMGFOLDER + "instruments/level2/instruments_cymbales_enfant.png", x: 270, y: 410},
+    {id: "cloches_outline", src: IMGFOLDER + "instruments/level2/instruments_cloches_enfant.png", x: 105, y: 520},
+    {id: "accordeon_outline", src: IMGFOLDER + "instruments/level2/instruments_accordeon_enfant.png", x: 370, y: 530},
+    {id: "trombone_outline", src: IMGFOLDER + "instruments/level2/instruments_trombone_enfant.png", x: 500, y: 450},
+    {id: "saxophone_outline", src: IMGFOLDER + "instruments/level2/instruments_saxophone_enfant.png", x: 610, y: 560},
+    //level images
+    {id: "cymbales", src: IMGFOLDER + "instruments/level2/instruments_cymbales.png", x: 790, y: 35},
+    {id: "cloches", src: IMGFOLDER + "instruments/level2/instruments_cloches.png", x: 790, y: 156},
+    {id: "accordeon", src: IMGFOLDER + "instruments/level2/instruments_accordeon.png", x: 790, y: 295},
+    {id: "trombone", src: IMGFOLDER + "instruments/level2/instruments_trombone.png", x: 790, y: 475},
+    {id: "saxophone", src: IMGFOLDER + "instruments/level2/instruments_saxophone.png", x: 790, y: 600},
+    //level sounds
+    {id: "cymbales_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.12.wav"},
+    {id: "cloches_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.13.wav"},
+    {id: "accordeon_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.7.wav"},
+    {id: "trombone_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.9.wav"},
+    {id: "saxophone_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.8.wav"},
+    //instruction and feedback sounds
+    {id: "consignes_instruments2", src: SNDFOLDER + "instruments/level2/7instruments.consigne.1.wav"}
+];
+
 
 /**************************************************************************************************************************/
 
