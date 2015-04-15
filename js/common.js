@@ -52,22 +52,22 @@ var speakerIconFile = {id: "speaker", src: IMGFOLDER + NAV_FOLDER + "ear.png", x
 var backButtonFile = {id: "previous_small", src: IMGFOLDER + NAV_FOLDER + "previous_small.png", x: 35, y: 35};
 var repeatButtonFile = {id: "repeat", src: IMGFOLDER + NAV_FOLDER + "repeat.png", x: 35, y: 650};
 var closeButtonFile = {id: "close", src: IMGFOLDER + NAV_FOLDER + "close.png", x: 135, y: 35};
-var introSnd = {id: "intro_snd", src: SNDFOLDER + NAV_FOLDER + "intro.wav"};
+//var introSnd = {id: "intro_snd", src: SNDFOLDER + NAV_FOLDER + "intro.mp3"};
 var introImg = {id: "introImg", src: IMGFOLDER + NAV_FOLDER + "ecran_debut_couleurs_v2.png", x: 0, y: 0};
 
 var feedback_fileManifest = [
-    {id: "pos0_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.bon.1.wav"},
-    {id: "pos1_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.bon.2.wav"},
-    {id: "pos2_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.bon.3.wav"},
-    {id: "neg0_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.mauvais.1.wav"},
-    {id: "neg1_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.mauvais.2.wav"},
-    {id: "neg2_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.mauvais.3.wav"},
-    {id: "animaux_conclusion_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.conclusion.1.wav"},
-    {id: "habits_conclusion_fb", src: SNDFOLDER + "habits/" + FB_FOLDER + "2habit.ex3.conclusion.1.wav"},
-    {id: "objets_conclusion_fb", src: SNDFOLDER + "objets/" + FB_FOLDER + "3objets.conclusion.wav"},
-    {id: "nourriture_conclusion_fb", src: SNDFOLDER + "nourriture/" + FB_FOLDER + "4nourriture.conclusion.wav"},
-    {id: "adjectifs_conclusion_fb", src: SNDFOLDER + "adjectifs/" + FB_FOLDER + "9adjectifs.conclusion.1.wav"},
-    {id: "instruments_conclusion_fb", src: SNDFOLDER + "instruments/" + FB_FOLDER + "7instruments.conclusion.1.wav"},
+    {id: "pos0_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.bon.1.mp3"},
+    {id: "pos1_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.bon.2.mp3"},
+    {id: "pos2_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.bon.3.mp3"},
+    {id: "neg0_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.mauvais.1.mp3"},
+    {id: "neg1_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.mauvais.2.mp3"},
+    {id: "neg2_fb", src: SNDFOLDER + FB_FOLDER + "1animaux.reponse.mauvais.3.mp3"},
+    {id: "animaux_conclusion_fb", src: SNDFOLDER + ANIMAL_FOLDER + FB_FOLDER + "1animaux.conclusion.1.mp3"},
+    {id: "habits_conclusion_fb", src: SNDFOLDER + "habits/" + FB_FOLDER + "2habit.ex3.conclusion.1.mp3"},
+    {id: "objets_conclusion_fb", src: SNDFOLDER + "objets/" + FB_FOLDER + "3objets.conclusion.mp3"},
+    {id: "nourriture_conclusion_fb", src: SNDFOLDER + "nourriture/" + FB_FOLDER + "4nourriture.conclusion.mp3"},
+    {id: "adjectifs_conclusion_fb", src: SNDFOLDER + "adjectifs/" + FB_FOLDER + "9adjectifs.conclusion.1.mp3"},
+    {id: "instruments_conclusion_fb", src: SNDFOLDER + "instruments/" + FB_FOLDER + "7instruments.conclusion.1.mp3"},
     
 ];
 /***********************************************************************""""""""""""""""""""""""""""**************************/
@@ -85,8 +85,8 @@ var nav_fileManifest = [
     {id: "instruments", src: IMGFOLDER + NAV_FOLDER + "niveau1_instruments.png", x: 780, y: 180},
     {id: "adjectifs", src: IMGFOLDER + NAV_FOLDER + "niveau1_adjectifs.png", x: 40, y: 370},
     //instruction and feedback sounds
-    {id: "nav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.wav"},
-    {id: "subNav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "son_5.wav"}
+    {id: "nav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "consignes.mp3"},
+    {id: "subNav_consignes_fb", src: SNDFOLDER + NAV_FOLDER + "son_5.mp3"}
 ];
 
 var animaux_nav_fileManifest = [
@@ -208,13 +208,13 @@ var animaux1_fileManifest = [
     {id: "lapin", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_lapin.png", x: 790, y: 420},
     {id: "chat", src: IMGFOLDER + ANIMAL_FOLDER + "level1/animaux_chat.png", x: 790, y: 576},
     //level sounds
-    {id: "papillon_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_6.wav"},
-    {id: "oiseau_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_1.wav"},
-    {id: "tortue_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_4.wav"},
-    {id: "lapin_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_2.wav"},
-    {id: "chat_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_3.wav"},
+    {id: "papillon_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_6.mp3"},
+    {id: "oiseau_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_1.mp3"},
+    {id: "tortue_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_4.mp3"},
+    {id: "lapin_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_2.mp3"},
+    {id: "chat_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_3.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_animaux1", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_consigne_1.wav"}
+    {id: "consignes_animaux1", src: SNDFOLDER + ANIMAL_FOLDER + "level1/1animaux_serie1_consigne_1.mp3"}
 ];
 
 
@@ -234,13 +234,13 @@ var animaux2_fileManifest = [
     {id: "cochon", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_cochon.png", x: 790, y: 455},
     {id: "vache", src: IMGFOLDER + ANIMAL_FOLDER + "level2/animaux_vache.png", x: 790, y: 600},
     //level sounds
-    {id: "abeille_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.6.wav"},
-    {id: "poule_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.1.wav"},
-    {id: "chien_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.3.wav"},
-    {id: "cochon_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.4.wav"},
-    {id: "vache_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.2.wav"},
+    {id: "abeille_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.6.mp3"},
+    {id: "poule_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.1.mp3"},
+    {id: "chien_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.3.mp3"},
+    {id: "cochon_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.4.mp3"},
+    {id: "vache_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.2.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_animaux2", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.consigne.1.wav"}
+    {id: "consignes_animaux2", src: SNDFOLDER + ANIMAL_FOLDER + "level2/1animaux.serie2.consigne.1.mp3"}
 ];
 
 var animaux3_fileManifest = [
@@ -259,13 +259,13 @@ var animaux3_fileManifest = [
     {id: "loup", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_loup.png", x: 790, y: 435},
     {id: "biche", src: IMGFOLDER + ANIMAL_FOLDER + "level3/animaux_biche.png", x: 790, y: 600},
     //level sounds
-    {id: "grenouille_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.6.wav"},
-    {id: "ecureuil_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.3.wav"},
-    {id: "mouton_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.5.wav"},
-    {id: "loup_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.1.wav"},
-    {id: "biche_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.2.wav"},
+    {id: "grenouille_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.6.mp3"},
+    {id: "ecureuil_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.3.mp3"},
+    {id: "mouton_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.5.mp3"},
+    {id: "loup_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.1.mp3"},
+    {id: "biche_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.2.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_animaux3", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.consigne.1.wav"}
+    {id: "consignes_animaux3", src: SNDFOLDER + ANIMAL_FOLDER + "level3/1animaux.serie3.consigne.1.mp3"}
 ];
 
 var animaux4_fileManifest = [
@@ -284,13 +284,13 @@ var animaux4_fileManifest = [
     {id: "chevre", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_chevre.png", x: 790, y: 445},
     {id: "poney", src: IMGFOLDER + ANIMAL_FOLDER + "level4/animaux_poney.png", x: 790, y: 600},
     //level sounds
-    {id: "oie_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.4.wav"},
-    {id: "dindon_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.6.wav"},
-    {id: "agneau_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.2.wav"},
-    {id: "chevre_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.5.wav"},
-    {id: "poney_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.3.wav"},
+    {id: "oie_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.4.mp3"},
+    {id: "dindon_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.6.mp3"},
+    {id: "agneau_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.2.mp3"},
+    {id: "chevre_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.5.mp3"},
+    {id: "poney_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.3.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_animaux4", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.consigne.1.wav"}
+    {id: "consignes_animaux4", src: SNDFOLDER + ANIMAL_FOLDER + "level4/1animaux.serie4.consigne.1.mp3"}
 ];
 
 var animaux5_fileManifest = [
@@ -309,13 +309,13 @@ var animaux5_fileManifest = [
     {id: "elephant", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_elephant.png", x: 790, y: 360},
     {id: "girafe", src: IMGFOLDER + ANIMAL_FOLDER + "level5/animaux_girafe.png", x: 790, y: 530},
     //level sounds
-    {id: "singe_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.4.wav"},
-    {id: "lion_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.3.wav"},
-    {id: "crocodile_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.5.wav"},
-    {id: "elephant_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.1.wav"},
-    {id: "girafe_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.2.wav"},
+    {id: "singe_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.4.mp3"},
+    {id: "lion_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.3.mp3"},
+    {id: "crocodile_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.5.mp3"},
+    {id: "elephant_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.1.mp3"},
+    {id: "girafe_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.2.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_animaux5", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.consigne.1.wav"}
+    {id: "consignes_animaux5", src: SNDFOLDER + ANIMAL_FOLDER + "level5/1animaux.serie5.consigne.1.mp3"}
 ];
 
 var animaux6_fileManifest = [
@@ -334,13 +334,13 @@ var animaux6_fileManifest = [
     {id: "ours", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_ours.png", x: 790, y: 465},
     {id: "baleine", src: IMGFOLDER + ANIMAL_FOLDER + "level6/animaux_baleine.png", x: 790, y: 615},
     //level sounds
-    {id: "poisson_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.6.wav"},
-    {id: "phoque_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.5.wav"},
-    {id: "pinguin_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.2.wav"},
-    {id: "ours_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.1.wav"},
-    {id: "baleine_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.4.wav"},
+    {id: "poisson_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.6.mp3"},
+    {id: "phoque_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.5.mp3"},
+    {id: "pinguin_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.2.mp3"},
+    {id: "ours_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.1.mp3"},
+    {id: "baleine_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.4.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_animaux6", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.consigne.1.wav"}
+    {id: "consignes_animaux6", src: SNDFOLDER + ANIMAL_FOLDER + "level6/1animaux.serie6.consigne.1.mp3"}
 ];
 
 var animaux7_fileManifest = [
@@ -359,13 +359,13 @@ var animaux7_fileManifest = [
     {id: "hippopotame", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_hippopotame.png", x: 790, y: 465},
     {id: "buffle", src: IMGFOLDER + ANIMAL_FOLDER + "level7/animaux_buffle.png", x: 790, y: 605},
     //level sounds
-    {id: "tigre_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.3.wav"},
-    {id: "gazelle_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.5.wav"},
-    {id: "zebre_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.2.wav"},
-    {id: "hippopotame_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.4.wav"},
-    {id: "buffle_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.1.wav"},
+    {id: "tigre_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.3.mp3"},
+    {id: "gazelle_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.5.mp3"},
+    {id: "zebre_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.2.mp3"},
+    {id: "hippopotame_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.4.mp3"},
+    {id: "buffle_snd", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.1.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_animaux7", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.consigne.1.wav"}
+    {id: "consignes_animaux7", src: SNDFOLDER + ANIMAL_FOLDER + "level7/1animaux.serie7.consigne.1.mp3"}
 ];
 var habits1_fileManifest = [
     //background
@@ -385,21 +385,21 @@ var habits1_fileManifest = [
     {id: "mouffles", src: IMGFOLDER + "habits/level1/habits_mouffles.png", x: 36, y: 212},
     {id: "manteau", src: IMGFOLDER + "habits/level1/habits_manteau.png", x: 790, y: 540},
     //level sounds
-    {id: "chaussettes_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.3.wav"},
-    {id: "baskets_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.4.wav"},
-    {id: "pantalon_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.2.wav"},
-    {id: "pull_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.1.wav"},
-    {id: "mouffles_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.6.wav"},
-    {id: "manteau_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.5.wav"},
+    {id: "chaussettes_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.3.mp3"},
+    {id: "baskets_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.4.mp3"},
+    {id: "pantalon_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.2.mp3"},
+    {id: "pull_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.1.mp3"},
+    {id: "mouffles_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.6.mp3"},
+    {id: "manteau_snd", src: SNDFOLDER + "habits/level1/2habit.ex1.serie1.5.mp3"},
     //level sound confirmations
-    {id: "conf_chaussettes_snd", src: SNDFOLDER + "habits/level1/chaussettes.wav"},
-    {id: "conf_baskets_snd", src: SNDFOLDER + "habits/level1/baskets.wav"},
-    {id: "conf_pantalon_snd", src: SNDFOLDER + "habits/level1/pantalon.wav"},
-    {id: "conf_pull_snd", src: SNDFOLDER + "habits/level1/pull.wav"},
-    {id: "conf_mouffles_snd", src: SNDFOLDER + "habits/level1/mouffles.wav"},
-    {id: "conf_manteau_snd", src: SNDFOLDER + "habits/level1/manteau.wav"},
+    {id: "conf_chaussettes_snd", src: SNDFOLDER + "habits/level1/chaussettes.mp3"},
+    {id: "conf_baskets_snd", src: SNDFOLDER + "habits/level1/baskets.mp3"},
+    {id: "conf_pantalon_snd", src: SNDFOLDER + "habits/level1/pantalon.mp3"},
+    {id: "conf_pull_snd", src: SNDFOLDER + "habits/level1/pull.mp3"},
+    {id: "conf_mouffles_snd", src: SNDFOLDER + "habits/level1/mouffles.mp3"},
+    {id: "conf_manteau_snd", src: SNDFOLDER + "habits/level1/manteau.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_habits1", src: SNDFOLDER + "habits/level1/2habit.ex1.consigne1.wav"}
+    {id: "consignes_habits1", src: SNDFOLDER + "habits/level1/2habit.ex1.consigne1.mp3"}
 ];
 
 var habits2_fileManifest = [
@@ -420,21 +420,21 @@ var habits2_fileManifest = [
     {id: "tshirt", src: IMGFOLDER + "habits/level2/habits_tshirt.png", x: 36, y: 212},
     {id: "short", src: IMGFOLDER + "habits/level2/habits_short.png", x: 790, y: 520},
     //level sounds
-    {id: "chaussures_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.4.wav"},
-    {id: "casquette_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.3.wav"},
-    {id: "lunettes_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.5.wav"},
-    {id: "montre_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.6.wav"},
-    {id: "tshirt_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.2.wav"},
-    {id: "short_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.1.wav"},
+    {id: "chaussures_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.4.mp3"},
+    {id: "casquette_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.3.mp3"},
+    {id: "lunettes_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.5.mp3"},
+    {id: "montre_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.6.mp3"},
+    {id: "tshirt_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.2.mp3"},
+    {id: "short_snd", src: SNDFOLDER + "habits/level2/2habit.ex2.serie1.1.mp3"},
     //level sound confirmations
-    {id: "conf_chaussures_snd", src: SNDFOLDER + "habits/level2/chaussures.wav"},
-    {id: "conf_casquette_snd", src: SNDFOLDER + "habits/level2/casquette.wav"},
-    {id: "conf_lunettes_snd", src: SNDFOLDER + "habits/level2/lunettes.wav"},
-    {id: "conf_montre_snd", src: SNDFOLDER + "habits/level2/montre.wav"},
-    {id: "conf_tshirt_snd", src: SNDFOLDER + "habits/level2/tshirt.wav"},
-    {id: "conf_short_snd", src: SNDFOLDER + "habits/level2/short.wav"},
+    {id: "conf_chaussures_snd", src: SNDFOLDER + "habits/level2/chaussures.mp3"},
+    {id: "conf_casquette_snd", src: SNDFOLDER + "habits/level2/casquette.mp3"},
+    {id: "conf_lunettes_snd", src: SNDFOLDER + "habits/level2/lunettes.mp3"},
+    {id: "conf_montre_snd", src: SNDFOLDER + "habits/level2/montre.mp3"},
+    {id: "conf_tshirt_snd", src: SNDFOLDER + "habits/level2/tshirt.mp3"},
+    {id: "conf_short_snd", src: SNDFOLDER + "habits/level2/short.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_habits2", src: SNDFOLDER + "habits/level2/2habit.ex2.consigne1.wav"}
+    {id: "consignes_habits2", src: SNDFOLDER + "habits/level2/2habit.ex2.consigne1.mp3"}
 ];
 
 var habits3_fileManifest = [
@@ -455,21 +455,21 @@ var habits3_fileManifest = [
     {id: "bottes", src: IMGFOLDER + "habits/level3/habits_bottes.png", x: 36, y: 212},
     {id: "foulard", src: IMGFOLDER + "habits/level3/habits_foulard.png", x: 790, y: 580},
     //level sounds
-    {id: "blouse_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.3.wav"},
-    {id: "collants_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.2.wav"},
-    {id: "jupe_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.1.wav"},
-    {id: "veste_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.4.wav"},
-    {id: "bottes_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.5.wav"},
-    {id: "foulard_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.6.wav"},
+    {id: "blouse_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.3.mp3"},
+    {id: "collants_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.2.mp3"},
+    {id: "jupe_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.1.mp3"},
+    {id: "veste_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.4.mp3"},
+    {id: "bottes_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.5.mp3"},
+    {id: "foulard_snd", src: SNDFOLDER + "habits/level3/2habit.ex2.serie1.6.mp3"},
     //level sound confirmations
-    {id: "conf_blouse_snd", src: SNDFOLDER + "habits/level3/blouse.wav"},
-    {id: "conf_collants_snd", src: SNDFOLDER + "habits/level3/collants.wav"},
-    {id: "conf_jupe_snd", src: SNDFOLDER + "habits/level3/jupe.wav"},
-    {id: "conf_veste_snd", src: SNDFOLDER + "habits/level3/veste.wav"},
-    {id: "conf_bottes_snd", src: SNDFOLDER + "habits/level3/bottes.wav"},
-    {id: "conf_foulard_snd", src: SNDFOLDER + "habits/level3/foulard.wav"},
+    {id: "conf_blouse_snd", src: SNDFOLDER + "habits/level3/blouse.mp3"},
+    {id: "conf_collants_snd", src: SNDFOLDER + "habits/level3/collants.mp3"},
+    {id: "conf_jupe_snd", src: SNDFOLDER + "habits/level3/jupe.mp3"},
+    {id: "conf_veste_snd", src: SNDFOLDER + "habits/level3/veste.mp3"},
+    {id: "conf_bottes_snd", src: SNDFOLDER + "habits/level3/bottes.mp3"},
+    {id: "conf_foulard_snd", src: SNDFOLDER + "habits/level3/foulard.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_habits3", src: SNDFOLDER + "habits/level3/2habit.ex1.consigne1.wav"}
+    {id: "consignes_habits3", src: SNDFOLDER + "habits/level3/2habit.ex1.consigne1.mp3"}
 ];
 
 var habits4_fileManifest = [
@@ -490,21 +490,21 @@ var habits4_fileManifest = [
     {id: "ballerines", src: IMGFOLDER + "habits/level4/habits_chaussures_ballerines.png", x: 36, y: 212},
     {id: "chapeau", src: IMGFOLDER + "habits/level4/habits_chapeau.png", x: 790, y: 570},
     //level sounds
-    {id: "chemise_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.3.wav"},
-    {id: "jupe_jaune_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.1.wav"},
-    {id: "bracelet_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.6.wav"},
-    {id: "collier_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.2.wav"},
-    {id: "ballerines_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.5.wav"},
-    {id: "chapeau_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.4.wav"},
+    {id: "chemise_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.3.mp3"},
+    {id: "jupe_jaune_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.1.mp3"},
+    {id: "bracelet_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.6.mp3"},
+    {id: "collier_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.2.mp3"},
+    {id: "ballerines_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.5.mp3"},
+    {id: "chapeau_snd", src: SNDFOLDER + "habits/level4/2habit.ex2.serie2.4.mp3"},
     //level sound confirmations
-    {id: "conf_chemise_snd", src: SNDFOLDER + "habits/level4/chemise.wav"},
-    {id: "conf_jupe_jaune_snd", src: SNDFOLDER + "habits/level4/jupe.wav"},
-    {id: "conf_bracelet_snd", src: SNDFOLDER + "habits/level4/bracelet.wav"},
-    {id: "conf_collier_snd", src: SNDFOLDER + "habits/level4/collier.wav"},
-    {id: "conf_ballerines_snd", src: SNDFOLDER + "habits/level4/chaussures.wav"},
-    {id: "conf_chapeau_snd", src: SNDFOLDER + "habits/level4/chapeau.wav"},
+    {id: "conf_chemise_snd", src: SNDFOLDER + "habits/level4/chemise.mp3"},
+    {id: "conf_jupe_jaune_snd", src: SNDFOLDER + "habits/level4/jupe.mp3"},
+    {id: "conf_bracelet_snd", src: SNDFOLDER + "habits/level4/bracelet.mp3"},
+    {id: "conf_collier_snd", src: SNDFOLDER + "habits/level4/collier.mp3"},
+    {id: "conf_ballerines_snd", src: SNDFOLDER + "habits/level4/chaussures.mp3"},
+    {id: "conf_chapeau_snd", src: SNDFOLDER + "habits/level4/chapeau.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_habits4", src: SNDFOLDER + "habits/level4/2habit.ex2.consigne1.wav"}
+    {id: "consignes_habits4", src: SNDFOLDER + "habits/level4/2habit.ex2.consigne1.mp3"}
 ];
 
 var habits5_fileManifest = [
@@ -521,12 +521,12 @@ var habits5_fileManifest = [
     {id: "bonnet", src: IMGFOLDER + "habits/level5/habits_bonnet.png", x: 790, y: 420},
     {id: "pantoufles", src: IMGFOLDER + "habits/level5/habits_pantoufles.png", x: 36, y: 550},
     //level sounds
-    {id: "body_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.1.wav"},
-    {id: "pyjama_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.2.wav"},
-    {id: "bonnet_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.3.wav"},
-    {id: "pantoufles_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.4.wav"},
+    {id: "body_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.1.mp3"},
+    {id: "pyjama_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.2.mp3"},
+    {id: "bonnet_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.3.mp3"},
+    {id: "pantoufles_snd", src: SNDFOLDER + "habits/level5/2habit.ex3.serie1.4.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_habits5", src: SNDFOLDER + "habits/level5/2habit.ex3.consigne.1.wav"}
+    {id: "consignes_habits5", src: SNDFOLDER + "habits/level5/2habit.ex3.consigne.1.mp3"}
 ];
 
 var objets1_fileManifest = [
@@ -540,14 +540,14 @@ var objets1_fileManifest = [
     {id: "livre", src: IMGFOLDER + "objets/level1/objets_livre.png", x: 180, y: 463, width: 116, height: 46},
     {id: "tasse", src: IMGFOLDER + "objets/level1/objets_tasse.png", x: 280, y: 604, width: 77, height: 45},
     //level sounds
-    {id: "avion_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.3.wav"},
-    {id: "balle_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.4.wav"},
-    {id: "cles_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.2.wav"},
-    {id: "poupee_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.6.wav"},
-    {id: "livre_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.5.wav"},
-    {id: "tasse_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.1.wav"},
+    {id: "avion_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.3.mp3"},
+    {id: "balle_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.4.mp3"},
+    {id: "cles_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.2.mp3"},
+    {id: "poupee_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.6.mp3"},
+    {id: "livre_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.5.mp3"},
+    {id: "tasse_snd", src: SNDFOLDER + "objets/level1/3objets.serie1.1.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_objets1", src: SNDFOLDER + "objets/level1/3objets.consigne.1.wav"}
+    {id: "consignes_objets1", src: SNDFOLDER + "objets/level1/3objets.consigne.1.mp3"}
 ];
 
 var objets2_fileManifest = [
@@ -561,14 +561,14 @@ var objets2_fileManifest = [
     {id: "verre", src: IMGFOLDER + "objets/level2/objets_verre.png", x: 450, y: 480, width: 45, height: 60},
     {id: "voiture", src: IMGFOLDER + "objets/level2/objets_voiture.png", x: 680, y: 625, width: 102, height: 90},
     //level sounds
-    {id: "ballon_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.5.wav"},
-    {id: "biberon_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.3.wav"},
-    {id: "telephone_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.2.wav"},
-    {id: "cadeau_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.6.wav"},
-    {id: "verre_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.1.wav"},
-    {id: "voiture_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.4.wav"},
+    {id: "ballon_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.5.mp3"},
+    {id: "biberon_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.3.mp3"},
+    {id: "telephone_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.2.mp3"},
+    {id: "cadeau_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.6.mp3"},
+    {id: "verre_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.1.mp3"},
+    {id: "voiture_snd", src: SNDFOLDER + "objets/level2/3objets.serie2.4.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_objets2", src: SNDFOLDER + "objets/level2/3objets.consigne.1.wav"}
+    {id: "consignes_objets2", src: SNDFOLDER + "objets/level2/3objets.consigne.1.mp3"}
 ];
 
 var objets3_fileManifest = [
@@ -582,14 +582,14 @@ var objets3_fileManifest = [
     {id: "sirop", src: IMGFOLDER + "objets/level3/objets_sirop.png", x: 593, y: 370, width: 80, height: 90},
     {id: "train", src: IMGFOLDER + "objets/level3/objets_train.png", x: 185, y: 630, width: 155, height: 95},
     //level sounds
-    {id: "bouteille_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.5.wav"},
-    {id: "cadeau_v2_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.4.wav"},
-    {id: "lampe_snd", src: SNDFOLDER + "objets/level3/3objets.serie4.4.wav"},
-    {id: "poubelle_snd", src: SNDFOLDER + "objets/level3/3objets.serie4.6.wav"},
-    {id: "sirop_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.2.wav"},
-    {id: "train_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.3.wav"},
+    {id: "bouteille_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.5.mp3"},
+    {id: "cadeau_v2_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.4.mp3"},
+    {id: "lampe_snd", src: SNDFOLDER + "objets/level3/3objets.serie4.4.mp3"},
+    {id: "poubelle_snd", src: SNDFOLDER + "objets/level3/3objets.serie4.6.mp3"},
+    {id: "sirop_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.2.mp3"},
+    {id: "train_snd", src: SNDFOLDER + "objets/level3/3objets.serie3.3.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_objets3", src: SNDFOLDER + "objets/level3/3objets.consigne.1.wav"}
+    {id: "consignes_objets3", src: SNDFOLDER + "objets/level3/3objets.consigne.1.mp3"}
 ];
 var objets4_fileManifest = [
     //background
@@ -602,14 +602,14 @@ var objets4_fileManifest = [
     {id: "photo", src: IMGFOLDER + "objets/level4/objets_photo.png", x: 573, y: 170, width: 96, height: 110},
     {id: "appareilPhoto", src: IMGFOLDER + "objets/level4/objets_appareil_photo.png", x: 285, y: 630, width: 88, height: 55},
     //level sounds
-    {id: "bateau_snd", src: SNDFOLDER + "objets/level4/3objets.bateau.wav"},
-    {id: "boite_snd", src: SNDFOLDER + "objets/level4/3objets.boite.wav"},
-    {id: "bol_snd", src: SNDFOLDER + "objets/level4/3objets.bol.wav"},
-    {id: "vase_snd", src: SNDFOLDER + "objets/level4/3objets.vase.wav"},
-    {id: "photo_snd", src: SNDFOLDER + "objets/level4/3objets.photo.wav"},
-    {id: "appareilPhoto_snd", src: SNDFOLDER + "objets/level4/3objets.appareilPhoto.wav"},
+    {id: "bateau_snd", src: SNDFOLDER + "objets/level4/3objets.bateau.mp3"},
+    {id: "boite_snd", src: SNDFOLDER + "objets/level4/3objets.boite.mp3"},
+    {id: "bol_snd", src: SNDFOLDER + "objets/level4/3objets.bol.mp3"},
+    {id: "vase_snd", src: SNDFOLDER + "objets/level4/3objets.vase.mp3"},
+    {id: "photo_snd", src: SNDFOLDER + "objets/level4/3objets.photo.mp3"},
+    {id: "appareilPhoto_snd", src: SNDFOLDER + "objets/level4/3objets.appareilPhoto.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_objets4", src: SNDFOLDER + "objets/level4/3objets.consigne.1.wav"}
+    {id: "consignes_objets4", src: SNDFOLDER + "objets/level4/3objets.consigne.1.mp3"}
 ];
 
 var adjectifs1_fileManifest = [
@@ -626,12 +626,12 @@ var adjectifs1_fileManifest = [
     {id: "chaud", src: IMGFOLDER + "adjectifs/level1/adjectifs_chaud.png", x: 818, y: 575},
     {id: "froid", src: IMGFOLDER + "adjectifs/level1/adjectifs_froid.png", x: 818, y: 410},
     //level sounds
-    {id: "petit_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.petit.wav"},
-    {id: "grand_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.grand.wav"},
-    {id: "chaud_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.chaud.wav"},
-    {id: "froid_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.froid.wav"},
+    {id: "petit_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.petit.mp3"},
+    {id: "grand_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.grand.mp3"},
+    {id: "chaud_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.chaud.mp3"},
+    {id: "froid_snd", src: SNDFOLDER + "adjectifs/level1/9adjectifs.froid.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_adjectifs1", src: SNDFOLDER + "adjectifs/level1/9adjectifs.consigne.1.wav"}
+    {id: "consignes_adjectifs1", src: SNDFOLDER + "adjectifs/level1/9adjectifs.consigne.1.mp3"}
 ];
 
 
@@ -649,12 +649,12 @@ var adjectifs2_fileManifest = [
     {id: "couche", src: IMGFOLDER + "adjectifs/level2/adjectifs_couche.png", x: 818, y: 575},
     {id: "debout", src: IMGFOLDER + "adjectifs/level2/adjectifs_debout.png", x: 818, y: 410},
     //level sounds
-    {id: "ouvert_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.ouvert.wav"},
-    {id: "ferme_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.ferme.wav"},
-    {id: "couche_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.couche.wav"},
-    {id: "debout_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.debout.wav"},
+    {id: "ouvert_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.ouvert.mp3"},
+    {id: "ferme_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.ferme.mp3"},
+    {id: "couche_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.couche.mp3"},
+    {id: "debout_snd", src: SNDFOLDER + "adjectifs/level2/9adjectifs.debout.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_adjectifs2", src: SNDFOLDER + "adjectifs/level2/9adjectifs.consigne.1.wav"}
+    {id: "consignes_adjectifs2", src: SNDFOLDER + "adjectifs/level2/9adjectifs.consigne.1.mp3"}
 ];
 
 var adjectifs3_fileManifest = [
@@ -671,12 +671,12 @@ var adjectifs3_fileManifest = [
     {id: "jeune", src: IMGFOLDER + "adjectifs/level3/adjectifs_jeune.png", x: 818, y: 575},
     {id: "vieux", src: IMGFOLDER + "adjectifs/level3/adjectifs_vieux.png", x: 818, y: 410},
     //level sounds
-    {id: "rapide_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.rapide.wav"},
-    {id: "lent_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.lent.wav"},
-    {id: "jeune_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.jeune.wav"},
-    {id: "vieux_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.vieux.wav"},
+    {id: "rapide_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.rapide.mp3"},
+    {id: "lent_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.lent.mp3"},
+    {id: "jeune_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.jeune.mp3"},
+    {id: "vieux_snd", src: SNDFOLDER + "adjectifs/level3/9adjectifs.vieux.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_adjectifs3", src: SNDFOLDER + "adjectifs/level3/9adjectifs.consigne.1.wav"}
+    {id: "consignes_adjectifs3", src: SNDFOLDER + "adjectifs/level3/9adjectifs.consigne.1.mp3"}
 ];
 
 var adjectifs4_fileManifest = [
@@ -693,12 +693,12 @@ var adjectifs4_fileManifest = [
     {id: "gros", src: IMGFOLDER + "adjectifs/level4/adjectifs_gros.png", x: 818, y: 575},
     {id: "mince", src: IMGFOLDER + "adjectifs/level4/adjectifs_mince.png", x: 818, y: 410},
     //level sounds
-    {id: "propre_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.propre.wav"},
-    {id: "sale_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.sale.wav"},
-    {id: "gros_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.gros.wav"},
-    {id: "mince_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.mince.wav"},
+    {id: "propre_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.propre.mp3"},
+    {id: "sale_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.sale.mp3"},
+    {id: "gros_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.gros.mp3"},
+    {id: "mince_snd", src: SNDFOLDER + "adjectifs/level4/9adjectifs.mince.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_adjectifs4", src: SNDFOLDER + "adjectifs/level4/9adjectifs.consigne.1.wav"}
+    {id: "consignes_adjectifs4", src: SNDFOLDER + "adjectifs/level4/9adjectifs.consigne.1.mp3"}
 ];
 
 var adjectifs5_fileManifest = [
@@ -715,12 +715,12 @@ var adjectifs5_fileManifest = [
     {id: "dur", src: IMGFOLDER + "adjectifs/level5/adjectifs_dur.png", x: 818, y: 575},
     {id: "mou", src: IMGFOLDER + "adjectifs/level5/adjectifs_mou.png", x: 818, y: 410},
     //level sounds
-    {id: "plein_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.plein.wav"},
-    {id: "vide_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.vide.wav"},
-    {id: "dur_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.dur.wav"},
-    {id: "mou_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.mou.wav"},
+    {id: "plein_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.plein.mp3"},
+    {id: "vide_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.vide.mp3"},
+    {id: "dur_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.dur.mp3"},
+    {id: "mou_snd", src: SNDFOLDER + "adjectifs/level5/9adjectifs.mou.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_adjectifs5", src: SNDFOLDER + "adjectifs/level5/9adjectifs.consigne.1.wav"}
+    {id: "consignes_adjectifs5", src: SNDFOLDER + "adjectifs/level5/9adjectifs.consigne.1.mp3"}
 ];
 
 
@@ -740,13 +740,13 @@ var nourriture1_fileManifest = [
     {id: "banane", src: IMGFOLDER + "nourriture/level1/nourriture_banane.png", x: 790, y: 445},
     {id: "lait", src: IMGFOLDER + "nourriture/level1/nourriture_lait.png", x: 790, y: 600},
     //level sounds
-    {id: "tartine_snd", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.serie1.2.wav"},
-    {id: "confiture_snd", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.serie1.3.wav"},
-    {id: "cereales_snd", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.serie1.5.wav"},
-    {id: "banane_snd", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.serie1.6.wav"},
-    {id: "lait_snd", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.serie1.1.wav"},
+    {id: "tartine_snd", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.serie1.2.mp3"},
+    {id: "confiture_snd", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.serie1.3.mp3"},
+    {id: "cereales_snd", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.serie1.5.mp3"},
+    {id: "banane_snd", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.serie1.6.mp3"},
+    {id: "lait_snd", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.serie1.1.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_nourriture1", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.consigne.wav"}
+    {id: "consignes_nourriture1", src: SNDFOLDER + "nourriture/level1/4nourriture.ex1.consigne.mp3"}
 ];
 
 var nourriture12_fileManifest = [
@@ -765,13 +765,13 @@ var nourriture12_fileManifest = [
     {id: "jambon", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_jambon.png", x: 790, y: 460},
     {id: "fromage", src: IMGFOLDER + "nourriture/level12/nourriture_pizza_fromage.png", x: 790, y: 615},
     //level sounds
-    {id: "champignons_snd", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.serie2.4.wav"},
-    {id: "tomates_snd", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.serie2.2.wav"},
-    {id: "aubergine_snd", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.serie2.3.wav"},
-    {id: "jambon_snd", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.serie2.1.wav"},
-    {id: "fromage_snd", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.serie2.6.wav"},
+    {id: "champignons_snd", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.serie2.4.mp3"},
+    {id: "tomates_snd", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.serie2.2.mp3"},
+    {id: "aubergine_snd", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.serie2.3.mp3"},
+    {id: "jambon_snd", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.serie2.1.mp3"},
+    {id: "fromage_snd", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.serie2.6.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_nourriture12", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.consigne.1.wav"}
+    {id: "consignes_nourriture12", src: SNDFOLDER + "nourriture/level12/4nourriture.ex5.consigne.1.mp3"}
 ];
 
 
@@ -791,13 +791,13 @@ var instruments1_fileManifest = [
     {id: "trompette", src: IMGFOLDER + "instruments/level1/instruments_trompette.png", x: 790, y: 485},
     {id: "violon", src: IMGFOLDER + "instruments/level1/instruments_violon.png", x: 790, y: 600},
     //level sounds
-    {id: "flute_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.5.wav"},
-    {id: "guitare_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.3.wav"},
-    {id: "piano_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.1.wav"},
-    {id: "trompette_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.2.wav"},
-    {id: "violon_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.6.wav"},
+    {id: "flute_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.5.mp3"},
+    {id: "guitare_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.3.mp3"},
+    {id: "piano_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.1.mp3"},
+    {id: "trompette_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.2.mp3"},
+    {id: "violon_snd", src: SNDFOLDER + "instruments/level1/7instruments.serie1.6.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_instruments1", src: SNDFOLDER + "instruments/level1/7instruments.consigne.1.wav"}
+    {id: "consignes_instruments1", src: SNDFOLDER + "instruments/level1/7instruments.consigne.1.mp3"}
 ];
 
 var instruments2_fileManifest = [
@@ -816,13 +816,13 @@ var instruments2_fileManifest = [
     {id: "trombone", src: IMGFOLDER + "instruments/level2/instruments_trombone.png", x: 790, y: 475},
     {id: "saxophone", src: IMGFOLDER + "instruments/level2/instruments_saxophone.png", x: 790, y: 600},
     //level sounds
-    {id: "cymbales_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.12.wav"},
-    {id: "cloches_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.13.wav"},
-    {id: "accordeon_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.7.wav"},
-    {id: "trombone_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.9.wav"},
-    {id: "saxophone_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.8.wav"},
+    {id: "cymbales_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.12.mp3"},
+    {id: "cloches_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.13.mp3"},
+    {id: "accordeon_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.7.mp3"},
+    {id: "trombone_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.9.mp3"},
+    {id: "saxophone_snd", src: SNDFOLDER + "instruments/level2/7instruments.serie1.8.mp3"},
     //instruction and feedback sounds
-    {id: "consignes_instruments2", src: SNDFOLDER + "instruments/level2/7instruments.consigne.1.wav"}
+    {id: "consignes_instruments2", src: SNDFOLDER + "instruments/level2/7instruments.consigne.1.mp3"}
 ];
 
 
