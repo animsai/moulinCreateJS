@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "ch.blendit-teachit.moulinAParoles"
+        
+        version     = "1.0.0" >
+
+    <name>Le Moulin à Paroles</name>
+
+    <description>
+        Logiciel éducatif permettant l'apprentissage du français aux enfants n'étant pas en âge de lire.
+		Ce logiciel est entièrement gratuit et sans publicité.
+		
+		Il appartient à l'Université de Genève(Tecfa), et a été développé dans le cadre d'un travail de Master.
+    </description>
+
+    <author href="www.blendit-teachit.ch" email="animsai@gmail.com">
+       Jasmina Travnjak
+    </author>
+
+</widget>
